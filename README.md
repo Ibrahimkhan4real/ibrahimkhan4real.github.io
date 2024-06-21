@@ -1,7 +1,7 @@
 # Data Scientist
 
 ## Education
-- BE, Mechanical Engineering | National University of Sciences and Technology (2019 - 2023)
+- BE, Mechanical Engineering | National University of Sciences and Technology (_2019 - 2023_)
 
 ## Work Experience
 AI Engineer @ CureMD (July 2023 - Present)
