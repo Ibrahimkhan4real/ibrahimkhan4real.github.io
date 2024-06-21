@@ -14,4 +14,20 @@
 ## Projects
 
 ### Autonomous Laser Weeding Robot
-- Project 2
+
+**Project Overview:**
+Developed an innovative agricultural robot designed to autonomously navigate and weed crop fields, utilizing advanced computer vision and laser technology.
+
+**Key Features:**
+- Advanced Weed Detection: Implemented a sophisticated computer vision algorithm to distinguish weeds from crops based on shape, size, and color. This ensures precise and accurate weed identification.
+- Laser Elimination: Integrated a 10W Carbon laser that targets and eliminates weeds with a five-second exposure time, providing an efficient and eco-friendly alternative to chemical herbicides.
+- Real-Time Verification: Utilized computer vision to confirm weed removal before resuming navigation, ensuring thorough and effective weeding.
+- Novel Chassis Design: Engineered a unique chassis based on four-bar linkages, enhancing stability and mobility through various agricultural terrains.
+- Autonomous Navigation: Developed and implemented a path planning algorithm for the robot to autonomously navigate crop fields, ensuring complete automation.
+- Precision Actuation: Installed a CNC mechanism to accurately line up the laser on top of the weed, guaranteeing precise targeting and removal.
+
+**Achievements:**
+- Secured third place in Prime Minister's National Innovation Award 2023.
+- Successfully designed and developed a fully autonomous system that integrates cutting-edge technologies in robotics, computer vision, and precision agriculture.
+- Enhanced agricultural efficiency by providing a sustainable and environmentally friendly solution for weed management.
+- Reduced dependency on chemical herbicides, promoting a more eco-friendly approach to farming.
