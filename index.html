@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <style type="text/css">
+    /* ————— your existing CSS unchanged ————— */
+    h3 {
+      margin: 0;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+      color: #4d4d4d;
+      font-family: 'PT Sans', sans-serif;
+      text-rendering: optimizeLegibility;
+    }
+    a {
+      color: #000000;
+      text-decoration: none;
+    }
+    hr {
+      color: #eeeeee;
+      background-color: #eeeeee;
+      height: 1px;
+      border: none;
+    }
+    aside div#user_meta {
+      padding: 20px;
+      text-align: center;
+    }
+    aside div#user_meta h2 {
+      margin: 0;
+    }
+    aside div#user_meta p {
+      margin: 0 0 15px 0;
+      font-size: 0.75em;
+    }
+    aside div#user_meta ul {
+      padding-left: 0;
+      font-size: 0.875em;
+      list-style-type: none;
+    }
+    aside div#user_meta ul li {
+      display: inline;
+      line-height: 3em;
+    }
+    aside div#user_meta ul li a {
+      padding: 5px 10px;
+      border: 3px solid #eeeeee;
+      border-radius: 15px;
+      color: #999999;
+    }
+    main header {
+      border-top: #eeeeee 1px solid;
+      border-bottom: #eeeeee 1px solid;
+    }
+    main header p {
+      font-weight: bold;
+      font-size: 0.625em;
+      text-transform: uppercase;
+    }
+    main article {
+      max-width: 700px;
+      padding: 0 20px;
+    }
+    main article div#article_text {
+      line-height: 1.375em;
+    }
+    main article div#article_text a {
+      text-decoration: underline;
+    }
+    .highlighttable {
+      margin: auto;
+      color: #000000;
+      border: 1px solid #cbcbcb;
+      font-family: 'PT Mono', monospace;
+      background: #f9f9f9;
+      line-height: 1.125em;
+      overflow-x: auto;
+    }
+    .highlighttable .linenos {
+      color: darkgrey;
+      border-right: 2px solid lightgray;
+      padding: 4px;
+    }
+    .highlighttable pre {
+      margin: 0;
+    }
+    .highlighttable .code {
+      padding: 0 10px 0 4px;
+    }
+    main article div#article_text blockquote {
+      margin: 22px 2px;
+      padding-left: 40px;
+      color: #999999;
+      font-style: italic;
+    }
+    main article div#article_meta {
+      font-size: 0.625em;
+      color: #999999;
+    }
+    main footer {
+      border-top: #eeeeee 1px solid;
+      border-bottom: #eeeeee 1px solid;
+      padding: 20px;
+    }
+    main footer a.button_accent {
+      padding: 10px;
+      border: 2px solid #0e94ec;
+      border-radius: 20px;
+      text-transform: uppercase;
+      color: #0e94ec;
+      font-size: 1.125em;
+    }
+    main footer a.button_accent:hover,
+    main footer a.button_accent:active {
+      color: #ffffff;
+      background-color: #0e94ec;
+    }
+    main div#ending_message {
+      padding: 0 40px;
+      color: #999999;
+      font-size: 0.675em;
+    }
+    @media screen and (min-width: 1024px) {
+      body {
+        display: flex;
+        justify-content: center;
+        margin-left: 232px; /* aside max-width + padding */
+      }
+      aside {
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        border-right: #eeeeee 1px solid;
+      }
+      aside h2 {
+        margin: 10px 0 0;
+      }
+      aside div#user_meta {
+        max-width: 200px;
+        text-align: right;
+      }
+      aside div#user_meta ul {
+        margin: 20px 0 0;
+      }
+      main {
+        width: 700px;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        word-break: break-word;
+        text-align: justify;
+        text-justify: inter-character;
+        hyphens: auto;
+        hyphenate-limit-lines: 2;
+      }
+      main header {
+        border-top: 0;
+        padding: 10px;
+      }
+      aside div#user_meta img {
+        transform: scale(0.8);
+      }
+      #author_info {
+        display: inline;
+      }
+    }
+    @media screen and (max-width: 1024px) {
+      #author_info {
+        margin: auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #author_info h2 {
+        padding-left: 0.6em;
+      }
+      aside div#user_meta {
+        padding: 10px;
+      }
+      aside div#user_meta img {
+        width: 4em;
+      }
+      aside div#user_meta ul {
+        margin: 0;
+      }
+      main header {
+        text-align: center;
+        padding: 5px;
+      }
+    }
+    li p {
+      margin: 0.6em 0;
+    }
+    ul.tagcloud {
+      list-style: none;
+      padding: 0;
+    }
+    ul.tagcloud li {
+      display: inline-block;
+      padding: 2px;
+    }
+    li.tag-1 {
+      font-size: 200%;
+    }
+    li.tag-2 {
+      font-size: 160%;
+    }
+    li.tag-3 {
+      font-size: 120%;
+    }
+    li.tag-4 {
+      font-size: 80%;
+    }
+    li.tag-5 {
+      font-size: 60%;
+    }
+    img,
+    div.figure {
+      max-width: 100%;
+      height: auto;
+    }
+    sup {
+      vertical-align: baseline;
+      position: relative;
+      top: -0.4em;
+    }
+    .MathJax {
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    .archive-container {
+      position: relative;
+    }
+    .archive-container .archive-link {
+      position: absolute;
+      display: none;
+      top: -1.5em;
+      right: -2em;
+      background: white;
+      margin: 2px;
+      color: grey;
+      font-size: 80%;
+    }
+    .archive-container:hover .archive-link {
+      display: inline-block;
+    }
+    /* ————— end existing CSS ————— */
+  </style>
+
+  <!-- jsVectorMap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap/dist/css/jsvectormap.min.css" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Muhammad Khan">
+  <meta name="description" content="Posts and writings by Muhammad Khan">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Julian Schrittwieser Full Atom Feed" />
+  <link href="/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="Julian Schrittwieser Full RSS Feed" />
+
+  <title>about</title>
+  <link rel="stylesheet" href="/css/stackoverflow-light.css">
+  <script src="/js/highlight.min.js"></script>
+
+  <!-- KaTeX -->
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css"
+    integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc"
+    crossorigin="anonymous" as="style" onload="this.rel='stylesheet'">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js"
+    integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp"
+    crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js"
+    integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"
+    crossorigin="anonymous"></script>
+  <script>
+    const katexOptions = {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+      ],
+      throwOnError: false
+    };
+    document.addEventListener("DOMContentLoaded", function() {
+      for (const el of document.getElementsByClassName('math')) {
+        katex.render(el.textContent, el, { throwOnError: false, displayMode: el.classList.contains('math-display') });
+      }
+    });
+  </script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <div id="author_info">
+        <a href="https://www.furidamu.org">
+          <img src="/images/me_2018_11_01.webp" height="192" width="192" alt="logo">
+        </a>
+        <h2><a href="https://www.furidamu.org">Muhammad Khan</a></h2>
+      </div>
+      <ul>
+        <li><a href="/">blog</a></li>
+        <li><nobr><a href="https://www.furidamu.org/about">about</a></nobr></li>
+        <li><nobr><a href="https://www.furidamu.org/live">live</a></nobr></li>
+        <li><nobr><a href="https://www.furidamu.org/papers">papers</a></nobr></li>
+        <li><nobr><a href="https://www.furidamu.org/read">read</a></nobr></li>
+        <li><nobr><a href="https://www.furidamu.org/speak">speak</a></nobr></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>Updated on Mon 28 October 2024</p>
+    </header>
+
+    <article>
+      <div id="article_title">
+        <h1><a href="https://www.furidamu.org/about">about</a></h1>
+      </div>
+      <div id="article_text">
+        <p>I'm an AI researcher from Pakistan, now living in United Kingdom. I have a passion for coding and love to experiment with things. While I work as a PhD, the opinions expressed on this blog are solely my own and do not reflect the University's policy in any way. Most of my work is only available within Anthropic or Google, but see <a href="/papers">publications</a> for what is public.</p>
+        <p>These days, I mostly write C++ and Python with a sprinkling of TypeScript for work, with a very long tail of other languages. Over time I ended up with <a href="https://www.pullrequest.com/blog/google-code-review-readability-certification/">readability</a> in 6.</p>
+        <p>For my personal projects, I prefer Rust over C++, but Python and TypeScript are just as handy as at work.</p>
+        <p>As for the languages I speak, check out my post on <a href="/speak/">language learning</a>.</p>
+
+        <h2>travel</h2>
+        <p>I'm visualizing my journeys, both to keep track of which countries I've visited and to spur me on to explore new places.</p>
+        <p>So far, I've visited <span id="num-countries">0</span> countries on <span id="num-continents">0</span> continents:</p>
+
+        <!-- ===== jsVectorMap section ===== -->
+        <div id="world-map" style="width:100%;max-width:900px;height:600px;"></div>
+
+        <script src="https://cdn.jsdelivr.net/npm/jsvectormap"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jsvectormap/dist/maps/world.js"></script>
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            const countriesByContinent = {
+              "Africa": [],
+              "North America": ["US"],
+              "Europe": ["DE", "GB", "PL", "FR", "NL", "CZ", "AT", "LU", "BE", "CH"],
+              "Asia": ["PK", "TR"],
+            };
+            const continents = Object.keys(countriesByContinent);
+            const numContinents = continents.length;
+            const numCountries = continents
+              .map(c => countriesByContinent[c].length)
+              .reduce((a, b) => a + b, 0);
+
+            document.getElementById('num-continents').textContent = numContinents;
+            document.getElementById('num-countries').textContent = numCountries;
+
+            const values = {};
+            continents.forEach((continent, idx) => {
+              countriesByContinent[continent].forEach(code => {
+                values[code] = idx;
+              });
+            });
+
+            new jsVectorMap({
+              selector: '#world-map',
+              map: 'world',
+              zoomButtons: true,
+              regionStyle: {
+                initial: { fill: '#7777' },
+                hover: { fillOpacity: 0.8 }
+              },
+              series: {
+                regions: [{
+                  attribute: 'fill',
+                  scale: {
+                    3: '#4CAF50',  // Asia → green
+                    1: '#2196F3',  // North America → blue
+                    2: '#F44336'   // Europe → red
+                  },
+                  values: values
+                }]
+              },
+              tooltip: { showOn: 'hover' }
+            });
+          });
+        </script>
+        <!-- ===== end jsVectorMap section ===== -->
+
+        <h2>contact</h2>
+        <p><a name="contact"></a></p>
+        <p>Email me at <a href="mailto:mail@furidamu.org">mail@furidamu.org</a> (personal).</p>
+        <p>If you want to send me information securely, you can contact me through Signal.</p>
+        <p>I upload some projects built in my spare time to <a href="https://github.com/mononofu">Github</a>.</p>
+
+      </div>
+
+      <footer>
+        <p><a href="https://www.furidamu.org/" class="button_accent">&larr; Back to Index</a></p>
+      </footer>
+
+      <div id="ending_message">
+        <p>&copy; Julian Schrittwieser. Built using <a href="https://github.com/Mononofu/kaihan">開板</a>. Theme by Giulio Fidente.</p>
+      </div>
+    </article>
+  </main>
+
+  <script>hljs.highlightAll();</script>
+  <script defer src="https://cdn.commento.io/js/commento.js" data-auto-init="false"></script>
+  <script>
+    function showComments() {
+      commento.main(() => {
+        if (window.MathJax) MathJax.typeset();
+      });
+    }
+    document.addEventListener('DOMContentLoaded', showComments);
+  </script>
+</body>
+
+</html>
