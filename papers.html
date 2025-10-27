@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Muhammad Khan">
+  <meta name="description" content="Research publications and papers by Muhammad Khan, synced with Google Scholar.">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <title>papers</title>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <div id="author_info">
+        <a href="/">
+          <img src="/assets/img/Khan_logo.jpg" height="192" width="192" alt="Muhammad Khan logo">
+        </a>
+        <h2><a href="/">Muhammad Khan</a></h2>
+      </div>
+      <p>Research, writing, and experiments in applied AI.</p>
+      <ul>
+        <li><a class="nav-link" href="/">blog</a></li>
+        <li><nobr><a class="nav-link" href="https://www.furidamu.org/about">about</a></nobr></li>
+        <li><nobr><a class="nav-link" href="/live.html">live</a></nobr></li>
+        <li><nobr><a class="nav-link current" href="/papers.html">papers</a></nobr></li>
+        <li><nobr><a class="nav-link" href="https://www.furidamu.org/read">read</a></nobr></li>
+        <li><nobr><a class="nav-link" href="https://www.furidamu.org/speak">speak</a></nobr></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>Automatically synced from Google Scholar</p>
+    </header>
+
+    <article>
+      <div id="article_title">
+        <h1>papers</h1>
+      </div>
+      <div id="article_text">
+        <p>This library collects my peer-reviewed publications, workshop write-ups, and preprints. It stays fresh thanks
+          to an automated job that fetches new entries from Google Scholar and rebuilds this page whenever a paper is
+          added or citation counts change.</p>
+
+        <section class="status-section">
+          <h2>Latest work</h2>
+          <p id="papers-meta" class="pill-label">Syncing&hellip;</p>
+          <p id="papers-error" class="paper-meta" hidden></p>
+          <div id="papers-list" class="cards-grid"></div>
+        </section>
+
+        <section class="status-section">
+          <h2>How the sync works</h2>
+          <div class="details-card" open>
+            <summary>Daily GitHub Actions update</summary>
+            <p>A scheduled workflow calls a small Python script that uses the <code>scholarly</code> library to fetch the
+              latest publications from Google Scholar. The script writes everything to <code>assets/data/papers.json</code>
+              and commits the change back to the repository.</p>
+          </div>
+          <div class="details-card">
+            <summary>What you need to configure</summary>
+            <ul>
+              <li>Add a <code>SCHOLAR_AUTHOR_ID</code> secret in the repository settings. You'll find your author ID in
+                the Google Scholar profile URL.</li>
+              <li>Optional: customise the schedule or extend the script to enrich papers with PDFs, talk recordings, or
+                BibTeX exports.</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </article>
+
+    <footer>
+      <a class="button_accent" href="mailto:ibrahimkhan4real@gmail.com">Collaborate on a paper</a>
+    </footer>
+
+    <div id="ending_message">
+      <p>Spot a missing publication or want to co-author something new? Reach out and let's explore it.</p>
+    </div>
+  </main>
+
+  <script type="module" src="/assets/js/papers.js"></script>
+</body>
+
+</html>
