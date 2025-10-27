@@ -3,12 +3,252 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="/assets/css/site.css">
+  <style type="text/css">
+    /* ————— reused layout styling ————— */
+    h3 {
+      margin: 0;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+      color: #4d4d4d;
+      font-family: 'PT Sans', sans-serif;
+      text-rendering: optimizeLegibility;
+    }
+    a {
+      color: #000000;
+      text-decoration: none;
+    }
+    hr {
+      color: #eeeeee;
+      background-color: #eeeeee;
+      height: 1px;
+      border: none;
+    }
+    aside div#user_meta {
+      padding: 20px;
+      text-align: center;
+    }
+    aside div#user_meta h2 {
+      margin: 0;
+    }
+    aside div#user_meta p {
+      margin: 0 0 15px 0;
+      font-size: 0.75em;
+    }
+    aside div#user_meta ul {
+      padding-left: 0;
+      font-size: 0.875em;
+      list-style-type: none;
+    }
+    aside div#user_meta ul li {
+      display: inline;
+      line-height: 3em;
+    }
+    aside div#user_meta ul li a {
+      padding: 5px 10px;
+      border: 3px solid #eeeeee;
+      border-radius: 15px;
+      color: #999999;
+    }
+    main header {
+      border-top: #eeeeee 1px solid;
+      border-bottom: #eeeeee 1px solid;
+    }
+    main header p {
+      font-weight: bold;
+      font-size: 0.625em;
+      text-transform: uppercase;
+    }
+    main article {
+      max-width: 700px;
+      padding: 0 20px;
+    }
+    main article div#article_text {
+      line-height: 1.375em;
+    }
+    main article div#article_text a {
+      text-decoration: underline;
+    }
+    .highlighttable {
+      margin: auto;
+      color: #000000;
+      border: 1px solid #cbcbcb;
+      font-family: 'PT Mono', monospace;
+      background: #f9f9f9;
+      line-height: 1.125em;
+      overflow-x: auto;
+    }
+    .highlighttable .linenos {
+      color: darkgrey;
+      border-right: 2px solid lightgray;
+      padding: 4px;
+    }
+    .highlighttable pre {
+      margin: 0;
+    }
+    .highlighttable .code {
+      padding: 0 10px 0 4px;
+    }
+    main article div#article_text blockquote {
+      margin: 22px 2px;
+      padding-left: 40px;
+      color: #999999;
+      font-style: italic;
+    }
+    main article div#article_meta {
+      font-size: 0.625em;
+      color: #999999;
+    }
+    main footer {
+      border-top: #eeeeee 1px solid;
+      border-bottom: #eeeeee 1px solid;
+      padding: 20px;
+    }
+    main footer a.button_accent {
+      padding: 10px;
+      border: 2px solid #0e94ec;
+      border-radius: 20px;
+      text-transform: uppercase;
+      color: #0e94ec;
+      font-size: 1.125em;
+    }
+    main footer a.button_accent:hover,
+    main footer a.button_accent:active {
+      color: #ffffff;
+      background-color: #0e94ec;
+    }
+    main div#ending_message {
+      padding: 0 40px;
+      color: #999999;
+      font-size: 0.675em;
+    }
+    @media screen and (min-width: 1024px) {
+      body {
+        display: flex;
+        justify-content: center;
+        margin-left: 232px; /* aside max-width + padding */
+      }
+      aside {
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        border-right: #eeeeee 1px solid;
+      }
+      aside h2 {
+        margin: 10px 0 0;
+      }
+      aside div#user_meta {
+        max-width: 200px;
+        text-align: right;
+      }
+      aside div#user_meta ul {
+        margin: 20px 0 0;
+      }
+      main {
+        width: 700px;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        word-break: break-word;
+        text-align: justify;
+        text-justify: inter-character;
+        hyphens: auto;
+        hyphenate-limit-lines: 2;
+      }
+      main header {
+        border-top: 0;
+        padding: 10px;
+      }
+      aside div#user_meta img {
+        transform: scale(0.8);
+      }
+      #author_info {
+        display: inline;
+      }
+    }
+    @media screen and (max-width: 1024px) {
+      #author_info {
+        margin: auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #author_info h2 {
+        padding-left: 0.6em;
+      }
+      aside div#user_meta {
+        padding: 10px;
+      }
+      aside div#user_meta img {
+        width: 4em;
+      }
+      aside div#user_meta ul {
+        margin: 0;
+      }
+      main header {
+        text-align: center;
+        padding: 5px;
+      }
+    }
+    li p {
+      margin: 0.6em 0;
+    }
+    ul.tagcloud {
+      list-style: none;
+      padding: 0;
+    }
+    ul.tagcloud li {
+      display: inline;
+      margin-right: 10px;
+    }
+    ul.tagcloud li a {
+      padding: 5px;
+      border: 1px solid #000000;
+      text-decoration: none;
+    }
+    section.status-section {
+      margin: 2.5em 0;
+    }
+    section.status-section h2 {
+      font-size: 1.4em;
+      margin-bottom: 0.4em;
+    }
+    section.status-section p,
+    section.status-section ul {
+      font-size: 1em;
+      line-height: 1.6;
+    }
+    section.status-section ul {
+      padding-left: 1.2em;
+    }
+    section.status-section li {
+      margin-bottom: 0.5em;
+    }
+    .status-card {
+      border-left: 4px solid #0e94ec;
+      padding-left: 1em;
+      margin: 1.5em 0;
+      background: rgba(14, 148, 236, 0.05);
+      border-radius: 6px;
+    }
+    .status-card strong {
+      display: block;
+      text-transform: uppercase;
+      font-size: 0.8em;
+      letter-spacing: 0.08em;
+      color: #0e94ec;
+      margin-bottom: 0.25em;
+    }
+  </style>
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="Muhammad Khan">
-  <meta name="description"
-    content="Where Muhammad Khan is based right now, what he's building, and how to meet up or collaborate in real life.">
+  <meta name="description" content="Where Muhammad Khan is based, what he is working on, and how to connect in person.">
+
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+
   <title>live</title>
 </head>
 
@@ -17,25 +257,24 @@
     <div id="user_meta">
       <div id="author_info">
         <a href="/">
-          <img src="/assets/img/Khan_logo.jpg" height="192" width="192" alt="Muhammad Khan logo">
+          <img src="/assets/img/Khan_logo.jpg" height="192" width="192" alt="logo">
         </a>
         <h2><a href="/">Muhammad Khan</a></h2>
       </div>
-      <p>AI researcher · Product engineer · Mentor</p>
       <ul>
-        <li><a class="nav-link" href="/">blog</a></li>
-        <li><nobr><a class="nav-link" href="https://www.furidamu.org/about">about</a></nobr></li>
-        <li><nobr><a class="nav-link current" href="/live.html">live</a></nobr></li>
-        <li><nobr><a class="nav-link" href="/papers.html">papers</a></nobr></li>
-        <li><nobr><a class="nav-link" href="https://www.furidamu.org/read">read</a></nobr></li>
-        <li><nobr><a class="nav-link" href="https://www.furidamu.org/speak">speak</a></nobr></li>
+        <li><a href="/">blog</a></li>
+        <li><nobr><a href="https://www.furidamu.org/about">about</a></nobr></li>
+        <li><nobr><a href="/live.html">live</a></nobr></li>
+        <li><nobr><a href="https://www.furidamu.org/papers">papers</a></nobr></li>
+        <li><nobr><a href="https://www.furidamu.org/read">read</a></nobr></li>
+        <li><nobr><a href="https://www.furidamu.org/speak">speak</a></nobr></li>
       </ul>
     </div>
   </aside>
 
   <main>
     <header>
-      <p>Updated May 2025</p>
+      <p>Updated on April 2025</p>
     </header>
 
     <article>
@@ -43,124 +282,46 @@
         <h1>live</h1>
       </div>
       <div id="article_text">
-        <p>Welcome to the now page. I treat this as a living status board for friends, collaborators, and future teammates
-          who want a quick snapshot of my world. Everything below updates as my focus shifts, so feel free to check back
-          whenever you are curious about what I'm exploring.</p>
+        <p>This page is the canonical place to see where I'm based, what I'm working on, and how to connect for a coffee or
+          collaboration. I'm an AI researcher and engineer from Pakistan, now spending most of my time in the United Kingdom for
+          postgraduate work while staying closely connected to teams back home.</p>
 
         <section class="status-section">
-          <h2>Right now</h2>
-          <div class="cards-grid">
-            <div class="status-card">
-              <strong>Build</strong>
-              <p>Leading CureMD's internal AI lab — pairing clinicians with language models to automate documentation and
-                safety reviews.</p>
-              <div class="progress-group">
-                <div class="progress-row">
-                  <span>Clinical copilot roll-out</span>
-                  <span class="progress-value">70%</span>
-                </div>
-                <div class="progress-bar"><span style="width: 70%"></span></div>
-                <div class="progress-row">
-                  <span>Evaluation harness</span>
-                  <span class="progress-value">45%</span>
-                </div>
-                <div class="progress-bar"><span style="width: 45%"></span></div>
-              </div>
-            </div>
-
-            <div class="status-card">
-              <strong>Learn</strong>
-              <p>Deep-diving into multimodal model alignment, with weekly study sprints on control nets and eval design.</p>
-              <ul class="tagcloud">
-                <li class="tag-3">alignment</li>
-                <li class="tag-2">tooling</li>
-                <li class="tag-4">uk ai safety</li>
-              </ul>
-            </div>
-
-            <div class="status-card">
-              <strong>Mentor</strong>
-              <p>Supporting Pakistani student founders building education and health tech prototypes with a month-long
-                office hours rotation.</p>
-              <p class="pill-label">Open slots Sundays 4–6pm PKT</p>
-            </div>
+          <h2>Current base</h2>
+          <div class="status-card">
+            <strong>Location</strong>
+            <span>United Kingdom (splitting time between campus life and remote collaboration with Pakistan).</span>
+          </div>
+          <div class="status-card">
+            <strong>Focus</strong>
+            <span>Applied AI systems—training and deploying language models, building developer tooling, and translating research into production-ready workflows.</span>
+          </div>
+          <div class="status-card">
+            <strong>Availability</strong>
+            <span>Open to meetups and mentoring sessions on evenings or weekends; remote calls are easiest during UK business hours.</span>
           </div>
         </section>
 
         <section class="status-section">
-          <h2>Weekday rhythm</h2>
-          <div class="timeline">
-            <div class="timeline-entry">
-              <h3>06:00–08:30 — Charge</h3>
-              <p>Training, journaling, and designing experiments before the inbox opens.</p>
-            </div>
-            <div class="timeline-entry">
-              <h3>09:00–13:00 — Build</h3>
-              <p>Heads-down product work with the lab. Pair programming from Lahore collaborators dialed in virtually.</p>
-            </div>
-            <div class="timeline-entry">
-              <h3>14:00–18:00 — Review &amp; mentor</h3>
-              <p>Model evals, research reading, and coaching sessions with students.</p>
-            </div>
-            <div class="timeline-entry">
-              <h3>19:30 onward — Create</h3>
-              <p>Writing, podcast planning, or live sessions with the community.</p>
-            </div>
-          </div>
-        </section>
-
-        <section class="status-section">
-          <h2>Near-term travel</h2>
-          <details class="details-card" open>
-            <summary>Summer 2025 hop between London ↔ Lahore</summary>
-            <p>Alternating every 6 weeks. I'm currently in <span class="pill-label">London</span> and planning a Lahore
-              residency starting late June for an AI-in-healthcare sprint with CureMD.</p>
-            <p>Ping me if you're hosting a meetup in either city. If there's enough interest I'll schedule a public
-              office hour and publish the location here.</p>
-          </details>
-          <details class="details-card">
-            <summary>Conference radar</summary>
-            <ul>
-              <li>July — <strong>CogX Festival</strong> (London) &mdash; proposing a session on clinical copilots.</li>
-              <li>August — <strong>AI Safety Unconference</strong> (Remote) &mdash; mentoring research sprints.</li>
-              <li>September — <strong>Deep Learning IndabaX Pakistan</strong> — bringing hands-on eval workshops.</li>
-            </ul>
-          </details>
-        </section>
-
-        <section class="status-section">
-          <h2>Quick stats</h2>
-          <ul class="stat-list">
-            <li>
-              <strong>Local time</strong>
-              <span id="clock-london" data-timezone="Europe/London"></span>
-              <small>United Kingdom</small>
-            </li>
-            <li>
-              <strong>Home base</strong>
-              <span id="clock-lahore" data-timezone="Asia/Karachi"></span>
-              <small>Lahore, Pakistan</small>
-            </li>
-            <li>
-              <strong>Meeting cadence</strong>
-              <span>Weekly mentoring &amp; monthly salons</span>
-              <small>Ask for the invite list &mdash; seats limited to keep sessions intimate.</small>
-            </li>
-            <li>
-              <strong>Current vibe</strong>
-              <span>Mixing Urdu jazz playlists with late-night coding sessions.</span>
-            </li>
+          <h2>What I'm up to</h2>
+          <ul>
+            <li>Leading initiatives at CureMD to design in-house copilots, automated graders, and support chatbots powered by LLMs.</li>
+            <li>Experimenting with C++, Python, and TypeScript stacks that bridge academic research with real-world software teams.</li>
+            <li>Documenting lessons from language learning and knowledge management—expect more updates alongside the <a href="/speak/">speak</a> series.</li>
           </ul>
         </section>
 
         <section class="status-section">
-          <h2>Let's meet</h2>
-          <p>If you're building in AI, healthcare, or education, I'm eager to trade notes. Send a quick intro at <a
-              href="mailto:ibrahimkhan4real@gmail.com">ibrahimkhan4real@gmail.com</a> with "Live" in the subject. I'll
-            reply with a Calendly link that matches both our timezones.</p>
-          <p>Prefer something spontaneous? Drop a DM on <a href="https://twitter.com/ibrahimkhan4real">Twitter</a> or
-            <a href="https://www.linkedin.com/in/ibrahimkhan4real/">LinkedIn</a> and tell me what you're experimenting
-            with.</p>
+          <h2>On the horizon</h2>
+          <p>My travel rhythm alternates between the UK and Pakistan with conference stops in Europe when interesting AI events pop
+            up. If you'd like to sync schedules or host a workshop, reach out and I'll share the latest itinerary.</p>
+        </section>
+
+        <section class="status-section">
+          <h2>Say hello</h2>
+          <p>If you're nearby or our paths might cross, I'd love to talk AI research, productizing ML, or ambitious student
+            projects. Email me at <a href="mailto:ibrahimkhan4real@gmail.com">ibrahimkhan4real@gmail.com</a> with "Live" in the
+            subject line and I'll respond as soon as I step away from the compiler.</p>
         </section>
       </div>
     </article>
@@ -170,11 +331,9 @@
     </footer>
 
     <div id="ending_message">
-      <p>Thanks for following along. This page refreshes whenever plans shift, so bookmark it to stay in sync.</p>
+      <p>Thanks for following along—I'll keep this page updated as plans evolve.</p>
     </div>
   </main>
-
-  <script type="module" src="/assets/js/live.js"></script>
 </body>
 
 </html>
