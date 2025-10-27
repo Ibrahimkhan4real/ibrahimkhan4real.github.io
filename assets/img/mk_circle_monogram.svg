@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <style>
+      .stroke { fill: none; stroke: #1C3C48; stroke-width: 24; stroke-linecap: round; stroke-linejoin: round; }
+      .fill { fill: #1C3C48; }
+    </style>
+  </defs>
+  <!-- Outer ring -->
+  <circle cx="256" cy="256" r="206" class="stroke"/>
+  <!-- Inner ring -->
+  <circle cx="256" cy="256" r="174" class="stroke"/>
+  <!-- Monogram M (rounded) -->
+  <path d="M136 336 V176 L196 256 L256 176 V336" class="stroke"/>
+  <!-- Monogram k (lowercase) -->
+  <path d="M316 336 V196 M316 268 L376 206 M316 268 L384 336" class="stroke"/>
+</svg>
