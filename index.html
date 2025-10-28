@@ -1,174 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="/assets/css/site.css">
-
-  <!-- jsVectorMap CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap/dist/css/jsvectormap.min.css" />
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Muhammad Khan">
-  <meta name="description" content="Posts and writings by Muhammad Khan">
-
+  <meta name="author" content="Muhammad Ibrahim Khan">
+  <meta name="description" content="AI engineer and researcher building ML and LLM systems for healthcare and automation.">
+  <title>Muhammad Ibrahim Khan</title>
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
-
-  <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Julian Schrittwieser Full Atom Feed" />
-  <link href="/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="Julian Schrittwieser Full RSS Feed" />
-
-  <title>about</title>
-  <link rel="stylesheet" href="/css/stackoverflow-light.css">
-  <script src="/js/highlight.min.js"></script>
-
-  <!-- KaTeX -->
-  <link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css"
-    integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc"
-    crossorigin="anonymous" as="style" onload="this.rel='stylesheet'">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js"
-    integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp"
-    crossorigin="anonymous"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js"
-    integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"
-    crossorigin="anonymous"></script>
-  <script>
-    const katexOptions = {
-      delimiters: [
-        { left: '$$', right: '$$', display: true },
-        { left: '$', right: '$', display: false },
-      ],
-      throwOnError: false
-    };
-    document.addEventListener("DOMContentLoaded", function() {
-      for (const el of document.getElementsByClassName('math')) {
-        katex.render(el.textContent, el, { throwOnError: false, displayMode: el.classList.contains('math-display') });
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap/dist/css/jsvectormap.min.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+      color: #333333;
+      font-family: "PT Sans", Arial, sans-serif;
+      text-rendering: optimizeLegibility;
+    }
+    a {
+      color: #0e94ec;
+      text-decoration: none;
+    }
+    a:hover,
+    a:focus {
+      text-decoration: underline;
+    }
+    aside {
+      border-bottom: 1px solid #eeeeee;
+    }
+    aside #user_meta {
+      padding: 20px;
+      text-align: center;
+    }
+    aside #user_meta h2 {
+      margin: 0.5em 0;
+      font-size: 1.6em;
+    }
+    aside #user_meta p.subtitle {
+      margin: 0;
+      font-size: 0.85em;
+      color: #777777;
+    }
+    aside #user_meta ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 1.2em 0 0;
+      font-size: 0.9em;
+    }
+    aside #user_meta ul li {
+      display: inline-block;
+      margin: 0.25em 0.35em;
+    }
+    aside #user_meta ul li a {
+      padding: 6px 14px;
+      border: 2px solid #e0e0e0;
+      border-radius: 18px;
+      color: #555555;
+    }
+    aside #user_meta ul li a:hover {
+      border-color: #0e94ec;
+      color: #0e94ec;
+    }
+    main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+      line-height: 1.6;
+    }
+    main header {
+      text-transform: uppercase;
+      color: #888888;
+      font-size: 0.75em;
+      letter-spacing: 0.08em;
+      padding: 18px 0;
+      border-bottom: 1px solid #eeeeee;
+    }
+    main h1 {
+      font-size: 2.4em;
+      margin-bottom: 0.2em;
+    }
+    main h2 {
+      margin-top: 2.4em;
+      margin-bottom: 0.75em;
+      font-size: 1.6em;
+      color: #222222;
+    }
+    main h3 {
+      margin: 1.4em 0 0.4em;
+      font-size: 1.2em;
+      color: #0e94ec;
+    }
+    main p {
+      margin: 0.7em 0;
+    }
+    main ul {
+      padding-left: 1.1em;
+    }
+    main ul li {
+      margin-bottom: 0.4em;
+    }
+    blockquote {
+      margin: 1.4em 0;
+      padding-left: 22px;
+      border-left: 4px solid #0e94ec;
+      color: #555555;
+      font-style: italic;
+    }
+    #world-map {
+      width: 100%;
+      max-width: 900px;
+      height: 500px;
+      margin: 2em auto;
+      border: 1px solid #e6e6e6;
+      border-radius: 8px;
+    }
+    footer {
+      margin-top: 3em;
+      padding: 18px 0 0;
+      border-top: 1px solid #eeeeee;
+      color: #888888;
+      font-size: 0.85em;
+    }
+    @media screen and (min-width: 1024px) {
+      body {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        min-height: 100vh;
       }
-    });
-  </script>
+      aside {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 260px;
+        height: 100%;
+        border-right: 1px solid #eeeeee;
+        border-bottom: none;
+      }
+      main {
+        margin-left: 260px;
+        padding: 40px 60px 80px;
+      }
+      aside #user_meta img {
+        transform: scale(0.9);
+      }
+    }
+    @media screen and (max-width: 600px) {
+      main {
+        padding: 0 16px 40px;
+      }
+      main h1 {
+        font-size: 2em;
+      }
+      aside #user_meta ul li {
+        display: block;
+      }
+    }
+  </style>
 </head>
-
 <body>
   <aside>
     <div id="user_meta">
       <div id="author_info">
-        <a href="/">
-          <img src="/assets/img/Khan_logo.jpg" height="192" width="192" alt="logo">
-        </a>
-        <h2><a href="/">Muhammad Khan</a></h2>
+        <img src="/assets/img/Khan_logo.jpg" alt="Muhammad Ibrahim Khan logo" width="192" height="192">
+        <h2>Muhammad Ibrahim Khan</h2>
+        <p class="subtitle">AI Engineer · Applied Researcher</p>
       </div>
-      <p>AI researcher · Product engineer · Mentor</p>
       <ul>
-        <li><a href="/">blog</a></li>
-        <li><nobr><a href="https://www.furidamu.org/about">about</a></nobr></li>
-        <li><nobr><a href="/live.html">live</a></nobr></li>
-        <li><nobr><a href="https://www.furidamu.org/papers">papers</a></nobr></li>
-        <li><nobr><a href="https://www.furidamu.org/read">read</a></nobr></li>
-        <li><nobr><a href="https://www.furidamu.org/speak">speak</a></nobr></li>
+        <li><a href="/index.html">home</a></li>
+        <li><a href="/papers.html">papers</a></li>
+        <li><a href="#projects">projects</a></li>
+        <li><a href="#contact">contact</a></li>
+        <li><a href="https://github.com/Ibrahimkhan4real">github</a></li>
       </ul>
     </div>
   </aside>
 
   <main>
-    <header>
-      <p>Updated on April 2025</p>
-    </header>
+    <header>Updated April 2025</header>
 
-    <article>
-      <div id="article_title">
-        <h1><a href="https://www.furidamu.org/about">about</a></h1>
-      </div>
-      <div id="article_text">
-        <p>I'm an AI researcher from Pakistan, now living in United Kingdom. I have a passion for coding and love to experiment with things. While I work as a PhD, the opinions expressed on this blog are solely my own and do not reflect the University's policy in any way. Most of my work is only available within Anthropic or Google, but see <a href="/papers">publications</a> for what is public.</p>
-        <p>These days, I mostly write C++ and Python with a sprinkling of TypeScript for work, with a very long tail of other languages. Over time I ended up with <a href="https://www.pullrequest.com/blog/google-code-review-readability-certification/">readability</a> in 6.</p>
-        <p>For my personal projects, I prefer Rust over C++, but Python and TypeScript are just as handy as at work.</p>
-        <p>As for the languages I speak, check out my post on <a href="/speak/">language learning</a>.</p>
+    <h1>Hello, I’m Muhammad.</h1>
+    <p>I design and deliver machine learning systems that make healthcare operations faster and more reliable. At CureMD, I build production-grade large language model experiences—from in-house copilots to evaluation pipelines—that serve both engineers and clinical teams.</p>
 
-        <h2>Travel</h2>
-        <p>I'm visualizing my journeys, both to keep track of which countries I've visited and to spur me on to explore new places.</p>
-        <p>So far, I've visited <span id="num-countries">0</span> countries on <span id="num-continents">0</span> continents:</p>
+    <h2>What I’m Working On</h2>
+    <ul>
+      <li>Shipping an internal “LLM for Code” that combines retrieval-augmented generation with Mixtral 8x7B to accelerate code review and feature delivery.</li>
+      <li>Evaluating candidate solutions automatically via an LLM-driven code grader that pairs semantic checks with black-box tests.</li>
+      <li>Curating fine-tuning data and safety guardrails so conversational agents stay trustworthy in regulated medical settings.</li>
+    </ul>
 
-        <!-- ===== jsVectorMap section ===== -->
-        <div id="world-map" style="width:100%;max-width:900px;height:600px;"></div>
+    <h2>Experience</h2>
+    <h3>AI Engineer · CureMD · July 2023 – Present</h3>
+    <ul>
+      <li>Owned the design of a GitHub Copilot-style assistant tailored to internal codebases, balancing retrieval depth with latency.</li>
+      <li>Fine-tuned domain-specific LLMs to power a software support chatbot used by subject-matter experts.</li>
+      <li>Built a customer-service agent on top of a RAG backbone to surface policy answers with citations.</li>
+      <li>Created an automated code grading workflow with Mistral 7B that scores logic, documentation, and runtime behavior in under a minute.</li>
+      <li>Drove ML/DL initiatives that remove repetitive manual work for US healthcare stakeholders.</li>
+    </ul>
 
-        <script src="https://cdn.jsdelivr.net/npm/jsvectormap"></script>
-        <script src="https://cdn.jsdelivr.net/npm/jsvectormap/dist/maps/world.js"></script>
-        <script>
-          document.addEventListener('DOMContentLoaded', () => {
-            const countriesByContinent = {
-              "Africa": [],
-              "North America": ["US"],
-              "Europe": ["DE", "GB", "PL", "FR", "NL", "CZ", "AT", "LU", "BE", "CH"],
-              "Asia": ["PK", "TR"],
-            };
-            const continents = Object.keys(countriesByContinent);
-            const numContinents = continents.length;
-            const numCountries = continents
-              .map(c => countriesByContinent[c].length)
-              .reduce((a, b) => a + b, 0);
+    <h2>Education</h2>
+    <p>BE, Mechanical Engineering — National University of Sciences and Technology (2019 – 2023)</p>
 
-            document.getElementById('num-continents').textContent = numContinents;
-            document.getElementById('num-countries').textContent = numCountries;
+    <h2 id="projects">Highlighted Project</h2>
+    <h3>Autonomous Laser Weeding Robot</h3>
+    <ul>
+      <li>Engineered a computer-vision pipeline to distinguish crops from weeds using morphology and color cues in real time.</li>
+      <li>Integrated a CNC positioning system with a 10W carbon laser to remove weeds within a five-second dwell time.</li>
+      <li>Designed autonomous field navigation and post-burn verification, earning third place in the Prime Minister’s National Innovation Award 2023.</li>
+    </ul>
 
-            const values = {};
-            continents.forEach((continent, idx) => {
-              countriesByContinent[continent].forEach(code => {
-                values[code] = idx;
-              });
-            });
+    <h2>Travel</h2>
+    <p>I track the places I have lived, worked, and explored. So far that’s <span id="num-countries">0</span> countries across <span id="num-continents">0</span> continents.</p>
+    <div id="world-map"></div>
 
-            new jsVectorMap({
-              selector: '#world-map',
-              map: 'world',
-              zoomButtons: true,
-              regionStyle: {
-                initial: { fill: '#7777' },
-                hover: { fillOpacity: 0.8 }
-              },
-              series: {
-                regions: [{
-                  attribute: 'fill',
-                  scale: {
-                    3: '#4CAF50',  // Asia → green
-                    1: '#2196F3',  // North America → blue
-                    2: '#F44336'   // Europe → red
-                  },
-                  values: values
-                }]
-              },
-              tooltip: { showOn: 'hover' }
-            });
-          });
-        </script>
-        <!-- ===== end jsVectorMap section ===== -->
+    <h2 id="contact">Contact</h2>
+    <p>Email: <a href="mailto:mail@furidamu.org">mail@furidamu.org</a></p>
+    <p>Signal: Available on request.</p>
+    <p>Long-form experiments live on <a href="https://github.com/Ibrahimkhan4real">GitHub</a>.</p>
 
-        <h2>contact</h2>
-        <p><a name="contact"></a></p>
-        <p>Email me at <a href="mailto:mail@furidamu.org">mail@furidamu.org</a> (personal).</p>
-        <p>If you want to send me information securely, you can contact me through Signal.</p>
-        <p>I upload some projects built in my spare time to <a href="https://github.com/Ibrahimkhan4real">Github</a>.</p>
-
-      </div>
-
-      <footer>
-        <p><a href="https://www.furidamu.org/" class="button_accent">&larr; Back to Index</a></p>
-      </footer>
-
-      <div id="ending_message">
-        <p>&copy; Julian Schrittwieser. Built using <a href="https://github.com/Mononofu/kaihan">開板</a>. Theme by Giulio Fidente.</p>
-      </div>
-    </article>
+    <footer>&copy; <span id="current-year"></span> Muhammad Ibrahim Khan. Built with clean HTML, a bit of CSS, and a dash of jsVectorMap.</footer>
   </main>
 
-  <script>hljs.highlightAll();</script>
-  <script defer src="https://cdn.commento.io/js/commento.js" data-auto-init="false"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsvectormap"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsvectormap/dist/maps/world.js"></script>
   <script>
-    function showComments() {
-      commento.main(() => {
-        if (window.MathJax) MathJax.typeset();
+    const travelDataset = {
+      "Africa": [],
+      "Asia": ["PK", "TR"],
+      "Europe": ["DE", "GB", "PL", "FR", "NL", "CZ", "AT", "LU", "BE", "CH"],
+      "North America": ["US"]
+    };
+
+    const palette = ["#0e94ec", "#4CAF50", "#F44336", "#8E24AA", "#FF9800", "#26A69A"];
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const continents = Object.entries(travelDataset).filter(([, codes]) => codes.length > 0);
+      const continentCount = continents.length;
+      const countryCount = continents.reduce((total, [, codes]) => total + codes.length, 0);
+
+      document.getElementById("num-continents").textContent = continentCount;
+      document.getElementById("num-countries").textContent = countryCount;
+      document.getElementById("current-year").textContent = new Date().getFullYear();
+
+      const regionValues = {};
+      continents.forEach(([continent, codes], index) => {
+        codes.forEach(code => {
+          regionValues[code] = index;
+        });
       });
-    }
-    document.addEventListener('DOMContentLoaded', showComments);
+
+      const scale = {};
+      continents.forEach(([, codes], index) => {
+        scale[index] = palette[index % palette.length];
+      });
+
+      new jsVectorMap({
+        selector: "#world-map",
+        map: "world",
+        zoomButtons: true,
+        regionStyle: {
+          initial: { fill: "#edf2f7", stroke: "#cbd5e0" },
+          hover: { fillOpacity: 0.8, stroke: "#4a5568" }
+        },
+        series: {
+          regions: [{
+            attribute: "fill",
+            values: regionValues,
+            scale
+          }]
+        }
+      });
+    });
   </script>
 </body>
-
 </html>

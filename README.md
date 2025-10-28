@@ -34,3 +34,13 @@ Developed an innovative agricultural robot designed to autonomously navigate and
 - Successfully designed and developed a fully autonomous system that integrates cutting-edge technologies in robotics, computer vision, and precision agriculture.
 - Enhanced agricultural efficiency by providing a sustainable and environmentally friendly solution for weed management.
 - Reduced dependency on chemical herbicides, promoting a more eco-friendly approach to farming.
+
+## Updating the publications list
+
+Run the helper script whenever you want to refresh the `papers` page with the latest entries from Google Scholar:
+
+```bash
+python scripts/update_papers.py --scholar-id bh9os08AAAAJ
+```
+
+The script regenerates `site_data/papers.json`, which the `papers.html` page reads at runtime. Commit the updated JSON file alongside any site changes before deploying.
