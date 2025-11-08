@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Muhammad Ibrahim Khan">
+  <meta name="description" content="Travel log and map of places Muhammad Ibrahim Khan has visited.">
+  <title>Travel — Muhammad Ibrahim Khan</title>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/site.css?v=20240515">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap/dist/css/jsvectormap.min.css">
+</head>
+<body>
+  <aside>
+    <div id="user_meta">
+      <div id="author_info">
+        <a href="index.html"><img src="assets/img/Khan_logo.jpg" alt="Muhammad Ibrahim Khan logo" width="192" height="192"></a>
+        <h2><a href="index.html">Muhammad Ibrahim Khan</a></h2>
+        <p class="subtitle">AI Engineer · Applied Researcher</p>
+      </div>
+      <ul>
+        <li><a class="nav-link" href="index.html">home</a></li>
+        <li><a class="nav-link" href="live.html">live</a></li>
+        <li><a class="nav-link current" href="travel.html">travel</a></li>
+        <li><a class="nav-link" href="papers.html">papers</a></li>
+        <li><a class="nav-link" href="index.html#projects">projects</a></li>
+        <li><a class="nav-link" href="index.html#contact">contact</a></li>
+        <li><a class="nav-link" href="https://github.com/Ibrahimkhan4real" target="_blank" rel="noopener noreferrer">github</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>Updated May 2025</p>
+    </header>
+
+    <article>
+      <div id="article_title">
+        <h1>Travel Log</h1>
+      </div>
+      <div id="article_text">
+        <p class="lead">I split time between research, product work, and the occasional detour to recharge. The map below highlights the countries I’ve visited so far—each trip influences how I think about building inclusive, global products.</p>
+
+        <section class="status-section">
+          <h2>Where I’ve been</h2>
+          <div id="travel-map"></div>
+          <p class="travel-note">Shaded regions show confirmed visits.</p>
+        </section>
+
+        <section class="status-section">
+          <h2>Highlights</h2>
+          <div class="cards-grid">
+            <div class="details-card">
+              <strong>Research + Work</strong>
+              <p>Work sessions and conferences across Pakistan, Turkey, England, Germany, and the United States keep collaboration tight with remote teams.</p>
+            </div>
+            <div class="details-card">
+              <strong>City breaks</strong>
+              <p>Shorter creative resets landed me in France, Belgium, the Netherlands, Luxembourg, Switzerland, Austria, Poland, and Croatia.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="status-section">
+          <h2>Next stops</h2>
+          <ul>
+            <li>Exploring more of Central Europe—particularly Spain and Portugal—for product leadership meetups.</li>
+            <li>Regular trips back to Pakistan to keep close ties with family, mentees, and local research groups.</li>
+          </ul>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/jsvectormap/dist/js/jsvectormap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsvectormap/dist/maps/world.js"></script>
+  <script>
+    const visitedCountries = [
+      'PK', 'US', 'DE', 'FR', 'BE', 'NL', 'TR', 'GB', 'PL', 'HR', 'LU', 'AT', 'CH'
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      new jsVectorMap({
+        selector: '#travel-map',
+        map: 'world',
+        zoomButtons: false,
+        regionStyle: {
+          initial: {
+            fill: '#e5e8f0',
+            stroke: '#b9c1d4',
+            strokeWidth: 1
+          },
+          hover: {
+            fill: '#2563eb',
+          },
+          selected: {
+            fill: '#2563eb'
+          }
+        },
+        selectedRegions: visitedCountries,
+        onRegionTooltipShow(event, tooltip, code) {
+          if (!visitedCountries.includes(code)) {
+            tooltip.css({ display: 'none' });
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

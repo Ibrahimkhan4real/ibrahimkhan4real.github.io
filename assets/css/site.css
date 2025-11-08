@@ -516,6 +516,21 @@ main div#ending_message {
   color: #c62828;
 }
 
+#travel-map {
+  width: 100%;
+  min-height: 440px;
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
+  background-color: var(--panel);
+  box-shadow: var(--shadow-soft);
+}
+
+.travel-note {
+  margin-top: 0.8em;
+  font-size: 0.9em;
+  color: var(--text-muted);
+}
+
 .highlighttable {
   margin: 24px auto;
   color: #000000;
