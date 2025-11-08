@@ -7,176 +7,47 @@
   <meta name="description" content="Research publications by Muhammad Ibrahim Khan.">
   <title>Publications — Muhammad Ibrahim Khan</title>
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #ffffff;
-      color: #333333;
-      font-family: "PT Sans", Arial, sans-serif;
-    }
-    a {
-      color: #0e94ec;
-      text-decoration: none;
-    }
-    a:hover,
-    a:focus {
-      text-decoration: underline;
-    }
-    aside {
-      border-bottom: 1px solid #eeeeee;
-    }
-    aside #user_meta {
-      padding: 20px;
-      text-align: center;
-    }
-    aside #user_meta h2 {
-      margin: 0.5em 0;
-      font-size: 1.6em;
-    }
-    aside #user_meta p.subtitle {
-      margin: 0;
-      font-size: 0.85em;
-      color: #777777;
-    }
-    aside #user_meta ul {
-      list-style: none;
-      padding-left: 0;
-      margin: 1.2em 0 0;
-      font-size: 0.9em;
-    }
-    aside #user_meta ul li {
-      display: inline-block;
-      margin: 0.25em 0.35em;
-    }
-    aside #user_meta ul li a {
-      padding: 6px 14px;
-      border: 2px solid #e0e0e0;
-      border-radius: 18px;
-      color: #555555;
-    }
-    aside #user_meta ul li a:hover {
-      border-color: #0e94ec;
-      color: #0e94ec;
-    }
-    main {
-      max-width: 820px;
-      margin: 0 auto;
-      padding: 0 20px 60px;
-      line-height: 1.6;
-    }
-    main header {
-      text-transform: uppercase;
-      color: #888888;
-      font-size: 0.75em;
-      letter-spacing: 0.08em;
-      padding: 18px 0;
-      border-bottom: 1px solid #eeeeee;
-    }
-    h1 {
-      font-size: 2.2em;
-      margin-top: 0.6em;
-    }
-    #papers-list {
-      list-style: none;
-      padding-left: 0;
-      margin: 2em 0 0;
-    }
-    #papers-list li {
-      padding: 18px 0;
-      border-bottom: 1px solid #f0f0f0;
-    }
-    #papers-list li:last-child {
-      border-bottom: none;
-    }
-    #papers-list h3 {
-      margin: 0 0 0.4em;
-      font-size: 1.2em;
-      color: #0e94ec;
-    }
-    #papers-list p {
-      margin: 0.3em 0;
-      color: #555555;
-    }
-    #papers-list .meta {
-      font-size: 0.9em;
-      color: #777777;
-    }
-    #status {
-      margin-top: 2em;
-      color: #777777;
-    }
-    footer {
-      margin-top: 3em;
-      padding: 18px 0 0;
-      border-top: 1px solid #eeeeee;
-      color: #888888;
-      font-size: 0.85em;
-    }
-    @media screen and (min-width: 1024px) {
-      body {
-        display: grid;
-        grid-template-columns: 260px 1fr;
-        min-height: 100vh;
-      }
-      aside {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 260px;
-        height: 100%;
-        border-right: 1px solid #eeeeee;
-        border-bottom: none;
-      }
-      main {
-        margin-left: 260px;
-        padding: 40px 60px 80px;
-      }
-      aside #user_meta img {
-        transform: scale(0.9);
-      }
-    }
-    @media screen and (max-width: 600px) {
-      main {
-        padding: 0 16px 40px;
-      }
-      h1 {
-        font-size: 1.9em;
-      }
-      aside #user_meta ul li {
-        display: block;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="/assets/css/site.css">
 </head>
 <body>
   <aside>
     <div id="user_meta">
       <div id="author_info">
-        <img src="/assets/img/Khan_logo.jpg" alt="Muhammad Ibrahim Khan logo" width="192" height="192">
-        <h2>Muhammad Ibrahim Khan</h2>
+        <a href="/"><img src="/assets/img/Khan_logo.jpg" alt="Muhammad Ibrahim Khan logo" width="192" height="192"></a>
+        <h2><a href="/">Muhammad Ibrahim Khan</a></h2>
         <p class="subtitle">AI Engineer · Applied Researcher</p>
       </div>
       <ul>
-        <li><a href="/index.html">home</a></li>
-        <li><a href="/papers.html">papers</a></li>
-        <li><a href="/index.html#projects">projects</a></li>
-        <li><a href="/index.html#contact">contact</a></li>
-        <li><a href="https://github.com/Ibrahimkhan4real">github</a></li>
+        <li><a class="nav-link" href="/index.html">home</a></li>
+        <li><a class="nav-link" href="/live.html">live</a></li>
+        <li><a class="nav-link current" href="/papers.html">papers</a></li>
+        <li><a class="nav-link" href="/index.html#projects">projects</a></li>
+        <li><a class="nav-link" href="/index.html#contact">contact</a></li>
+        <li><a class="nav-link" href="https://github.com/Ibrahimkhan4real" target="_blank" rel="noopener noreferrer">github</a></li>
       </ul>
     </div>
   </aside>
 
   <main>
-    <header>Updated automatically from Google Scholar</header>
+    <header>
+      <p>Updated automatically from Google Scholar</p>
+    </header>
 
-    <h1>Research Publications</h1>
-    <p>This page pulls directly from my Google Scholar profile, so the newest publications appear here without manual edits. Run <code>python scripts/update_papers.py --scholar-id bh9os08AAAAJ</code> whenever you want to refresh the list locally.</p>
+    <article>
+      <div id="article_title">
+        <h1>Research Publications</h1>
+      </div>
+      <div id="article_text">
+        <p class="lead">This page pulls directly from my Google Scholar profile, so the newest publications appear without manual edits. Run <code>python scripts/update_papers.py --scholar-id bh9os08AAAAJ</code> whenever you want to refresh the list locally.</p>
 
-    <ul id="papers-list"></ul>
-    <p id="status">Loading publications…</p>
+        <ul id="papers-list"></ul>
+        <p id="status">Loading publications…</p>
+      </div>
+    </article>
 
-    <footer>&copy; <span id="current-year"></span> Muhammad Ibrahim Khan. Data source: Google Scholar.</footer>
+    <div id="ending_message">
+      <p>&copy; <span id="current-year"></span> Muhammad Ibrahim Khan. Data source: Google Scholar.</p>
+    </div>
   </main>
 
   <script>
@@ -186,6 +57,7 @@
 
     function renderPublication(pub) {
       const item = document.createElement("li");
+      item.className = "status-card paper-card";
 
       const title = document.createElement("h3");
       if (pub.link) {
@@ -202,6 +74,7 @@
 
       if (pub.authors) {
         const authors = document.createElement("p");
+        authors.className = "paper-authors";
         authors.textContent = pub.authors;
         item.appendChild(authors);
       }
@@ -216,7 +89,7 @@
 
       if (meta.length) {
         const metaEl = document.createElement("p");
-        metaEl.className = "meta";
+        metaEl.className = "paper-meta";
         metaEl.textContent = meta.join(" · ");
         item.appendChild(metaEl);
       }

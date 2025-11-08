@@ -7,270 +7,117 @@
   <meta name="description" content="AI engineer and researcher building ML and LLM systems for healthcare and automation.">
   <title>Muhammad Ibrahim Khan</title>
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap/dist/css/jsvectormap.min.css">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #ffffff;
-      color: #333333;
-      font-family: "PT Sans", Arial, sans-serif;
-      text-rendering: optimizeLegibility;
-    }
-    a {
-      color: #0e94ec;
-      text-decoration: none;
-    }
-    a:hover,
-    a:focus {
-      text-decoration: underline;
-    }
-    aside {
-      border-bottom: 1px solid #eeeeee;
-    }
-    aside #user_meta {
-      padding: 20px;
-      text-align: center;
-    }
-    aside #user_meta h2 {
-      margin: 0.5em 0;
-      font-size: 1.6em;
-    }
-    aside #user_meta p.subtitle {
-      margin: 0;
-      font-size: 0.85em;
-      color: #777777;
-    }
-    aside #user_meta ul {
-      list-style: none;
-      padding-left: 0;
-      margin: 1.2em 0 0;
-      font-size: 0.9em;
-    }
-    aside #user_meta ul li {
-      display: inline-block;
-      margin: 0.25em 0.35em;
-    }
-    aside #user_meta ul li a {
-      padding: 6px 14px;
-      border: 2px solid #e0e0e0;
-      border-radius: 18px;
-      color: #555555;
-    }
-    aside #user_meta ul li a:hover {
-      border-color: #0e94ec;
-      color: #0e94ec;
-    }
-    main {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 0 20px 60px;
-      line-height: 1.6;
-    }
-    main header {
-      text-transform: uppercase;
-      color: #888888;
-      font-size: 0.75em;
-      letter-spacing: 0.08em;
-      padding: 18px 0;
-      border-bottom: 1px solid #eeeeee;
-    }
-    main h1 {
-      font-size: 2.4em;
-      margin-bottom: 0.2em;
-    }
-    main h2 {
-      margin-top: 2.4em;
-      margin-bottom: 0.75em;
-      font-size: 1.6em;
-      color: #222222;
-    }
-    main h3 {
-      margin: 1.4em 0 0.4em;
-      font-size: 1.2em;
-      color: #0e94ec;
-    }
-    main p {
-      margin: 0.7em 0;
-    }
-    main ul {
-      padding-left: 1.1em;
-    }
-    main ul li {
-      margin-bottom: 0.4em;
-    }
-    blockquote {
-      margin: 1.4em 0;
-      padding-left: 22px;
-      border-left: 4px solid #0e94ec;
-      color: #555555;
-      font-style: italic;
-    }
-    #world-map {
-      width: 100%;
-      max-width: 900px;
-      height: 500px;
-      margin: 2em auto;
-      border: 1px solid #e6e6e6;
-      border-radius: 8px;
-    }
-    footer {
-      margin-top: 3em;
-      padding: 18px 0 0;
-      border-top: 1px solid #eeeeee;
-      color: #888888;
-      font-size: 0.85em;
-    }
-    @media screen and (min-width: 1024px) {
-      body {
-        display: grid;
-        grid-template-columns: 260px 1fr;
-        min-height: 100vh;
-      }
-      aside {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 260px;
-        height: 100%;
-        border-right: 1px solid #eeeeee;
-        border-bottom: none;
-      }
-      main {
-        margin-left: 260px;
-        padding: 40px 60px 80px;
-      }
-      aside #user_meta img {
-        transform: scale(0.9);
-      }
-    }
-    @media screen and (max-width: 600px) {
-      main {
-        padding: 0 16px 40px;
-      }
-      main h1 {
-        font-size: 2em;
-      }
-      aside #user_meta ul li {
-        display: block;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="/assets/css/site.css">
 </head>
 <body>
   <aside>
     <div id="user_meta">
       <div id="author_info">
-        <img src="/assets/img/Khan_logo.jpg" alt="Muhammad Ibrahim Khan logo" width="192" height="192">
-        <h2>Muhammad Ibrahim Khan</h2>
+        <a href="/"><img src="/assets/img/Khan_logo.jpg" alt="Muhammad Ibrahim Khan logo" width="192" height="192"></a>
+        <h2><a href="/">Muhammad Ibrahim Khan</a></h2>
         <p class="subtitle">AI Engineer · Applied Researcher</p>
       </div>
       <ul>
-        <li><a href="/index.html">home</a></li>
-        <li><a href="/papers.html">papers</a></li>
-        <li><a href="#projects">projects</a></li>
-        <li><a href="#contact">contact</a></li>
-        <li><a href="https://github.com/Ibrahimkhan4real">github</a></li>
+        <li><a class="nav-link current" href="/index.html">home</a></li>
+        <li><a class="nav-link" href="/live.html">live</a></li>
+        <li><a class="nav-link" href="/papers.html">papers</a></li>
+        <li><a class="nav-link" href="/index.html#projects">projects</a></li>
+        <li><a class="nav-link" href="/index.html#contact">contact</a></li>
+        <li><a class="nav-link" href="https://github.com/Ibrahimkhan4real" target="_blank" rel="noopener noreferrer">github</a></li>
       </ul>
     </div>
   </aside>
 
   <main>
-    <header>Updated April 2025</header>
+    <header>
+      <p>Updated April 2025</p>
+    </header>
 
-    <h1>Hello, I’m Muhammad.</h1>
-    <p>I design and deliver machine learning systems that make healthcare operations faster and more reliable. At CureMD, I build production-grade large language model experiences—from in-house copilots to evaluation pipelines—that serve both engineers and clinical teams.</p>
+    <article>
+      <div id="article_title">
+        <h1>Hello, I’m Muhammad.</h1>
+      </div>
+      <div id="article_text">
+        <p class="lead">I design and deliver machine learning systems that make healthcare operations faster and more reliable. At CureMD, I build production-grade large language model experiences—from in-house copilots to evaluation pipelines—that serve both engineers and clinical teams.</p>
 
-    <h2>What I’m Working On</h2>
-    <ul>
-      <li>Shipping an internal “LLM for Code” that combines retrieval-augmented generation with Mixtral 8x7B to accelerate code review and feature delivery.</li>
-      <li>Evaluating candidate solutions automatically via an LLM-driven code grader that pairs semantic checks with black-box tests.</li>
-      <li>Curating fine-tuning data and safety guardrails so conversational agents stay trustworthy in regulated medical settings.</li>
-    </ul>
+        <section class="status-section" id="focus">
+          <h2>What I’m Working On</h2>
+          <ul>
+            <li>Shipping an internal “LLM for Code” that combines retrieval-augmented generation with Mixtral 8x7B to accelerate code review and feature delivery.</li>
+            <li>Evaluating candidate solutions automatically via an LLM-driven code grader that pairs semantic checks with black-box tests.</li>
+            <li>Curating fine-tuning data and safety guardrails so conversational agents stay trustworthy in regulated medical settings.</li>
+          </ul>
+        </section>
 
-    <h2>Experience</h2>
-    <h3>AI Engineer · CureMD · July 2023 – Present</h3>
-    <ul>
-      <li>Owned the design of a GitHub Copilot-style assistant tailored to internal codebases, balancing retrieval depth with latency.</li>
-      <li>Fine-tuned domain-specific LLMs to power a software support chatbot used by subject-matter experts.</li>
-      <li>Built a customer-service agent on top of a RAG backbone to surface policy answers with citations.</li>
-      <li>Created an automated code grading workflow with Mistral 7B that scores logic, documentation, and runtime behavior in under a minute.</li>
-      <li>Drove ML/DL initiatives that remove repetitive manual work for US healthcare stakeholders.</li>
-    </ul>
+        <section class="status-section" id="projects">
+          <h2>Projects in Flight</h2>
+          <div class="cards-grid">
+            <div class="status-card">
+              <strong>LLM for Code</strong>
+              <p>Hybrid retrieval + Mixtral stack that drafts reviews, summarizes repos, and flags regressions for internal teams.</p>
+            </div>
+            <div class="status-card">
+              <strong>Auto Grader</strong>
+              <p>Evaluation harness that combines structured unit tests with LLM rubrics to score candidate solutions in under a minute.</p>
+            </div>
+            <div class="status-card">
+              <strong>Care Copilot</strong>
+              <p>Domain-tuned support agent with retrieval guardrails that keeps medical policy answers grounded and auditable.</p>
+            </div>
+          </div>
+        </section>
 
-    <h2>Education</h2>
-    <p>BE, Mechanical Engineering — National University of Sciences and Technology (2019 – 2023)</p>
+        <section class="status-section" id="experience">
+          <h2>Experience</h2>
+          <div class="timeline">
+            <div class="timeline-entry">
+              <h3>AI Engineer · CureMD</h3>
+              <p>July 2023 – Present</p>
+              <ul>
+                <li>Designed a GitHub Copilot-style assistant tailored to internal codebases, balancing retrieval depth with latency.</li>
+                <li>Fine-tuned domain-specific LLMs to power a software support chatbot used by subject-matter experts.</li>
+                <li>Built a customer-service agent on top of a RAG backbone to surface policy answers with citations.</li>
+                <li>Created an automated code grading workflow with Mistral 7B that scores logic, documentation, and runtime behavior.</li>
+              </ul>
+            </div>
+            <div class="timeline-entry">
+              <h3>Applied ML Research</h3>
+              <p>2019 – 2023</p>
+              <ul>
+                <li>Delivered ML/DL prototypes for healthcare partners seeking automation across imaging, claims, and clinical ops.</li>
+                <li>Published research on LLM tooling, grounded generation, and trustworthy deployments for regulated domains.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
 
-    <h2 id="projects">Highlighted Project</h2>
-    <h3>Autonomous Laser Weeding Robot</h3>
-    <ul>
-      <li>Engineered a computer-vision pipeline to distinguish crops from weeds using morphology and color cues in real time.</li>
-      <li>Integrated a CNC positioning system with a 10W carbon laser to remove weeds within a five-second dwell time.</li>
-      <li>Designed autonomous field navigation and post-burn verification, earning third place in the Prime Minister’s National Innovation Award 2023.</li>
-    </ul>
+        <section class="status-section" id="contact">
+          <h2>Contact</h2>
+          <div class="cards-grid">
+            <div class="details-card">
+              <strong>Email</strong>
+              <p><a href="mailto:ibrahimkhan4real@gmail.com">ibrahimkhan4real@gmail.com</a> — quickest path for project discussions, hiring notes, or speaking invites.</p>
+            </div>
+            <div class="details-card">
+              <strong>GitHub</strong>
+              <p><a href="https://github.com/Ibrahimkhan4real" target="_blank" rel="noopener noreferrer">github.com/Ibrahimkhan4real</a> — code, experiments, and infra tooling that back my applied research.</p>
+            </div>
+            <div class="details-card">
+              <strong>Office Hours</strong>
+              <p>Available for remote chats most weekday evenings UK time—drop a line with context and a few windows.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </article>
 
-    <h2>Travel</h2>
-    <p>I track the places I have lived, worked, and explored. So far that’s <span id="num-countries">0</span> countries across <span id="num-continents">0</span> continents.</p>
-    <div id="world-map"></div>
+    <footer>
+      <a class="button_accent" href="mailto:ibrahimkhan4real@gmail.com">Say hello</a>
+    </footer>
 
-    <h2 id="contact">Contact</h2>
-    <p>Email: <a href="mailto:mail@furidamu.org">mail@furidamu.org</a></p>
-    <p>Signal: Available on request.</p>
-    <p>Long-form experiments live on <a href="https://github.com/Ibrahimkhan4real">GitHub</a>.</p>
-
-    <footer>&copy; <span id="current-year"></span> Muhammad Ibrahim Khan. Built with clean HTML, a bit of CSS, and a dash of jsVectorMap.</footer>
+    <div id="ending_message">
+      <p>Currently splitting time between the UK and Pakistan—reach out if you want to jam on applied AI.</p>
+    </div>
   </main>
-
-  <script src="https://cdn.jsdelivr.net/npm/jsvectormap"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jsvectormap/dist/maps/world.js"></script>
-  <script>
-    const travelDataset = {
-      "Africa": [],
-      "Asia": ["PK", "TR"],
-      "Europe": ["DE", "GB", "PL", "FR", "NL", "CZ", "AT", "LU", "BE", "CH"],
-      "North America": ["US"]
-    };
-
-    const palette = ["#0e94ec", "#4CAF50", "#F44336", "#8E24AA", "#FF9800", "#26A69A"];
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const continents = Object.entries(travelDataset).filter(([, codes]) => codes.length > 0);
-      const continentCount = continents.length;
-      const countryCount = continents.reduce((total, [, codes]) => total + codes.length, 0);
-
-      document.getElementById("num-continents").textContent = continentCount;
-      document.getElementById("num-countries").textContent = countryCount;
-      document.getElementById("current-year").textContent = new Date().getFullYear();
-
-      const regionValues = {};
-      continents.forEach(([continent, codes], index) => {
-        codes.forEach(code => {
-          regionValues[code] = index;
-        });
-      });
-
-      const scale = {};
-      continents.forEach(([, codes], index) => {
-        scale[index] = palette[index % palette.length];
-      });
-
-      new jsVectorMap({
-        selector: "#world-map",
-        map: "world",
-        zoomButtons: true,
-        regionStyle: {
-          initial: { fill: "#edf2f7", stroke: "#cbd5e0" },
-          hover: { fillOpacity: 0.8, stroke: "#4a5568" }
-        },
-        series: {
-          regions: [{
-            attribute: "fill",
-            values: regionValues,
-            scale
-          }]
-        }
-      });
-    });
-  </script>
 </body>
 </html>
