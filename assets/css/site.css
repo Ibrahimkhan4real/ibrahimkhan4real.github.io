@@ -68,6 +68,13 @@ aside div#user_meta p {
   flex-direction: column;
   align-items: center;
   gap: 0.6em;
+  text-align: center;
+}
+
+#author_info img {
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: var(--shadow-soft);
 }
 
 aside div#user_meta ul {
