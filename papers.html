@@ -38,10 +38,11 @@
         <h1>Research Publications</h1>
       </div>
       <div id="article_text">
-        <p class="lead">This page pulls directly from my Google Scholar profile, so the newest publications appear without manual edits. Run <code>python scripts/update_papers.py --scholar-id bh9os08AAAAJ</code> whenever you want to refresh the list locally.</p>
+        <p class="lead">This page pulls directly from my Google Scholar profile and refreshes daily via automation. Run <code>python scripts/update_papers.py --scholar-id bh9os08AAAAJ</code> whenever you want to refresh the list locally.</p>
 
         <ul id="papers-list"></ul>
-        <p id="status">Loading publications…</p>
+        <p id="papers-meta" class="papers-meta">Syncing with Google Scholar…</p>
+        <p id="papers-error" class="papers-error" hidden></p>
       </div>
     </article>
 
@@ -51,84 +52,11 @@
   </main>
 
   <script>
-    const statusEl = document.getElementById("status");
-    const listEl = document.getElementById("papers-list");
-    const yearEl = document.getElementById("current-year");
-
-    function renderPublication(pub) {
-      const item = document.createElement("li");
-      item.className = "status-card paper-card";
-
-      const title = document.createElement("h3");
-      if (pub.link) {
-        const anchor = document.createElement("a");
-        anchor.href = pub.link;
-        anchor.textContent = pub.title || "Untitled";
-        anchor.target = "_blank";
-        anchor.rel = "noopener noreferrer";
-        title.appendChild(anchor);
-      } else {
-        title.textContent = pub.title || "Untitled";
-      }
-      item.appendChild(title);
-
-      if (pub.authors) {
-        const authors = document.createElement("p");
-        authors.className = "paper-authors";
-        authors.textContent = pub.authors;
-        item.appendChild(authors);
-      }
-
-      const meta = [];
-      if (pub.venue) meta.push(pub.venue);
-      if (pub.year) meta.push(pub.year);
-      if (pub.citations) {
-        const trimmed = pub.citations.replace(/\u2013|\u2014/g, "").trim();
-        if (trimmed) meta.push(`${trimmed} citations`);
-      }
-
-      if (meta.length) {
-        const metaEl = document.createElement("p");
-        metaEl.className = "paper-meta";
-        metaEl.textContent = meta.join(" · ");
-        item.appendChild(metaEl);
-      }
-
-      return item;
-    }
-
-    async function loadPublications() {
-      try {
-        const response = await fetch(`/site_data/papers.json?cachebust=${Date.now()}`);
-        if (!response.ok) {
-          throw new Error(`Request failed with status ${response.status}`);
-        }
-        const payload = await response.json();
-        const publications = Array.isArray(payload.publications) ? payload.publications : [];
-        const sorted = publications.slice().sort((a, b) => {
-          const yearA = parseInt(a.year || "0", 10);
-          const yearB = parseInt(b.year || "0", 10);
-          if (Number.isNaN(yearA) && Number.isNaN(yearB)) return 0;
-          if (Number.isNaN(yearA)) return 1;
-          if (Number.isNaN(yearB)) return -1;
-          return yearB - yearA;
-        });
-        if (!sorted.length) {
-          statusEl.textContent = "No publications found. Run the update script to fetch the latest data.";
-          return;
-        }
-        sorted.forEach(pub => listEl.appendChild(renderPublication(pub)));
-        statusEl.textContent = `Last updated ${payload.generated_at || "recently"} from Google Scholar (${payload.count || sorted.length} items).`;
-      } catch (error) {
-        statusEl.textContent = "Could not load publications automatically. Please run the update script or check your network connection.";
-        console.error(error);
-      }
-    }
-
     document.addEventListener("DOMContentLoaded", () => {
+      const yearEl = document.getElementById("current-year");
       yearEl.textContent = new Date().getFullYear();
-      loadPublications();
     });
   </script>
+  <script src="/assets/js/papers.js" defer></script>
 </body>
 </html>

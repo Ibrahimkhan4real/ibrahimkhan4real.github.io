@@ -67,6 +67,18 @@
           </div>
         </section>
 
+        <section class="status-section" id="papers-preview">
+          <h2>Papers & Research</h2>
+          <p>Every publication I ship is logged on my Google Scholar profile and mirrored on this site daily. Hop over to the dedicated papers page for abstracts, venues, and citation counts.</p>
+          <div class="cards-grid">
+            <div class="details-card">
+              <strong>Live Scholar Sync</strong>
+              <p>The list is refreshed once a day directly from Google Scholar so collaborators always see the latest work.</p>
+              <p><a class="button_accent" href="/papers.html">Browse papers</a></p>
+            </div>
+          </div>
+        </section>
+
         <section class="status-section" id="experience">
           <h2>Experience</h2>
           <div class="timeline">
@@ -119,5 +131,14 @@
       <p>Currently splitting time between the UK and Pakistan—reach out if you want to jam on applied AI.</p>
     </div>
   </main>
+
+  <script>
+    (function redirectPapersHash() {
+      const hash = window.location.hash.toLowerCase();
+      if (hash === "#papers") {
+        window.location.replace("/papers.html");
+      }
+    })();
+  </script>
 </body>
 </html>

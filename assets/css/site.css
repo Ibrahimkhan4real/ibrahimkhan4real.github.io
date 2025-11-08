@@ -184,7 +184,7 @@ main footer {
   justify-content: center;
 }
 
-main footer a.button_accent {
+.button_accent {
   padding: 12px 24px;
   border: 2px solid var(--accent);
   border-radius: 24px;
@@ -192,10 +192,13 @@ main footer a.button_accent {
   color: var(--accent);
   font-size: 1.05em;
   transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-main footer a.button_accent:hover,
-main footer a.button_accent:focus {
+.button_accent:hover,
+.button_accent:focus {
   color: #ffffff;
   background-color: var(--accent);
   text-decoration: none;
@@ -479,10 +482,16 @@ main div#ending_message {
   list-style: none;
 }
 
-#status {
-  margin-top: 1.5em;
+.papers-meta {
+  margin-top: 1.2em;
   font-size: 0.92em;
   color: var(--text-muted);
+}
+
+.papers-error {
+  margin-top: 1em;
+  font-size: 0.92em;
+  color: #c62828;
 }
 
 .highlighttable {
