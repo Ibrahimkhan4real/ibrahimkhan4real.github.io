@@ -2,7 +2,7 @@ title: "Muhammad Ibrahim Khan"
 description: "Applied AI engineer sharing work, travel, and writing."
 markdown: kramdown
 permalink: pretty
-baseurl: "/Personal_website"
+baseurl: ""
 url: "https://ibrahimkhan4real.github.io"
 exclude:
   - README.md

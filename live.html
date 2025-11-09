@@ -1,8 +1,9 @@
 ---
 layout: null
+permalink: /live/
 ---
 <!DOCTYPE html>
-<html lang="en" data-baseurl="{{ site.baseurl | default: '' }}">
+<html lang="en" data-baseurl="{{ site.baseurl | default: site.github.baseurl | default: '' }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,18 +17,18 @@ layout: null
   <aside>
     <div id="user_meta">
       <div id="author_info">
-        <a href="{{ '/index.html' | relative_url }}"><img src="{{ '/assets/img/Khan_logo.jpg' | relative_url }}" alt="Muhammad Ibrahim Khan logo" width="192" height="192"></a>
-        <h2><a href="{{ '/index.html' | relative_url }}">Muhammad Ibrahim Khan</a></h2>
+        <a href="{{ '/' | relative_url }}"><img src="{{ '/assets/img/Khan_logo.jpg' | relative_url }}" alt="Muhammad Ibrahim Khan logo" width="192" height="192"></a>
+        <h2><a href="{{ '/' | relative_url }}">Muhammad Ibrahim Khan</a></h2>
         <p class="subtitle">AI Engineer · Applied Researcher</p>
       </div>
       <ul>
-        <li><a class="nav-link" href="{{ '/index.html' | relative_url }}">home</a></li>
-        <li><a class="nav-link current" href="{{ '/live.html' | relative_url }}">live</a></li>
-        <li><a class="nav-link" href="{{ '/travel.html' | relative_url }}">travel</a></li>
-        <li><a class="nav-link" href="{{ '/papers.html' | relative_url }}">papers</a></li>
+        <li><a class="nav-link" href="{{ '/' | relative_url }}">home</a></li>
+        <li><a class="nav-link current" href="{{ '/live/' | relative_url }}">live</a></li>
+        <li><a class="nav-link" href="{{ '/travel/' | relative_url }}">travel</a></li>
+        <li><a class="nav-link" href="{{ '/papers/' | relative_url }}">papers</a></li>
         <li><a class="nav-link" href="{{ '/blog/' | relative_url }}">blog</a></li>
-        <li><a class="nav-link" href="{{ '/index.html#projects' | relative_url }}">projects</a></li>
-        <li><a class="nav-link" href="{{ '/index.html#contact' | relative_url }}">contact</a></li>
+        <li><a class="nav-link" href="{{ '/#projects' | relative_url }}">projects</a></li>
+        <li><a class="nav-link" href="{{ '/#contact' | relative_url }}">contact</a></li>
         <li><a class="nav-link" href="https://github.com/Ibrahimkhan4real" target="_blank" rel="noopener noreferrer">github</a></li>
       </ul>
     </div>
@@ -59,7 +60,7 @@ layout: null
           <ul>
             <li>Leading CureMD initiatives across copilots, automated graders, and support surfaces powered by LLMs.</li>
             <li>Experimenting with C++, Python, and TypeScript stacks that bridge research insights with production delivery.</li>
-            <li>Documenting language learning, mentoring, and product notes for the next <a href="{{ '/index.html#projects' | relative_url }}">projects</a> refresh.</li>
+            <li>Documenting language learning, mentoring, and product notes for the next <a href="{{ '/#projects' | relative_url }}">projects</a> refresh.</li>
           </ul>
         </section>
 
