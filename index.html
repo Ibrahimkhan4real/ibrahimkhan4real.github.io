@@ -26,7 +26,6 @@
         <li><a class="nav-link" href="travel.html">Travel</a></li>
         <li><a class="nav-link" href="papers.html">Papers</a></li>
         <li><a class="nav-link" href="blog.html">Blog</a></li>
-        <li><a class="nav-link" href="index.html#projects">Projects</a></li>
         <li><a class="nav-link" href="index.html#contact">Contact</a></li>
         <li><a class="nav-link" href="https://github.com/Ibrahimkhan4real" target="_blank" rel="noopener noreferrer">GitHub</a></li>
       </ul>
@@ -40,144 +39,74 @@
 
     <article>
       <div id="article_title">
-        <h1>Reinforcement Learning & Control Researcher</h1>
+        <h1>Data Scientist</h1>
       </div>
-
       <div id="article_text">
-        <p class="lead">
-          I am Muhammad Ibrahim Khan, a PhD researcher in reinforcement learning at Coventry University.
-          My work focuses on Monte Carlo Tree Search (MCTS) and RL for energy-efficient control of heat pumps
-          and domestic hot-water immersion systems, with a background in applied AI for real-world systems.
-        </p>
+        <p class="lead">I am Muhammad Ibrahim Khan, an AI Engineer at CureMD and a mechanical engineer by training. I specialise in building dependable ML and LLM systems for healthcare and automation.</p>
 
         <section class="status-section" id="about">
-          <h2>About</h2>
-          <p>
-            I work at the intersection of reinforcement learning, optimal control, and energy systems.
-            My research looks at how planning methods such as MCTS and model-based RL can control
-            heating systems under uncertainty, while respecting comfort constraints and minimising
-            energy use. I am particularly interested in deadline-aware control of hot-water tanks
-            and heat pumps, where the goal is to hit a temperature target at a specified time
-            using as little energy as possible.
-          </p>
+          <h2>About me</h2>
+          <p>I bring mechanical engineering discipline into data science, focusing on autonomy, evaluation pipelines, and human-centred tooling.</p>
         </section>
 
         <section class="status-section" id="education">
           <h2>Education</h2>
-          <ul>
+          <ul class="education-list">
             <li>
-              <strong>PhD, Reinforcement Learning</strong> — Coventry University, UK<br>
-              Thesis: <em>Multi-Sensor Fusion for Robust Reinforcement Learning in Uncertain Environments</em><br>
-              <span>Expected completion: March 2028</span>
+              <h3>BE, Mechanical Engineering — National University of Sciences and Technology</h3>
+              <p>Islamabad, Pakistan · 2019–2023</p>
             </li>
-            <li>
-              <strong>BE, Mechanical Engineering</strong> — National University of Sciences and Technology (NUST), Pakistan (2019–2023)
-            </li>
-          </ul>
-        </section>
-
-        <section class="status-section" id="research">
-          <h2>Research focus</h2>
-          <ul>
-            <li>Reinforcement learning for energy-efficient control of heat pumps and immersion heaters.</li>
-            <li>Monte Carlo Tree Search and hybrid planning / learning methods for deadline-aware control.</li>
-            <li>Robust control under uncertainty with noisy sensors and variable demand profiles.</li>
-            <li>Sample-efficient RL using surrogate models and model-based approaches.</li>
           </ul>
         </section>
 
         <section class="status-section" id="experience">
-          <h2>Experience</h2>
-          <div class="timeline">
-            <div class="timeline-entry">
-              <h3>PhD Researcher · Coventry University</h3>
-              <p class="timeline-meta">Sep 2024 – present · Coventry, UK</p>
+          <h2>Work Experience</h2>
+          <ul class="experience-list">
+            <li>
+              <div class="experience-heading">
+                <h3>AI Engineer @ CureMD</h3>
+                <span>July 2023 – Present · Lahore, Pakistan</span>
+              </div>
               <ul>
-                <li>Designing Gymnasium environments for hot-water immersion systems and heat pumps with realistic thermal dynamics.</li>
-                <li>Developing MCTS and PPO-based controllers for deadline-aware, energy-efficient heating.</li>
-                <li>Studying robustness of RL controllers under parameter uncertainty and variable demand.</li>
+                <li>Developed an In-House “LLM for Code” powered by RAG with Mixtral 8x7B for code explanation, generation, and translation.</li>
+                <li>Fine-tuned LLMs on proprietary code to build a chatbot tailored to software specialists.</li>
+                <li>Built retrieval-augmented chatbots that serve customer-service teams with grounded policy answers.</li>
+                <li>Implemented a Mistral 7-B “Code Grader” that evaluates candidates via logic checks and black-box testing—100+ assessments in under a minute.</li>
+                <li>Applied ML/DL models that improve internal productivity and unlock new healthcare products.</li>
               </ul>
-            </div>
-
-            <div class="timeline-entry">
-              <h3>Teaching Assistant & Lab Demonstrator · Coventry University</h3>
-              <p class="timeline-meta">Aug 2025 – present · Coventry, UK</p>
-              <ul>
-                <li>Delivering labs for the “Deep Learning and Computer Vision” module for MSc Data Science students.</li>
-                <li>Marking coursework and supporting students in practical ML and deep learning topics.</li>
-              </ul>
-            </div>
-
-            <div class="timeline-entry">
-              <h3>Associate AI Engineer · CureMD</h3>
-              <p class="timeline-meta">Jul 2023 – Sep 2024 · Lahore, Pakistan</p>
-              <ul>
-                <li>Built an in-house “LLM for code”, similar to GitHub Copilot, using RAG with large open-source models.</li>
-                <li>Fine-tuned LLMs on proprietary codebases for developer assistance and internal tooling.</li>
-                <li>Developed an automated code-grading system using LLMs and black-box testing for large-scale candidate evaluation.</li>
-              </ul>
-            </div>
-          </div>
+            </li>
+          </ul>
         </section>
 
         <section class="status-section" id="projects">
-          <h2>Selected projects</h2>
-
-          <h3>Deadline-aware control of domestic hot-water tanks</h3>
-          <p>
-            A Gymnasium environment and set of baselines for controlling an immersion hot-water heater with first-order thermal losses
-            and discrete on/off actions. The agent must reach a temperature target at a fixed deadline while minimising energy use.
-            I compare bang-bang control, zero-shot MCTS, and PPO policies under identical physics.
-          </p>
-
-          <h3>Hybrid MCTS for heat-pump control</h3>
-          <p>
-            Ongoing work on combining model-based planning and learned value functions to control residential heat pumps.
-            The aim is to exploit MCTS for look-ahead planning while using RL to generalise across different building and
-            weather conditions.
-          </p>
-
-          <h3>LLM-based code grader</h3>
-          <p>
-            An automated code-grading pipeline using open-source LLMs (for example, Llama 3) to evaluate candidate submissions.
-            The system combines logical reasoning about code with black-box tests to provide fast, scalable technical screening.
-          </p>
+          <h2>Autonomous Laser Weeding Robot</h2>
+          <p>Developed an agricultural robot that autonomously navigates crop fields, detects weeds via computer vision, and eliminates them using a 10W carbon laser.</p>
+          <h3>Key features</h3>
+          <ul>
+            <li>Advanced weed detection based on shape, size, and colour.</li>
+            <li>Laser elimination with real-time verification after each shot.</li>
+            <li>Four-bar-linkage chassis for stability on farmland.</li>
+            <li>Autonomous navigation and CNC precision to align the laser.</li>
+          </ul>
+          <h3>Achievements</h3>
+          <ul>
+            <li>Secured third place in the Prime Minister’s National Innovation Award 2023.</li>
+            <li>Delivered a sustainable alternative to chemical herbicides.</li>
+          </ul>
         </section>
 
         <section class="status-section" id="publications">
-          <h2>Publications and workshops</h2>
-          <ul>
-            <li>
-              <strong>Learning from Less: SINDy Surrogates in RL</strong><br>
-              <span>ICLR 2025 — integration of sparse surrogate models with reinforcement learning for improved sample efficiency.</span>
-            </li>
-            <li>
-              <strong>Hybrid MCTS for Heat Pump Control</strong><br>
-              <span>BuildSys 2025 PhD Forum — hybrid planning and learning for residential heat-pump control.</span>
-            </li>
-            <li>
-              <strong>Deadline-Aware, Energy-Efficient Control of Domestic Immersion Hot-Water Heater</strong><br>
-              <span>AAAI 2026 Workshop on AI for Environmental Science — RL and MCTS for deadline-aware hot-water control.</span>
-            </li>
-          </ul>
-          <p>For more details and an up-to-date list, see the papers page.</p>
+          <h2>Updating the publications list</h2>
+          <p>Run the helper script whenever you want to refresh the papers page:</p>
+          <pre><code>python scripts/update_papers.py --scholar-id bh9os08AAAAJ</code></pre>
+          <p>The script regenerates <code>site_data/papers.json</code>, which <code>papers.html</code> reads at runtime. Commit the updated JSON before deploying.</p>
           <p><a class="button_accent" href="papers.html">View papers</a></p>
-        </section>
-
-        <section class="status-section" id="skills">
-          <h2>Skills</h2>
-          <ul>
-            <li>Reinforcement learning: PPO, SAC, Q-learning; model-based RL; planning with MCTS.</li>
-            <li>Energy and control: modelling of hot-water tanks and heat-pump systems; deadline-aware control.</li>
-            <li>ML stack: Python, NumPy, Pandas, PyTorch, TensorFlow, scikit-learn.</li>
-            <li>LLMs and tooling: RAG, prompt design, fine-tuning, LLM-driven developer tools.</li>
-          </ul>
         </section>
 
         <section class="status-section" id="contact">
           <h2>Contact</h2>
           <ul>
-            <li>Email: <a href="mailto:ibrahimkhanlive1000@gmail.com">ibrahimkhanlive1000@gmail.com</a></li>
+            <li>Email: <a href="mailto:ibrahimkhan4real@gmail.com">ibrahimkhan4real@gmail.com</a></li>
             <li>GitHub: <a href="https://github.com/Ibrahimkhan4real" target="_blank" rel="noopener noreferrer">github.com/Ibrahimkhan4real</a></li>
           </ul>
         </section>
@@ -185,11 +114,11 @@
     </article>
 
     <footer>
-      <a class="button_accent" href="mailto:ibrahimkhanlive1000@gmail.com">Say hello</a>
+      <a class="button_accent" href="mailto:ibrahimkhan4real@gmail.com">Say hello</a>
     </footer>
 
     <div id="ending_message">
-      <p>Based in Coventry, originally from Pakistan. Open to collaboration on reinforcement learning and energy-efficient control.</p>
+      <p>Based in Lahore, Pakistan—always open to collaborations on AI for healthcare and autonomous systems.</p>
     </div>
   </main>
 

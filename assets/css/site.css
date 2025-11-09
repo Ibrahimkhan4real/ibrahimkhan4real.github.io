@@ -273,39 +273,48 @@ main div#ending_message {
 }
 
 /* Timeline kept, but lighter */
-.timeline {
-  border-left: 1px solid var(--border);
-  margin-left: 0.8em;
-  padding-left: 1.4em;
-  display: grid;
+.experience-list,
+.education-list {
+  list-style: disc;
+  list-style-position: inside;
+  padding-left: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
   gap: 1.4em;
 }
 
-.timeline-entry {
-  position: relative;
+.experience-list > li,
+.education-list > li {
+  margin: 0;
 }
 
-.timeline-entry::before {
-  content: '';
-  position: absolute;
-  left: -1.72em;
-  top: 0.25em;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: var(--accent);
-  box-shadow: 0 0 0 2px var(--accent-soft);
-}
-
-.timeline-entry h3 {
-  margin: 0 0 0.2em;
+.experience-heading h3 {
+  margin: 0;
   font-size: 1.05em;
 }
 
-.timeline-entry p {
-  margin: 0;
-  font-size: 0.95rem;
+.experience-heading span {
+  display: block;
+  font-size: 0.9em;
   color: var(--text-muted);
+  margin-top: 0.2em;
+}
+
+.experience-list ul {
+  margin: 0.6em 0 0 1em;
+  padding-left: 1em;
+}
+
+.education-list h3 {
+  margin: 0 0 0.2em;
+  font-size: 1em;
+}
+
+.education-list p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.92em;
 }
 
 .progress-bar {
