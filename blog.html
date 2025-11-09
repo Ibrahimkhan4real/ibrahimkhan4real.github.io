@@ -1,54 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Muhammad Ibrahim Khan">
-  <meta name="description" content="Writing and notes by Muhammad Ibrahim Khan.">
-  <title>Blog — Muhammad Ibrahim Khan</title>
-  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/site.css?v=20240519">
-  <script defer src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script defer src="assets/js/blog.js"></script>
-</head>
-<body>
-  <aside>
-    <div id="user_meta">
-      <div id="author_info">
-        <a href="index.html"><img src="assets/img/Khan_logo.jpg" alt="Muhammad Ibrahim Khan logo" width="192" height="192"></a>
-        <h2><a href="index.html">Muhammad Ibrahim Khan</a></h2>
-        
-      </div>
-      <ul>
-        <li><a class="nav-link" href="index.html">Home</a></li>
-        <li><a class="nav-link" href="live.html">Live</a></li>
-        <li><a class="nav-link" href="travel.html">Travel</a></li>
-        <li><a class="nav-link" href="papers.html">Papers</a></li>
-        <li><a class="nav-link current" href="blog.html">Blog</a></li>
-        <li><a class="nav-link" href="index.html#projects">Projects</a></li>
-        <li><a class="nav-link" href="index.html#contact">Contact</a></li>
-        <li><a class="nav-link" href="https://github.com/Ibrahimkhan4real" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-      </ul>
-    </div>
-  </aside>
+---
+layout: default
+title: "Blog — Muhammad Ibrahim Khan"
+---
 
-  <main>
-    <header>
-      <p>Writing and field notes</p>
-    </header>
+<header>
+  <p>Writing and field notes</p>
+</header>
 
-    <article>
-      <div id="article_title">
-        <h1>Blog</h1>
-      </div>
-      <div id="article_text">
-        <p class="lead">Notes on CureMD engineering systems, autonomous robotics, and the mechanical-to-ML lessons described in my README. Each post lives in <code>blog/posts/</code> as Markdown.</p>
+<article>
+  <div id="article_title">
+    <h1>Blog</h1>
+  </div>
+  <div id="article_text">
+    <p class="lead">
+      Notes on reinforcement learning, Monte Carlo Tree Search, and energy-efficient control of heat pumps and hot-water systems.
+      Each post is written in Markdown and built by GitHub Pages.
+    </p>
 
-        <ul class="blog-list" id="blog-list">
-          <li>Loading posts…</li>
-        </ul>
-      </div>
-    </article>
-  </main>
-</body>
-</html>
+    <ul class="blog-list">
+      {% for post in site.posts %}
+        <li>
+          <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+          <p class="blog-meta">
+            {{ post.date | date: "%d %b %Y" }}
+          </p>
+          <p>
+            {{ post.excerpt | strip_html | truncate: 200 }}
+          </p>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</article>

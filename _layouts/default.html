@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Muhammad Ibrahim Khan">
+  <title>{{ page.title | default: "Muhammad Ibrahim Khan" }}</title>
+  <link rel="icon" href="{{ "/assets/img/favicon.svg" | relative_url }}" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ "/assets/css/site.css?v=20240519" | relative_url }}">
+</head>
+<body>
+  <aside>
+    <div id="user_meta">
+      <div id="author_info">
+        <a href="{{ "/" | relative_url }}">
+          <img src="{{ "/assets/img/Khan_logo.jpg" | relative_url }}" alt="Muhammad Ibrahim Khan logo" width="192" height="192">
+        </a>
+        <h2><a href="{{ "/" | relative_url }}">Muhammad Ibrahim Khan</a></h2>
+      </div>
+      <ul>
+        <li><a class="nav-link" href="{{ "/" | relative_url }}">home</a></li>
+        <li><a class="nav-link" href="{{ "/live.html" | relative_url }}">live</a></li>
+        <li><a class="nav-link" href="{{ "/travel.html" | relative_url }}">travel</a></li>
+        <li><a class="nav-link" href="{{ "/papers.html" | relative_url }}">papers</a></li>
+        <li><a class="nav-link" href="{{ "/blog.html" | relative_url }}">blog</a></li>
+        <li><a class="nav-link" href="{{ "/index.html#projects" | relative_url }}">projects</a></li>
+        <li><a class="nav-link" href="{{ "/index.html#contact" | relative_url }}">contact</a></li>
+        <li><a class="nav-link" href="https://github.com/Ibrahimkhan4real" target="_blank" rel="noopener noreferrer">github</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    {{ content }}
+  </main>
+</body>
+</html>
