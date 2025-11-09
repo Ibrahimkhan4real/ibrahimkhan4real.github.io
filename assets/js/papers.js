@@ -1,12 +1,4 @@
-const getBasePath = () => {
-  const raw = document.documentElement.getAttribute('data-baseurl') || '';
-  if (!raw || raw === '/') {
-    return '';
-  }
-  return raw.endsWith('/') ? raw.slice(0, -1) : raw;
-};
-
-const PAPERS_PATH = `${getBasePath()}/site_data/papers.json`;
+const PAPERS_PATH = 'site_data/papers.json';
 const papersListNode = document.getElementById('papers-list');
 const metaNode = document.getElementById('papers-meta');
 const errorNode = document.getElementById('papers-error');
