@@ -1,14 +1,15 @@
 :root {
+  /* Simpler, text-first palette */
   --bg: #ffffff;
   --panel: #ffffff;
-  --text: #1f2737;
-  --text-muted: #60708c;
-  --border: #e0e6ed;
-  --accent: #2563eb;
-  --accent-soft: rgba(37, 99, 235, 0.06);
-  --accent-strong: rgba(37, 99, 235, 0.12);
-  --card-radius: 16px;
-  --shadow-soft: 0 8px 20px rgba(15, 23, 42, 0.06);
+  --text: #111111;
+  --text-muted: #666666;
+  --border: #e2e2e2;
+  --accent: #111111;
+  --accent-soft: rgba(17, 17, 17, 0.04);
+  --accent-strong: rgba(17, 17, 17, 0.08);
+  --card-radius: 8px;
+  --shadow-soft: 0 1px 2px rgba(15, 23, 42, 0.04);
   --font-sans: 'PT Sans', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'PT Mono', 'JetBrains Mono', 'Fira Code', monospace;
 }
@@ -43,8 +44,6 @@ hr {
   border: none;
 }
 
-/* SIDEBAR */
-
 aside {
   background: var(--panel);
   border-right: 1px solid var(--border);
@@ -76,10 +75,8 @@ aside div#user_meta p {
 #author_info img {
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: var(--shadow-soft);
+  box-shadow: none;
 }
-
-/* NAVIGATION: SIMPLE TEXT LINKS */
 
 aside div#user_meta ul {
   padding-left: 0;
@@ -96,13 +93,14 @@ aside div#user_meta ul li {
   display: inline;
 }
 
+/* Navigation: simpler, text-style links */
 .nav-link {
   padding: 0;
   border: none;
   border-radius: 0;
   color: var(--text-muted);
-  text-transform: lowercase;
-  letter-spacing: 0.04em;
+  text-transform: none;
+  letter-spacing: 0.03em;
   transition: color 0.2s ease;
   display: inline-flex;
   align-items: center;
@@ -117,15 +115,13 @@ aside div#user_meta ul li {
 }
 
 .nav-link.current {
-  color: #111827;
+  color: var(--accent);
   font-weight: 600;
-  text-decoration: underline;
+  box-shadow: none;
 }
 
-/* MAIN LAYOUT */
-
 main {
-  width: min(840px, 100%);
+  width: min(780px, 100%);
   margin: 0 auto;
   padding: 24px 20px 80px;
 }
@@ -139,15 +135,15 @@ main header {
 
 main header p {
   margin: 0;
-  font-weight: bold;
-  font-size: 0.7em;
+  font-weight: 600;
+  font-size: 0.72em;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.14em;
   color: var(--text-muted);
 }
 
 main article {
-  max-width: 840px;
+  max-width: 780px;
   padding: 32px 0 16px;
   background-color: transparent;
   border: none;
@@ -159,22 +155,19 @@ main article {
 #article_title h1 {
   margin-bottom: 0.4em;
   text-transform: none;
-  font-size: clamp(2.2rem, 5vw, 2.9rem);
+  font-size: clamp(2.1rem, 4.5vw, 2.8rem);
   font-weight: 600;
 }
 
 main article div#article_text {
   line-height: 1.7;
-  font-size: 1.03rem;
+  font-size: 1.02rem;
 }
 
 .lead {
   font-size: 1.12rem;
   color: var(--text);
-  margin-bottom: 1.6rem;
 }
-
-/* TEXT / CONTENT */
 
 main article div#article_text ul {
   padding-left: 1.2em;
@@ -190,7 +183,7 @@ main article div#article_text a {
 
 main article div#article_text blockquote {
   margin: 24px 12px;
-  padding-left: 32px;
+  padding-left: 24px;
   color: var(--text-muted);
   font-style: italic;
   border-left: 3px solid var(--accent);
@@ -200,8 +193,6 @@ main article div#article_meta {
   font-size: 0.75em;
   color: var(--text-muted);
 }
-
-/* FOOTER */
 
 main footer {
   border-top: none;
@@ -216,7 +207,7 @@ main footer {
 }
 
 .button_accent {
-  padding: 10px 18px;
+  padding: 8px 16px;
   border: 1px solid var(--border);
   border-radius: 4px;
   text-transform: none;
@@ -245,16 +236,14 @@ main div#ending_message {
   text-align: center;
 }
 
-/* SECTIONS */
-
 .status-section {
-  margin: 2.4em 0;
+  margin: 2.6em 0;
 }
 
 .status-section h2 {
   font-size: 1.35em;
   margin-bottom: 0.6em;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .status-section p,
@@ -271,8 +260,6 @@ main div#ending_message {
   margin-bottom: 0.45em;
 }
 
-/* PAPERS / META ELEMENTS */
-
 .paper-authors {
   margin: 0.2em 0 0;
   color: var(--text-muted);
@@ -285,10 +272,9 @@ main div#ending_message {
   color: var(--text-muted);
 }
 
-/* TIMELINE */
-
+/* Timeline kept, but lighter */
 .timeline {
-  border-left: 2px dashed var(--border);
+  border-left: 1px solid var(--border);
   margin-left: 0.8em;
   padding-left: 1.4em;
   display: grid;
@@ -302,13 +288,13 @@ main div#ending_message {
 .timeline-entry::before {
   content: '';
   position: absolute;
-  left: -1.76em;
-  top: 0.2em;
-  width: 10px;
-  height: 10px;
+  left: -1.72em;
+  top: 0.25em;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-soft);
+  box-shadow: 0 0 0 2px var(--accent-soft);
 }
 
 .timeline-entry h3 {
@@ -318,14 +304,12 @@ main div#ending_message {
 
 .timeline-entry p {
   margin: 0;
-  font-size: 0.96rem;
+  font-size: 0.95rem;
   color: var(--text-muted);
 }
 
-/* PROGRESS / TAGS */
-
 .progress-bar {
-  background-color: rgba(14, 148, 236, 0.12);
+  background-color: rgba(17, 17, 17, 0.08);
   border-radius: 999px;
   overflow: hidden;
   height: 8px;
@@ -336,7 +320,7 @@ main div#ending_message {
 .progress-bar span {
   display: block;
   height: 100%;
-  background: linear-gradient(90deg, var(--accent) 0%, #32d6ff 100%);
+  background: linear-gradient(90deg, var(--accent) 0%, #4b5563 100%);
 }
 
 .progress-group {
@@ -369,7 +353,7 @@ main div#ending_message {
   align-items: center;
   padding: 2px 6px;
   border-radius: 999px;
-  background-color: rgba(14, 148, 236, 0.08);
+  background-color: rgba(17, 17, 17, 0.06);
   color: var(--accent);
 }
 
@@ -378,8 +362,6 @@ main div#ending_message {
 .tag-3 { font-size: 120%; }
 .tag-4 { font-size: 90%; }
 .tag-5 { font-size: 70%; }
-
-/* PAPERS LIST / BLOG LIST */
 
 #papers-list {
   list-style: none;
@@ -442,8 +424,6 @@ main div#ending_message {
   color: #c62828;
 }
 
-/* TRAVEL MAP */
-
 #travel-map {
   width: 100%;
   min-height: 520px;
@@ -458,8 +438,6 @@ main div#ending_message {
   font-size: 0.9em;
   color: var(--text-muted);
 }
-
-/* CODE / HIGHLIGHTING */
 
 .highlighttable {
   margin: 24px auto;
@@ -502,8 +480,6 @@ sup {
   overflow-y: hidden;
 }
 
-/* ARCHIVE */
-
 .archive-container {
   position: relative;
 }
@@ -522,8 +498,6 @@ sup {
 .archive-container:hover .archive-link {
   display: inline-block;
 }
-
-/* LAYOUT: DESKTOP */
 
 @media screen and (min-width: 1024px) {
   body {
@@ -558,8 +532,6 @@ sup {
     overflow-y: hidden;
     word-break: break-word;
     text-align: left;
-    text-justify: auto;
-    hyphens: none;
   }
 
   main header {
@@ -575,8 +547,6 @@ sup {
     padding: 24px 32px;
   }
 }
-
-/* LAYOUT: MOBILE / TABLET */
 
 @media screen and (max-width: 1024px) {
   body {
