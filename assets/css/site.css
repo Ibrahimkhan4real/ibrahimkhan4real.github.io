@@ -122,7 +122,7 @@ aside div#user_meta ul li {
 }
 
 main {
-  width: min(960px, 100%);
+  width: min(1040px, 100%);
   margin: 0 auto;
   padding: 24px 20px 80px;
 }
@@ -144,7 +144,7 @@ main header p {
 }
 
 main article {
-  max-width: 960px;
+  max-width: 1040px;
   padding: 32px 28px 16px;
   background-color: var(--panel);
   border: 1px solid var(--border);
@@ -207,13 +207,14 @@ main footer {
 }
 
 .button_accent {
-  padding: 12px 24px;
+  padding: 10px 20px;
   border: 1px solid var(--accent);
-  border-radius: 24px;
-  text-transform: uppercase;
+  border-radius: 6px;
+  text-transform: none;
   color: var(--accent);
-  font-size: 1.05em;
-  transition: all 0.25s ease;
+  font-size: 0.95em;
+  letter-spacing: 0.02em;
+  transition: background-color 0.2s ease, color 0.2s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
