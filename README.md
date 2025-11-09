@@ -1,46 +1,91 @@
-# Data Scientist
+# Muhammad Ibrahim Khan
 
-## About me
+Coventry, UK • +44 7470800092 • [ibrahimkhanlive1000@gmail.com](mailto:ibrahimkhanlive1000@gmail.com)
 
+---
 
 ## Education
-- BE, Mechanical Engineering | National University of Sciences and Technology (_2019 - 2023_)
 
-## Work Experience
-**AI Engineer @ CureMD (_July 2023 - Present_)**
-- Developed an In-House "LLM for Code": Created an advanced in-house tool similar to GitHub Copilot. This tool, leveraging RAG with Mixtral 8x7B, is capable of code explanation, generation, and translation, significantly aiding in software development processes.
-- Fine-Tuning LLMs for Specialized Applications: Fine-tuned LLMs on a proprietary code base to develop a chatbot specifically designed for software specialists.
-- Chatbot Development for Customer Service: Utilized Retrieval Augmented Generation (RAG) with LLMs to develop a chatbot for the Customer Service Department.
-- Automated Code Grading System: Implemented a LLM-based "Code Grader" using Mistral 7-B, which graded over 100+ candidates in under a minute. This system evaluates code based on logic and black-box testing.
-- Enhancing Productivity with ML/DL Models: Employed machine learning and deep learning models to boost internal productivity and create innovative products tailored for the US Healthcare Industry.
+**PhD in Reinforcement Learning**  
+*Coventry University, Coventry, UK*  
+_expected completion – Mar 2028_  
+Thesis title: **Multi-Sensor Fusion for Robust Reinforcement Learning in Uncertain Environments**
 
-## Projects
+**Bachelor of Mechanical Engineering**  
+*National University of Sciences and Technology (NUST), Islamabad, Pakistan*  
+Jun 2023
 
-### Autonomous Laser Weeding Robot
+---
 
-**Project Overview:**
-Developed an innovative agricultural robot designed to autonomously navigate and weed crop fields, utilizing advanced computer vision and laser technology.
+## Skills
 
-**Key Features:**
-- Advanced Weed Detection: Implemented a sophisticated computer vision algorithm to distinguish weeds from crops based on shape, size, and color. This ensures precise and accurate weed identification.
-- Laser Elimination: Integrated a 10W Carbon laser that targets and eliminates weeds with a five-second exposure time, providing an efficient and eco-friendly alternative to chemical herbicides.
-- Real-Time Verification: Utilized computer vision to confirm weed removal before resuming navigation, ensuring thorough and effective weeding.
-- Novel Chassis Design: Engineered a unique chassis based on four-bar linkages, enhancing stability and mobility through various agricultural terrains.
-- Autonomous Navigation: Developed and implemented a path planning algorithm for the robot to autonomously navigate crop fields, ensuring complete automation.
-- Precision Actuation: Installed a CNC mechanism to accurately line up the laser on top of the weed, guaranteeing precise targeting and removal.
+**Programming**
 
-**Achievements:**
-- Secured third place in Prime Minister's National Innovation Award 2023.
-- Successfully designed and developed a fully autonomous system that integrates cutting-edge technologies in robotics, computer vision, and precision agriculture.
-- Enhanced agricultural efficiency by providing a sustainable and environmentally friendly solution for weed management.
-- Reduced dependency on chemical herbicides, promoting a more eco-friendly approach to farming.
+- Python (NumPy, Pandas, PySpark, Scikit-learn, Matplotlib, YOLO, PyTorch, Langchain, TensorFlow)
 
-## Updating the publications list
+**Modelling and Machine Learning**
 
-Run the helper script whenever you want to refresh the `papers` page with the latest entries from Google Scholar:
+- Reinforcement Learning: PPO, SAC, Q-learning  
+- Classification: SVMs, KNNs, Logistic Regression, Naïve Bayes  
+- Prediction: Linear Regression, XGBoost, Random Forest, CART, Neural Networks  
+- Clustering: K-means, Hierarchical  
+- NLP: LLMs, RNNs, LSTMs, Transformers, RAG, Fine-tuning
 
-```bash
-python scripts/update_papers.py --scholar-id bh9os08AAAAJ
-```
+**Certifications**
 
-The script regenerates `site_data/papers.json`, which the `papers.html` page reads at runtime. Commit the updated JSON file alongside any site changes before deploying.
+- Machine Learning Specialization (Coursera)  
+- Deep Learning Specialization (Coursera)
+
+---
+
+## Experience
+
+### Teaching Assistant and Lab Demonstrator  
+**Coventry University, Coventry, UK**  
+_Aug 2025 – Present_
+
+- Conducted detailed labs for the “Deep Learning and Computer Vision” module, supporting MSc Data Science students.  
+- Graded postgraduate coursework for MSc Data Science students, ensuring accurate and timely evaluation of assignments.  
+- Collaborated with faculty to maintain smooth course delivery and provided feedback to improve teaching materials.
+
+### Associate AI Engineer  
+**CureMD, Lahore, Pakistan**  
+_Jul 2023 – Sep 2024_
+
+- Developed an in-house “LLM for Code”, an advanced tool similar to GitHub Copilot, leveraging RAG with Mixtral 8x7B for code explanation, generation, and translation to support software development.  
+- Fine-tuned LLMs on a proprietary code base to develop a chatbot tailored for software specialists.  
+- Utilised Retrieval Augmented Generation (RAG) with LLMs to develop a chatbot for the Customer Service Department.  
+- Built an automated LLM-based “Code Grader” using Llama 3, which graded over 100 candidates in under a minute, evaluating code based on logic and black-box testing.  
+- Applied machine learning and deep learning models to enhance internal productivity and create products for the US healthcare industry.
+
+### Field Engineer – Intern  
+**Engro Fertilizers, Daharki, Pakistan**  
+_Jun 2022 – Aug 2022_
+
+- Assisted with engine replacement of a 7700 HP aeroderivative engine (Taurus 60) during a 24-day forced outage.  
+- Worked closely with the Field Service Representative from Egypt and produced a comprehensive report on the engine replacement.  
+- Examined internal components and assemblies of centrifugal compressors and steam turbines and observed complete overhauls.
+
+---
+
+## Data Science Projects
+
+**LLM-Based Code Grading System**  
+_Feb 2024_  
+- Used open-source LLMs such as Llama 3 to develop an automated code grading system capable of evaluating code quality using logical assessment and black-box testing.
+
+---
+
+## Research Publications
+
+- **Learning from Less: SINDy Surrogates in RL**  
+  _ICLR 2025, Apr 2025_
+
+---
+
+## Awards and Distinctions
+
+- Awarded Fully Funded PhD  
+  _Sep 2024_  
+- Second Runner-Up, Prime Minister’s National Innovation Award 2023  
+  _Jul 2023_
