@@ -1,5 +1,15 @@
-#title: Muhammad Ibrahim Khan
-#logo: /assets/img/headshot_circle.png
-#description: text below image
-#show_downloads: False
-#theme: jekyll-theme-minimal
+title: "Muhammad Ibrahim Khan"
+description: "Applied AI engineer sharing work, travel, and writing."
+markdown: kramdown
+permalink: pretty
+exclude:
+  - README.md
+  - scripts
+  - node_modules
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: post
+      active_nav: blog

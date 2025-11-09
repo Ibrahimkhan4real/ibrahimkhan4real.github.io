@@ -1,4 +1,4 @@
-const PAPERS_PATH = 'site_data/papers.json';
+const PAPERS_PATH = '/site_data/papers.json';
 const papersListNode = document.getElementById('papers-list');
 const metaNode = document.getElementById('papers-meta');
 const errorNode = document.getElementById('papers-error');
