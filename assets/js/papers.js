@@ -35,9 +35,6 @@ const citationText = (paper) => {
 const renderPaper = (paper) => {
   const item = document.createElement('li');
 
-  const card = document.createElement('article');
-  card.className = 'status-card paper-card';
-
   const title = document.createElement('h3');
   if (paper.link) {
     const link = document.createElement('a');
@@ -49,13 +46,13 @@ const renderPaper = (paper) => {
   } else {
     title.textContent = paper.title || 'Untitled';
   }
-  card.appendChild(title);
+  item.appendChild(title);
 
   if (paper.authors) {
     const authors = document.createElement('p');
     authors.className = 'paper-authors';
     authors.textContent = paper.authors;
-    card.appendChild(authors);
+    item.appendChild(authors);
   }
 
   const meta = document.createElement('p');
@@ -63,9 +60,8 @@ const renderPaper = (paper) => {
   const venue = paper.venue ? paper.venue : 'Unpublished';
   const year = formatYear(paper.year);
   meta.textContent = `${venue}${year ? ` · ${year}` : ''}${citationText(paper)}`;
-  card.appendChild(meta);
+  item.appendChild(meta);
 
-  item.appendChild(card);
   return item;
 };
 
