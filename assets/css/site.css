@@ -128,11 +128,10 @@ main {
 }
 
 main header {
-  border-top: var(--border) 1px solid;
-  border-bottom: var(--border) 1px solid;
-  padding: 12px 20px;
-  background-color: var(--panel);
-  border-radius: var(--card-radius) var(--card-radius) 0 0;
+  border-top: none;
+  border-bottom: none;
+  padding: 12px 0;
+  background-color: transparent;
 }
 
 main header p {
@@ -145,12 +144,12 @@ main header p {
 
 main article {
   max-width: 1040px;
-  padding: 32px 28px 16px;
-  background-color: var(--panel);
-  border: 1px solid var(--border);
+  padding: 32px 0 16px;
+  background-color: transparent;
+  border: none;
   border-top: none;
-  border-radius: 0 0 var(--card-radius) var(--card-radius);
-  box-shadow: var(--shadow-soft);
+  border-radius: 0;
+  box-shadow: none;
 }
 
 #article_title h1 {
@@ -195,15 +194,15 @@ main article div#article_meta {
 }
 
 main footer {
-  border-top: var(--border) 1px solid;
-  border-bottom: var(--border) 1px solid;
-  padding: 20px;
+  border-top: none;
+  border-bottom: none;
+  padding: 20px 0;
   display: flex;
   justify-content: center;
-  background-color: var(--panel);
+  background-color: transparent;
   margin-top: 28px;
-  border-radius: var(--card-radius);
-  box-shadow: var(--shadow-soft);
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .button_accent {
@@ -230,7 +229,7 @@ main footer {
 }
 
 main div#ending_message {
-  padding: 0 40px 40px;
+  padding: 0 0 40px;
   color: var(--text-muted);
   font-size: 0.8em;
   text-align: center;
