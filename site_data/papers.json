@@ -1,7 +1,16 @@
 {
   "source": "Google Scholar",
   "scholar_id": "bh9os08AAAAJ",
-  "generated_at": "2025-11-10T06:50:25Z",
-  "count": 0,
-  "publications": []
+  "generated_at": "2025-11-17T06:49:54Z",
+  "count": 1,
+  "publications": [
+    {
+      "title": "Learning from Less: SINDy Surrogates in RL",
+      "authors": "A Dixit, MI Khan, F Ahmed, J Brusey",
+      "venue": "arXiv preprint arXiv:2504.18113",
+      "year": "2025",
+      "citations": null,
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bh9os08AAAAJ&pagesize=100&sortby=pubdate&citation_for_view=bh9os08AAAAJ:u5HHmVD_uO8C"
+    }
+  ]
 }
