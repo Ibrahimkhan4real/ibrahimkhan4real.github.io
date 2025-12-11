@@ -1,7 +1,24 @@
 {
   "source": "Google Scholar",
   "scholar_id": "bh9os08AAAAJ",
-  "generated_at": "2025-12-08T06:54:28Z",
-  "count": 0,
-  "publications": []
+  "generated_at": "2025-12-11T06:54:26Z",
+  "count": 2,
+  "publications": [
+    {
+      "title": "PhD Forum Abstract: Hybrid MCTS for Heat Pump Control",
+      "authors": "MI Khan",
+      "venue": "Proceedings of the 12th ACM International Conference on Systems for Energy …",
+      "year": "2025",
+      "citations": null,
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bh9os08AAAAJ&pagesize=100&sortby=pubdate&citation_for_view=bh9os08AAAAJ:u-x6o8ySG0sC"
+    },
+    {
+      "title": "Learning from Less: SINDy Surrogates in RL",
+      "authors": "A Dixit, MI Khan, F Ahmed, J Brusey",
+      "venue": "arXiv preprint arXiv:2504.18113",
+      "year": "2025",
+      "citations": null,
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bh9os08AAAAJ&pagesize=100&sortby=pubdate&citation_for_view=bh9os08AAAAJ:u5HHmVD_uO8C"
+    }
+  ]
 }
