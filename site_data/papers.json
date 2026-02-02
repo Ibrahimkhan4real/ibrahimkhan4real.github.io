@@ -1,32 +1,7 @@
 {
   "source": "Google Scholar",
   "scholar_id": "bh9os08AAAAJ",
-  "generated_at": "2026-02-01T07:08:48Z",
-  "count": 3,
-  "publications": [
-    {
-      "title": "Deadline-Aware, Energy-Efficient Control of Domestic Immersion Hot Water Heaters",
-      "authors": "MI Khan, B Pradeep, J Brusey",
-      "venue": "arXiv preprint arXiv:2601.18123",
-      "year": "2026",
-      "citations": null,
-      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bh9os08AAAAJ&pagesize=100&sortby=pubdate&citation_for_view=bh9os08AAAAJ:9yKSN-GCB0IC"
-    },
-    {
-      "title": "PhD Forum Abstract: Hybrid MCTS for Heat Pump Control",
-      "authors": "MI Khan",
-      "venue": "Proceedings of the 12th ACM International Conference on Systems for Energy …",
-      "year": "2025",
-      "citations": null,
-      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bh9os08AAAAJ&pagesize=100&sortby=pubdate&citation_for_view=bh9os08AAAAJ:u-x6o8ySG0sC"
-    },
-    {
-      "title": "Learning from Less: SINDy Surrogates in RL",
-      "authors": "A Dixit, MI Khan, F Ahmed, J Brusey",
-      "venue": "arXiv preprint arXiv:2504.18113",
-      "year": "2025",
-      "citations": null,
-      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bh9os08AAAAJ&pagesize=100&sortby=pubdate&citation_for_view=bh9os08AAAAJ:u5HHmVD_uO8C"
-    }
-  ]
+  "generated_at": "2026-02-02T07:32:12Z",
+  "count": 0,
+  "publications": []
 }
