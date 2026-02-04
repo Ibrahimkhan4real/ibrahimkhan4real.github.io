@@ -1,8 +1,8 @@
 {
   "source": "Google Scholar",
   "scholar_id": "bh9os08AAAAJ",
-  "generated_at": "2026-02-03T07:13:38Z",
-  "count": 3,
+  "generated_at": "2026-02-04T07:13:42Z",
+  "count": 4,
   "publications": [
     {
       "title": "Deadline-Aware, Energy-Efficient Control of Domestic Immersion Hot Water Heaters",
@@ -11,6 +11,14 @@
       "year": "2026",
       "citations": null,
       "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bh9os08AAAAJ&pagesize=100&sortby=pubdate&citation_for_view=bh9os08AAAAJ:9yKSN-GCB0IC"
+    },
+    {
+      "title": "Design of a six wheel suspension and a three-axis linear actuation mechanism for a laser weeding robot",
+      "authors": "M Usama, MI Khan, A Hasan, MS Nadeem, KF Iqbal, J Aslam, MA Ali, ...",
+      "venue": "arXiv preprint arXiv:2512.10319",
+      "year": "2025",
+      "citations": null,
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bh9os08AAAAJ&pagesize=100&sortby=pubdate&citation_for_view=bh9os08AAAAJ:qjMakFHDy7sC"
     },
     {
       "title": "PhD Forum Abstract: Hybrid MCTS for Heat Pump Control",
