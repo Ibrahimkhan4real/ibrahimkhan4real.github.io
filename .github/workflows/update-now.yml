@@ -1,0 +1,29 @@
+name: Update Live Status
+
+on:
+  issues:
+    types: [opened, edited]
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  update-now:
+    if: contains(github.event.issue.labels.*.name, 'current-status') || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: pip install requests pyyaml
+      - name: Update now data
+        run: python scripts/update_now.py
+      - name: Commit changes
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add _data/now.yml
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update live status from issue" && git push)

@@ -7,8 +7,21 @@
   <title>{{ page.title | default: "Muhammad Ibrahim Khan" }}</title>
   <link rel="icon" href="{{ "/assets/img/favicon.svg" | relative_url }}" type="image/svg+xml">
   <link rel="stylesheet" href="{{ "/assets/css/site.css?v=20240519" | relative_url }}">
+  {% if page.use_math %}
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  {% endif %}
+  <script>
+    // Theme initialization
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
+  </script>
 </head>
 <body>
+  <div id="reading-progress"></div>
+
   <aside>
     <div id="user_meta">
       <div id="author_info">
@@ -28,6 +41,9 @@
           <a class="nav-link{% if page.url == "/travel.html" %} current{% endif %}" href="{{ "/travel.html" | relative_url }}">Travel</a>
         </li>
         <li>
+          <a class="nav-link{% if page.url == "/demos.html" %} current{% endif %}" href="{{ "/demos.html" | relative_url }}">Demos</a>
+        </li>
+        <li>
           <a class="nav-link{% if page.url == "/papers.html" %} current{% endif %}" href="{{ "/papers.html" | relative_url }}">Papers</a>
         </li>
         <li>
@@ -40,11 +56,84 @@
           <a class="nav-link" href="https://github.com/Ibrahimkhan4real" target="_blank" rel="noopener noreferrer">GitHub</a>
         </li>
       </ul>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        Switch Theme
+      </button>
     </div>
   </aside>
 
   <main>
     {{ content }}
   </main>
+
+  <!-- RAG Chatbot Widget -->
+  <div id="chat-widget" class="minimized">
+    <div id="chat-header">
+      <span>Ask Ibrahim's Research</span>
+      <span id="chat-toggle">▲</span>
+    </div>
+    <div id="chat-messages">
+      <div class="chat-message bot">Hi! I'm an AI assistant trained on Ibrahim's research papers. Ask me anything! (Note: Backend connection pending)</div>
+    </div>
+    <div id="chat-input-container">
+      <input type="text" id="chat-input" placeholder="Type a message..." autocomplete="off">
+      <button id="chat-send">Send</button>
+    </div>
+  </div>
+
+  <script>
+    // Theme Toggle Logic
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', nextTheme);
+      localStorage.setItem('theme', nextTheme);
+    });
+
+    // Reading Progress Logic
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('reading-progress').style.width = scrolled + "%";
+    });
+
+    // Chat Widget Logic
+    const chatWidget = document.getElementById('chat-widget');
+    const chatHeader = document.getElementById('chat-header');
+    const chatToggle = document.getElementById('chat-toggle');
+    const chatInput = document.getElementById('chat-input');
+    const chatSend = document.getElementById('chat-send');
+    const chatMessages = document.getElementById('chat-messages');
+
+    chatHeader.addEventListener('click', () => {
+      chatWidget.classList.toggle('minimized');
+      chatToggle.textContent = chatWidget.classList.contains('minimized') ? '▲' : '▼';
+    });
+
+    function addMessage(text, side) {
+      const msg = document.createElement('div');
+      msg.className = `chat-message ${side}`;
+      msg.textContent = text;
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    chatSend.addEventListener('click', () => {
+      const text = chatInput.value.trim();
+      if (text) {
+        addMessage(text, 'user');
+        chatInput.value = '';
+        setTimeout(() => {
+          addMessage("I'm currently a UI prototype. To enable RAG, Ibrahim needs to deploy a backend service!", 'bot');
+        }, 1000);
+      }
+    });
+
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') chatSend.click();
+    });
+  </script>
 </body>
 </html>

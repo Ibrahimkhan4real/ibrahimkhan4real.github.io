@@ -1,76 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Muhammad Ibrahim Khan">
-  <meta name="description" content="Where Muhammad is based, what he is working on, and how to connect in person.">
-  <title>Live — Muhammad Ibrahim Khan</title>
-  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/site.css?v=20240519">
-</head>
-<body>
-  <aside>
-    <div id="user_meta">
-      <div id="author_info">
-        <a href="index.html"><img src="assets/img/Khan_logo.jpg" alt="Muhammad Ibrahim Khan logo" width="192" height="192"></a>
-        <h2><a href="index.html">Muhammad Ibrahim Khan</a></h2>
-        
+---
+layout: default
+title: "Live — Muhammad Ibrahim Khan"
+---
+
+<header>
+  <p>Last Updated: {{ site.data.now.updated | default: "May 2025" }}</p>
+</header>
+
+<article>
+  <div id="article_title">
+    <h1>Live</h1>
+  </div>
+  <div id="article_text">
+    <p class="lead">What I'm focused on right now. (Updated automatically via GitHub Issues)</p>
+
+    <section class="status-section">
+      <h2>Current Focus</h2>
+      <div id="now-content">
+        {{ site.data.now.content | default: "Loading current status..." | markdownify }}
       </div>
+    </section>
+
+    {% if site.data.now.projects %}
+    <section class="status-section">
+      <h2>Active Projects</h2>
       <ul>
-        <li><a class="nav-link" href="index.html">Home</a></li>
-        <li><a class="nav-link current" href="live.html">Live</a></li>
-        <li><a class="nav-link" href="travel.html">Travel</a></li>
-        <li><a class="nav-link" href="papers.html">Papers</a></li>
-        <li><a class="nav-link" href="blog.html">Blog</a></li>
-        <li><a class="nav-link" href="index.html#contact">Contact</a></li>
-        <li><a class="nav-link" href="https://github.com/Ibrahimkhan4real" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        {% for project in site.data.now.projects %}
+        <li><strong>{{ project.name }}:</strong> {{ project.description }}</li>
+        {% endfor %}
       </ul>
-    </div>
-  </aside>
+    </section>
+    {% endif %}
 
-  <main>
-    <header>
-      <p>Updated May 2025</p>
-    </header>
+    <section class="status-section">
+      <h2>Reach out</h2>
+      <p>Email <a href="mailto:ibrahimkhan4real@gmail.com">ibrahimkhan4real@gmail.com</a> to talk about healthcare automation, robotics, or ML infrastructure.</p>
+    </section>
+  </div>
+</article>
 
-    <article>
-      <div id="article_title">
-        <h1>Live</h1>
-      </div>
-      <div id="article_text">
-        <p class="lead">This page mirrors the priorities in my README: CureMD deployments and the Autonomous Laser Weeding Robot.</p>
-
-        <section class="status-section">
-          <h2>Work Experience Snapshot</h2>
-          <ul>
-            <li>Developed an In-House “LLM for Code” using RAG with Mixtral 8x7B for code explanation, generation, and translation.</li>
-            <li>Fine-tuned LLMs on proprietary codebases to build a chatbot for software specialists.</li>
-            <li>Built RAG-powered chatbots for the Customer Service Department.</li>
-            <li>Implemented a Mistral 7-B “Code Grader” evaluating 100+ candidates in under a minute via logic and black-box tests.</li>
-            <li>Used ML/DL models to boost internal productivity and design new US healthcare products.</li>
-          </ul>
-        </section>
-
-        <section class="status-section">
-          <h2>Autonomous Laser Weeding Robot</h2>
-          <p>Ongoing work includes advanced weed detection, a 10W carbon laser, real-time verification, four-bar linkage chassis, autonomous navigation, and CNC precision. The project secured third place at the Prime Minister’s National Innovation Award 2023.</p>
-        </section>
-
-        <section class="status-section">
-          <h2>Reach out</h2>
-          <p>Email <a href="mailto:ibrahimkhan4real@gmail.com">ibrahimkhan4real@gmail.com</a> to talk about healthcare automation, robotics, or ML infrastructure.</p>
-        </section>
-      </div>
-    </article>
-
-    <footer>
-      <a class="button_accent" href="mailto:ibrahimkhan4real@gmail.com">Say hello</a>
-    </footer>
-
-    <div id="ending_message">
-      <p>Thanks for following along—I refresh this page whenever travel or focus areas shift.</p>
-    </div>
-  </main>
-</body>
-</html>
+<footer>
+  <a class="button_accent" href="mailto:ibrahimkhan4real@gmail.com">Say hello</a>
+</footer>

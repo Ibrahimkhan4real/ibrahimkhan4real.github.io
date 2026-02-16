@@ -1,0 +1,33 @@
+---
+layout: default
+title: "AI Demos — Muhammad Ibrahim Khan"
+---
+
+<header>
+  <p>Interactive Reinforcement Learning</p>
+</header>
+
+<article>
+  <div id="article_title">
+    <h1>Interactive AI Demos</h1>
+  </div>
+  <div id="article_text">
+    <p class="lead">Research is better when you can see it in action. Below are browser-based visualizations of the algorithms I use in my PhD.</p>
+
+    <section class="status-section">
+      <h2>MCTS: Decision Tree Visualization</h2>
+      <p>This demo visualizes how <strong>Monte Carlo Tree Search</strong> explores potential actions for a domestic hot-water tank. It builds a tree by simulating future states to find the most energy-efficient heating schedule.</p>
+      
+      <div id="mcts-container" style="width: 100%; height: 400px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel); position: relative; overflow: hidden;">
+        <canvas id="mcts-canvas"></canvas>
+        <div id="mcts-controls" style="position: absolute; bottom: 10px; left: 10px; display: flex; gap: 10px;">
+          <button class="button_accent" id="mcts-step">Step Exploration</button>
+          <button class="button_accent" id="mcts-reset">Reset</button>
+        </div>
+      </div>
+      <p class="travel-note">Nodes represent states (Time, Temp). Edges show actions (Heat ON/OFF). Color intensity represents the Reward (Energy Saved + Comfort).</p>
+    </section>
+  </div>
+</article>
+
+<script src="{{ "/assets/js/mcts-demo.js" | relative_url }}"></script>

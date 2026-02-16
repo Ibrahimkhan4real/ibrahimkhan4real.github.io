@@ -1,62 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Muhammad Ibrahim Khan">
-  <meta name="description" content="Research publications by Muhammad Ibrahim Khan.">
-  <title>Publications — Muhammad Ibrahim Khan</title>
-  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/site.css?v=20240519">
-</head>
-<body>
-  <aside>
-    <div id="user_meta">
-      <div id="author_info">
-        <a href="index.html"><img src="assets/img/Khan_logo.jpg" alt="Muhammad Ibrahim Khan logo" width="192" height="192"></a>
-        <h2><a href="index.html">Muhammad Ibrahim Khan</a></h2>
-      </div>
-      <ul>
-        <li><a class="nav-link" href="index.html">Home</a></li>
-        <li><a class="nav-link" href="live.html">Live</a></li>
-        <li><a class="nav-link" href="travel.html">Travel</a></li>
-        <li><a class="nav-link current" href="papers.html">Papers</a></li>
-        <li><a class="nav-link" href="blog.html">Blog</a></li>
-        <li><a class="nav-link" href="index.html#contact">Contact</a></li>
-        <li><a class="nav-link" href="https://github.com/Ibrahimkhan4real" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-      </ul>
-    </div>
-  </aside>
+---
+layout: default
+title: "Publications — Muhammad Ibrahim Khan"
+---
 
-  <main>
-    <header>
-      <p>Updated automatically from Google Scholar</p>
-    </header>
+<header>
+  <p>Updated automatically from Google Scholar</p>
+</header>
 
-    <article>
-      <div id="article_title">
-        <h1>Research Publications</h1>
-      </div>
-      <div id="article_text">
-        <p class="lead">This catalogue refreshes automatically from Google Scholar every morning, so the newest work—citations, venues, and links—lands here without manual effort.</p>
+<article>
+  <div id="article_title">
+    <h1>Research Publications</h1>
+  </div>
+  <div id="article_text">
+    <p class="lead">This catalogue refreshes automatically from Google Scholar every morning, so the newest work—citations, venues, and links—lands here without manual effort.</p>
 
-        <ul id="papers-list"></ul>
-        <p id="papers-meta" class="papers-meta">Syncing with Google Scholar…</p>
-        <p id="papers-error" class="papers-error" hidden></p>
-      </div>
-    </article>
+    <ul id="papers-list"></ul>
+    <p id="papers-meta" class="papers-meta">Syncing with Google Scholar…</p>
+    <p id="papers-error" class="papers-error" hidden></p>
+  </div>
+</article>
 
-    <div id="ending_message">
-      <p>&copy; <span id="current-year"></span> Muhammad Ibrahim Khan. Data source: Google Scholar.</p>
-    </div>
-  </main>
+<div id="ending_message">
+  <p>&copy; <span id="current-year"></span> Muhammad Ibrahim Khan. Data source: Google Scholar.</p>
+</div>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const yearEl = document.getElementById("current-year");
-      yearEl.textContent = new Date().getFullYear();
-    });
-  </script>
-  <script src="assets/js/papers.js?v=20240515" defer></script>
-</body>
-</html>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const yearEl = document.getElementById("current-year");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+  });
+</script>
+<script src="{{ "/assets/js/papers.js?v=20240515" | relative_url }}" defer></script>
