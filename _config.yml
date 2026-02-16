@@ -2,6 +2,19 @@ title: "Muhammad Ibrahim Khan"
 url: "https://ibrahimkhan4real.github.io"
 baseurl: ""   # user site
 markdown: kramdown
+theme: minima
 
 # optional: better excerpts
 excerpt_separator: "<!--more-->"
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# User data
+description: >
+  Personal website of Muhammad Ibrahim Khan, PhD Researcher in Reinforcement Learning and Control.
+author:
+  name: Muhammad Ibrahim Khan
+  email: ibrahimkhanlive1000@gmail.com
