@@ -44,20 +44,43 @@
 
 /* Dark Mode Toggle */
 .theme-toggle {
-  background: none;
+  background: var(--accent-soft);
   border: 1px solid var(--border);
   color: var(--text);
-  padding: 4px 8px;
-  border-radius: 4px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   cursor: pointer;
-  font-size: 0.8em;
-  margin-top: 10px;
-  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
 }
 
 .theme-toggle:hover {
   border-color: var(--accent);
-  color: var(--accent);
+  background: var(--accent-strong);
+  transform: scale(1.1);
+}
+
+.theme-toggle svg {
+  transition: transform 0.5s ease;
+}
+
+[data-theme="dark"] .sun-icon {
+  display: block;
+}
+[data-theme="dark"] .moon-icon {
+  display: none;
+}
+
+[data-theme="light"] .sun-icon {
+  display: none;
+}
+[data-theme="light"] .moon-icon {
+  display: block;
 }
 
 /* Chat Widget */
