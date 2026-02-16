@@ -401,40 +401,29 @@ main div#ending_message {
   color: var(--text-muted);
 }
 
-/* Timeline kept, but lighter */
+/* Timeline removed for consistency */
 .timeline {
-  border-left: 1px solid var(--border);
-  margin-left: 0.8em;
-  padding-left: 1.4em;
+  margin-left: 0;
+  padding-left: 0;
   display: grid;
-  gap: 1.4em;
+  gap: 1.8em;
 }
 
 .timeline-entry {
   position: relative;
 }
 
-.timeline-entry::before {
-  content: '';
-  position: absolute;
-  left: -1.72em;
-  top: 0.25em;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: var(--accent);
-  box-shadow: 0 0 0 2px var(--accent-soft);
-}
-
 .timeline-entry h3 {
   margin: 0 0 0.2em;
-  font-size: 1.05em;
+  font-size: 1.15em;
+  font-weight: 600;
 }
 
-.timeline-entry p {
-  margin: 0;
-  font-size: 0.95rem;
+.timeline-entry p.timeline-meta {
+  margin: 0 0 0.5em 0;
+  font-size: 0.9rem;
   color: var(--text-muted);
+  font-style: italic;
 }
 
 .progress-bar {
