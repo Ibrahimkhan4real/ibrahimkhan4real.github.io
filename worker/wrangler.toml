@@ -1,0 +1,9 @@
+name = "ibrahim-research-chat"
+main = "src/index.js"
+compatibility_date = "2024-12-01"
+
+[vars]
+ALLOWED_ORIGIN = "https://ibrahimkhan4real.github.io"
+
+# Set your Gemini API key as a secret (never commit it):
+#   npx wrangler secret put GEMINI_API_KEY

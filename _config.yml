@@ -6,6 +6,7 @@ markdown: kramdown
 # Exclude files from Jekyll processing
 exclude:
   - scripts/
+  - worker/
   - My_CV.pdf
   - README.md
   - .github/

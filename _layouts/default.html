@@ -73,14 +73,14 @@
   <!-- RAG Chatbot Widget -->
   <div id="chat-widget" class="minimized">
     <div id="chat-header">
-      <span>Ask Ibrahim's Research</span>
-      <span id="chat-toggle">▲</span>
+      <span>Ask about my research</span>
+      <span id="chat-toggle">&#9650;</span>
     </div>
     <div id="chat-messages">
-      <div class="chat-message bot">Hi! I'm an AI assistant trained on Ibrahim's research papers. Ask me anything! (Note: Backend connection pending)</div>
+      <div class="chat-message bot">Hi! I can answer questions about Ibrahim's research, publications, experience, and skills. What would you like to know?</div>
     </div>
     <div id="chat-input-container">
-      <input type="text" id="chat-input" placeholder="Type a message..." autocomplete="off">
+      <input type="text" id="chat-input" placeholder="e.g. What is your PhD about?" autocomplete="off">
       <button id="chat-send">Send</button>
     </div>
   </div>
@@ -104,40 +104,81 @@
     });
 
     // Chat Widget Logic
-    const chatWidget = document.getElementById('chat-widget');
-    const chatHeader = document.getElementById('chat-header');
-    const chatToggle = document.getElementById('chat-toggle');
-    const chatInput = document.getElementById('chat-input');
-    const chatSend = document.getElementById('chat-send');
-    const chatMessages = document.getElementById('chat-messages');
+    (function() {
+      const CHAT_API = 'https://ibrahim-research-chat.YOUR_CF_SUBDOMAIN.workers.dev';
+      const chatWidget = document.getElementById('chat-widget');
+      const chatHeader = document.getElementById('chat-header');
+      const chatToggleEl = document.getElementById('chat-toggle');
+      const chatInput = document.getElementById('chat-input');
+      const chatSend = document.getElementById('chat-send');
+      const chatMessages = document.getElementById('chat-messages');
+      let chatHistory = [];
+      let sending = false;
 
-    chatHeader.addEventListener('click', () => {
-      chatWidget.classList.toggle('minimized');
-      chatToggle.textContent = chatWidget.classList.contains('minimized') ? '▲' : '▼';
-    });
+      chatHeader.addEventListener('click', () => {
+        chatWidget.classList.toggle('minimized');
+        chatToggleEl.textContent = chatWidget.classList.contains('minimized') ? '\u25B2' : '\u25BC';
+      });
 
-    function addMessage(text, side) {
-      const msg = document.createElement('div');
-      msg.className = `chat-message ${side}`;
-      msg.textContent = text;
-      chatMessages.appendChild(msg);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    chatSend.addEventListener('click', () => {
-      const text = chatInput.value.trim();
-      if (text) {
-        addMessage(text, 'user');
-        chatInput.value = '';
-        setTimeout(() => {
-          addMessage("I'm currently a UI prototype. To enable RAG, Ibrahim needs to deploy a backend service!", 'bot');
-        }, 1000);
+      function addMessage(text, side) {
+        const msg = document.createElement('div');
+        msg.className = 'chat-message ' + side;
+        msg.textContent = text;
+        chatMessages.appendChild(msg);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        return msg;
       }
-    });
 
-    chatInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') chatSend.click();
-    });
+      function setInputEnabled(enabled) {
+        chatInput.disabled = !enabled;
+        chatSend.disabled = !enabled;
+        sending = !enabled;
+      }
+
+      async function sendQuery(text) {
+        addMessage(text, 'user');
+        chatHistory.push({ role: 'user', text: text });
+        chatInput.value = '';
+        setInputEnabled(false);
+
+        const thinkingMsg = addMessage('Thinking...', 'bot');
+
+        try {
+          const resp = await fetch(CHAT_API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              query: text,
+              history: chatHistory.slice(-6),
+            }),
+          });
+
+          if (!resp.ok) {
+            const err = await resp.json().catch(() => ({}));
+            throw new Error(err.error || 'Request failed');
+          }
+
+          const data = await resp.json();
+          thinkingMsg.textContent = data.answer || 'No response received.';
+          chatHistory.push({ role: 'assistant', text: data.answer });
+        } catch (err) {
+          thinkingMsg.textContent = 'Sorry, I could not connect to the backend. Please try again later.';
+          console.error('Chat error:', err);
+        } finally {
+          setInputEnabled(true);
+          chatInput.focus();
+        }
+      }
+
+      chatSend.addEventListener('click', () => {
+        const text = chatInput.value.trim();
+        if (text && !sending) sendQuery(text);
+      });
+
+      chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') chatSend.click();
+      });
+    })();
   </script>
 </body>
 </html>
