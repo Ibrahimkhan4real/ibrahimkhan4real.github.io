@@ -6,18 +6,20 @@
 
   var DEPTH = 4;
   var C = Math.SQRT2;
-  var tree, mctsState, greedyState, running, speed;
+  var tree, mctsState, greedyState, running;
 
   function getCSS(v) {
     return getComputedStyle(document.documentElement).getPropertyValue(v).trim();
   }
 
   function generateTree() {
+    // Place one high-reward leaf deep in a branch that looks bad on the surface.
+    // This makes greedy likely to miss it while MCTS can discover it.
     var id = 0;
     function build(depth) {
       var node = { id: id++, children: [], reward: 0, visits: 0, totalReward: 0, visited: false, inPath: false };
       if (depth === 0) {
-        node.reward = Math.round((Math.random() * 20 - 5) * 10) / 10;
+        node.reward = Math.round((Math.random() * 8 + 1) * 10) / 10; // 1.0 to 9.0
         node.isLeaf = true;
       } else {
         node.isLeaf = false;
@@ -26,7 +28,22 @@
       }
       return node;
     }
-    return build(DEPTH);
+    var t = build(DEPTH);
+
+    // Ensure there's a clearly best leaf that's hard for greedy to find:
+    // Pick a random leaf in the tree and give it a high reward,
+    // then suppress the sibling subtree so greedy's local heuristic avoids that branch.
+    var leaves = [];
+    (function collectLeaves(n) {
+      if (n.isLeaf) { leaves.push(n); return; }
+      for (var i = 0; i < n.children.length; i++) collectLeaves(n.children[i]);
+    })(t);
+
+    // Set one random leaf to a very high reward
+    var bestIdx = Math.floor(Math.random() * leaves.length);
+    leaves[bestIdx].reward = Math.round((Math.random() * 5 + 15) * 10) / 10; // 15-20
+
+    return t;
   }
 
   function cloneTree(node) {
@@ -37,22 +54,15 @@
     return n;
   }
 
-  function leafAvg(node) {
-    if (node.isLeaf) return node.reward;
-    var sum = 0, count = 0;
-    for (var i = 0; i < node.children.length; i++) {
-      var leaves = countLeaves(node.children[i]);
-      sum += leafAvg(node.children[i]) * leaves;
-      count += leaves;
+  // Greedy heuristic: only looks at immediate children's direct reward or
+  // a single random sample — NOT the true leaf average (which would be an oracle).
+  function greedySample(node) {
+    // Random rollout to a single leaf — a realistic greedy heuristic
+    var current = node;
+    while (!current.isLeaf) {
+      current = current.children[Math.floor(Math.random() * current.children.length)];
     }
-    return count ? sum / count : 0;
-  }
-
-  function countLeaves(node) {
-    if (node.isLeaf) return 1;
-    var c = 0;
-    for (var i = 0; i < node.children.length; i++) c += countLeaves(node.children[i]);
-    return c;
+    return current.reward;
   }
 
   // MCTS logic
@@ -94,11 +104,12 @@
     var leaf = path[path.length - 1];
     var reward = mctsRollout(leaf);
     mctsBackprop(path, reward);
-    mctsState.nodesExplored++;
     mctsState.iterations++;
   }
 
-  // Greedy logic
+  // Greedy logic: at each level, take a single random sample from each child
+  // and pick the child with the better sample. This is a realistic greedy —
+  // it has limited information and commits immediately.
   function greedyStep() {
     if (greedyState.done) return;
     var node = greedyState.current;
@@ -111,10 +122,9 @@
       return;
     }
 
-    // Pick child with better noisy heuristic
     var bestChild = null, bestH = -Infinity;
     for (var i = 0; i < node.children.length; i++) {
-      var h = leafAvg(node.children[i]) + (Math.random() - 0.5) * 2;
+      var h = greedySample(node.children[i]);
       if (h > bestH) {
         bestH = h;
         bestChild = node.children[i];
@@ -122,6 +132,35 @@
     }
     greedyState.current = bestChild;
     greedyState.nodesExplored++;
+  }
+
+  // Follow the most-visited child (standard MCTS best-move selection)
+  function findBestMCTSPath(node) {
+    node.inPath = true;
+    if (node.isLeaf) return node.reward;
+    var bestChild = null, bestVisits = -1;
+    for (var i = 0; i < node.children.length; i++) {
+      if (node.children[i].visits > bestVisits) {
+        bestVisits = node.children[i].visits;
+        bestChild = node.children[i];
+      }
+    }
+    if (bestChild) return findBestMCTSPath(bestChild);
+    return 0;
+  }
+
+  // Find the actual leaf reward at the end of the MCTS best path
+  function getMCTSLeafReward(node) {
+    if (node.isLeaf) return node.reward;
+    var bestChild = null, bestVisits = -1;
+    for (var i = 0; i < node.children.length; i++) {
+      if (node.children[i].visits > bestVisits) {
+        bestVisits = node.children[i].visits;
+        bestChild = node.children[i];
+      }
+    }
+    if (bestChild) return getMCTSLeafReward(bestChild);
+    return 0;
   }
 
   function layoutTree(node, x, y, spread, depth, positions) {
@@ -137,7 +176,7 @@
     return positions;
   }
 
-  function drawTree(ctx_, canvasEl, treeNode, positions, label) {
+  function drawTree(ctx_, canvasEl, treeNode, positions) {
     var w = canvasEl.width / devicePixelRatio;
     var h = canvasEl.height / devicePixelRatio;
     ctx_.clearRect(0, 0, w, h);
@@ -152,7 +191,7 @@
       var pos = positions[node.id];
       if (!pos) return;
 
-      // Draw edges
+      // Draw edges first
       for (var i = 0; i < node.children.length; i++) {
         var cpos = positions[node.children[i].id];
         if (!cpos) continue;
@@ -164,18 +203,20 @@
         ctx_.stroke();
       }
 
+      // Recurse children
       for (var i = 0; i < node.children.length; i++) {
         drawNode(node.children[i]);
       }
 
       // Draw node circle
+      var radius = node.isLeaf ? 16 : 14;
       ctx_.beginPath();
-      ctx_.arc(pos.x, pos.y, 14, 0, Math.PI * 2);
+      ctx_.arc(pos.x, pos.y, radius, 0, Math.PI * 2);
       if (node.inPath) {
         ctx_.fillStyle = accent;
       } else if (node.visited) {
         ctx_.fillStyle = accent;
-        ctx_.globalAlpha = 0.3;
+        ctx_.globalAlpha = 0.15 + Math.min(0.4, (node.visits || 1) / 30);
       } else {
         ctx_.fillStyle = panel;
       }
@@ -187,34 +228,22 @@
 
       // Label
       ctx_.fillStyle = node.inPath ? '#fff' : text;
-      ctx_.font = '10px sans-serif';
       ctx_.textAlign = 'center';
       ctx_.textBaseline = 'middle';
       if (node.isLeaf) {
+        ctx_.font = 'bold 9px monospace';
         ctx_.fillText(node.reward.toFixed(1), pos.x, pos.y);
       } else if (node.visits > 0) {
-        ctx_.fillText(node.visits.toString(), pos.x, pos.y);
+        ctx_.font = '9px monospace';
+        ctx_.fillText(node.visits.toString(), pos.x, pos.y - 5);
+        ctx_.fillStyle = node.inPath ? 'rgba(255,255,255,0.7)' : muted;
+        ctx_.font = '8px monospace';
+        var avg = (node.totalReward / node.visits).toFixed(1);
+        ctx_.fillText(avg, pos.x, pos.y + 5);
       }
     }
 
     drawNode(treeNode);
-  }
-
-  function findBestMCTSPath(node) {
-    node.inPath = true;
-    if (node.isLeaf) return node.reward;
-    var bestChild = null, bestAvg = -Infinity;
-    for (var i = 0; i < node.children.length; i++) {
-      if (node.children[i].visits > 0) {
-        var avg = node.children[i].totalReward / node.children[i].visits;
-        if (avg > bestAvg) {
-          bestAvg = avg;
-          bestChild = node.children[i];
-        }
-      }
-    }
-    if (bestChild) return findBestMCTSPath(bestChild);
-    return 0;
   }
 
   function resize() {
@@ -240,24 +269,31 @@
     var gW = greedyCanvas.width / devicePixelRatio;
     var mPos = layoutTree(mctsState.tree, mW / 2, 25, mW / 3, 0, {});
     var gPos = layoutTree(greedyState.tree, gW / 2, 25, gW / 3, 0, {});
-    drawTree(mctsCtx, mctsCanvas, mctsState.tree, mPos, 'MCTS');
-    drawTree(greedyCtx, greedyCanvas, greedyState.tree, gPos, 'Greedy');
+    drawTree(mctsCtx, mctsCanvas, mctsState.tree, mPos);
+    drawTree(greedyCtx, greedyCanvas, greedyState.tree, gPos);
   }
 
   function updateStats() {
     var el = document.getElementById('mvg-stats');
-    var mctsReward = mctsState.iterations > 0 ? (mctsState.tree.totalReward / mctsState.tree.visits).toFixed(2) : '--';
-    var greedyReward = greedyState.done ? greedyState.finalReward.toFixed(2) : '--';
+    var mctsReward = mctsState.finalReward !== null ? mctsState.finalReward.toFixed(1) : '--';
+    var greedyReward = greedyState.done ? greedyState.finalReward.toFixed(1) : '--';
+    var winner = '';
+    if (mctsState.finalReward !== null && greedyState.done) {
+      if (mctsState.finalReward > greedyState.finalReward) winner = ' (MCTS wins)';
+      else if (greedyState.finalReward > mctsState.finalReward) winner = ' (Greedy wins)';
+      else winner = ' (Tie)';
+    }
     el.innerHTML =
       '<span>MCTS Iterations: <strong>' + mctsState.iterations + '</strong></span>' +
-      '<span>MCTS Est. Reward: <strong>' + mctsReward + '</strong></span>' +
-      '<span>Greedy Nodes: <strong>' + greedyState.nodesExplored + '</strong></span>' +
-      '<span>Greedy Reward: <strong>' + greedyReward + '</strong></span>';
+      '<span>MCTS Leaf Reward: <strong>' + mctsReward + '</strong></span>' +
+      '<span>Greedy Steps: <strong>' + greedyState.nodesExplored + '</strong></span>' +
+      '<span>Greedy Leaf Reward: <strong>' + greedyReward + '</strong></span>' +
+      (winner ? '<span><strong>' + winner.trim() + '</strong></span>' : '');
   }
 
   function init() {
     tree = generateTree();
-    mctsState = { tree: cloneTree(tree), nodesExplored: 0, iterations: 0 };
+    mctsState = { tree: cloneTree(tree), iterations: 0, finalReward: null };
     greedyState = { tree: cloneTree(tree), current: null, nodesExplored: 0, finalReward: 0, done: false };
     greedyState.current = greedyState.tree;
     running = false;
@@ -269,26 +305,35 @@
     if (running) return;
     running = true;
     var spd = parseInt(document.getElementById('mvg-speed').value, 10);
+
+    // Run greedy all at once first (it's only DEPTH steps)
+    while (!greedyState.done) {
+      greedyStep();
+    }
+
+    // Animate MCTS iterations
     var mctsIters = 0;
-    var maxIters = 30;
+    var maxIters = 100; // Enough iterations to properly explore a depth-4 binary tree
 
     function tick() {
       if (!running || mctsIters >= maxIters) {
         running = false;
-        // Mark MCTS best path
-        findBestMCTSPath(mctsState.tree);
+        mctsState.finalReward = findBestMCTSPath(mctsState.tree);
         drawAll();
         updateStats();
         return;
       }
 
-      mctsStep();
-      if (!greedyState.done) greedyStep();
-      mctsIters++;
+      // Run a batch per tick for smoother animation
+      var batchSize = Math.max(1, Math.floor(spd / 20));
+      for (var b = 0; b < batchSize && mctsIters < maxIters; b++) {
+        mctsStep();
+        mctsIters++;
+      }
       drawAll();
       updateStats();
 
-      setTimeout(tick, 600 - spd * 5);
+      setTimeout(tick, Math.max(30, 500 - spd * 4.5));
     }
     tick();
   }
