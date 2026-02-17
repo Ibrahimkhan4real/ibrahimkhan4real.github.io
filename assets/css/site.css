@@ -42,31 +42,19 @@
   transition: width 0.1s ease;
 }
 
-/* Dark Mode Toggle */
+/* Dark Mode Toggle — styled as a nav link */
 .theme-toggle {
-  background: var(--accent-soft);
-  border: 1px solid var(--border);
-  color: var(--text);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 20px auto 0;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  padding: 0;
-}
-
-.theme-toggle:hover {
-  border-color: var(--accent);
-  background: var(--accent-strong);
-  transform: scale(1.1);
+  font-family: var(--font-sans);
+  font-size: 0.875em;
 }
 
 .theme-toggle svg {
-  transition: transform 0.5s ease;
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle-label {
+  pointer-events: none;
 }
 
 [data-theme="dark"] .sun-icon {
