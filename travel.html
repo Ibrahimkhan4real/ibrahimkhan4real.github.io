@@ -51,11 +51,7 @@ title: "Travel — Muhammad Ibrahim Khan"
         }
       },
       selectedRegions: visitedCountries,
-      onRegionTooltipShow(event, tooltip, code) {
-        if (!visitedCountries.includes(code)) {
-          tooltip.css({ display: 'none' });
-        }
-      }
+      showTooltip: true
     });
   });
 </script>
