@@ -11,8 +11,8 @@
 
 import RAG_INDEX from "./rag_index.json";
 
-const GEMINI_EMBED_MODEL = "models/text-embedding-004";
-const GEMINI_CHAT_MODEL = "models/gemini-2.0-flash";
+const GEMINI_EMBED_MODEL = "models/gemini-embedding-001";
+const GEMINI_CHAT_MODEL = "models/gemini-2.5-flash-lite";
 const TOP_K = 4;
 const MAX_HISTORY = 6; // max previous messages to keep for context
 
