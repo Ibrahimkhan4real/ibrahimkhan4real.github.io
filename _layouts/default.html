@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="Muhammad Ibrahim Khan">
   <title>{{ page.title | default: "Muhammad Ibrahim Khan" }}</title>
+  <meta name="description" content="{{ page.description | default: "Muhammad Ibrahim Khan — PhD researcher at Coventry University working on reinforcement learning and Monte Carlo Tree Search for predictive control of energy systems." }}">
+  <meta property="og:title" content="{{ page.title | default: "Muhammad Ibrahim Khan" }}">
+  <meta property="og:description" content="{{ page.description | default: "PhD researcher at Coventry University working on reinforcement learning and Monte Carlo Tree Search for predictive control of energy systems." }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta property="og:image" content="{{ "/assets/img/Khan_logo.jpg" | absolute_url }}">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{ page.title | default: "Muhammad Ibrahim Khan" }}">
+  <meta name="twitter:description" content="{{ page.description | default: "PhD researcher at Coventry University working on reinforcement learning and Monte Carlo Tree Search for predictive control of energy systems." }}">
+  <meta name="twitter:image" content="{{ "/assets/img/Khan_logo.jpg" | absolute_url }}">
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
   <link rel="icon" href="{{ "/assets/img/favicon.svg" | relative_url }}" type="image/svg+xml">
   <link rel="stylesheet" href="{{ "/assets/css/site.css?v=20260217_v4" | relative_url }}">
   {% if page.use_math %}
@@ -80,7 +91,7 @@
       <div class="chat-message bot">Hi! I can answer questions about Ibrahim's research, publications, experience, and skills. What would you like to know?</div>
     </div>
     <div id="chat-input-container">
-      <input type="text" id="chat-input" placeholder="e.g. What is your PhD about?" autocomplete="off">
+      <input type="text" id="chat-input" placeholder="e.g. What is your PhD about?" autocomplete="off" aria-label="Ask a question about Ibrahim's research">
       <button id="chat-send">Send</button>
     </div>
   </div>
@@ -144,6 +155,9 @@
         const thinkingMsg = addMessage('Thinking...', 'bot');
 
         try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 15000);
+
           const resp = await fetch(CHAT_API, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -151,7 +165,10 @@
               query: text,
               history: chatHistory.slice(-6),
             }),
+            signal: controller.signal,
           });
+
+          clearTimeout(timeoutId);
 
           if (!resp.ok) {
             const err = await resp.json().catch(() => ({}));
@@ -162,7 +179,9 @@
           thinkingMsg.textContent = data.answer || 'No response received.';
           chatHistory.push({ role: 'assistant', text: data.answer });
         } catch (err) {
-          thinkingMsg.textContent = 'Sorry, I could not connect to the backend. Please try again later.';
+          thinkingMsg.textContent = err.name === 'AbortError'
+            ? 'Request timed out. The backend may be unavailable — please try again later.'
+            : 'Sorry, I could not connect to the backend. Please try again later.';
           console.error('Chat error:', err);
         } finally {
           setInputEnabled(true);

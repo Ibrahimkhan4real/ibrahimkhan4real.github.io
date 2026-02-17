@@ -5,11 +5,4 @@
     "file": "welcome-to-the-blog.md",
     "date": "2025-05-19"
   }
-  ,
-  {
-    "title": "Test File",
-    "slug": "test_file",
-    "file": "test_file.md",
-    "date": "2025-11-19"
-  }
 ]
