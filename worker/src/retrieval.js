@@ -222,14 +222,21 @@ export function freshContentToChunks(feed) {
   const posts = Array.isArray(feed?.posts) ? feed.posts.slice(0, 20) : [];
   posts.forEach((post, index) => {
     const source = post.url || `blog-post-${index}`;
+    const title = post.title || "Blog post";
+    const blogLabel = index === 0
+      ? `This is Ibrahim's latest Blog post, titled "${title}", published on ${post.date || "the latest update"}.`
+      : `This is an older Blog post titled "${title}", published on ${post.date || "an earlier date"}.`;
     chunks.push({
       id: `fresh-blog-${index}-${normalizeText(post.title).replace(/\s+/g, "-")}`,
-      title: post.title || "Blog post",
+      title,
       source,
       kind: "blog",
       date: post.date || "",
       priority: index === 0 ? 5 : 0,
-      text: String(post.content || post.excerpt || "").replace(/\s+/g, " ").trim().slice(0, 5000),
+      text: `${blogLabel} ${String(post.content || post.excerpt || "")}`
+        .replace(/\s+/g, " ")
+        .trim()
+        .slice(0, 5000),
     });
   });
 
