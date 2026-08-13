@@ -192,6 +192,9 @@ export function retrieveChunks(query, queryEmbedding, chunks, topK = 6) {
 
   pinnedChunksFor(intents, chunks).forEach((chunk) => add(chunk, true));
   scored.forEach((chunk) => {
+    // A "latest blog" question has one factual answer. Older blog chunks can
+    // distract the language model even when the newest post is ranked first.
+    if (intents.has("latest-blog") && chunk.kind === "blog") return;
     if (selected.length < topK) add(chunk);
   });
 
