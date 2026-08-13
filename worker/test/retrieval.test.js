@@ -85,7 +85,7 @@ test("selects the newest blog post and searches its content", () => {
   const fresh = freshContentToChunks(freshFeed);
   const latest = retrieveChunks("What is your latest blog post about?", [], [...chunks, ...fresh], 3);
   assert.equal(latest[0].title, "Some projects I have made public");
-  assert.equal(latest.filter((chunk) => chunk.kind === "blog").length, 1);
+  assert.equal(latest.length, 1);
 
   const specific = retrieveChunks("Which blog mentions Tic-Tac-Toe?", [], [...chunks, ...fresh], 3);
   assert.equal(specific[0].title, "Some projects I have made public");
