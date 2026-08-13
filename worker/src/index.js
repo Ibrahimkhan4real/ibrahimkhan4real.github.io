@@ -9,7 +9,7 @@
  */
 
 import RAG_INDEX from "./rag_index.json";
-import { freshContentToChunks, retrieveChunks } from "./retrieval.js";
+import { directAnswerForQuery, freshContentToChunks, retrieveChunks } from "./retrieval.js";
 
 const GEMINI_EMBED_MODEL = "models/gemini-embedding-001";
 const GEMINI_CHAT_MODEL = "models/gemini-2.5-flash-lite";
@@ -75,7 +75,8 @@ export default {
         .map((chunk) => `[${chunk.title}]\n${chunk.text}`)
         .join("\n\n---\n\n");
 
-      const answer = await askGemini(query, context, history, env.GEMINI_API_KEY);
+      const answer = directAnswerForQuery(query, topChunks)
+        || await askGemini(query, context, history, env.GEMINI_API_KEY);
 
       return jsonResponse({
         answer,
