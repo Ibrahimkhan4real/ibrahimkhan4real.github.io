@@ -86,6 +86,7 @@ test("selects the newest blog post and searches its content", () => {
   const latest = retrieveChunks("What is your latest blog post about?", [], [...chunks, ...fresh], 3);
   assert.equal(latest[0].title, "Some projects I have made public");
   assert.equal(latest.length, 1);
+  assert.match(latest[0].text, /latest Blog post.*Some projects I have made public/);
 
   const specific = retrieveChunks("Which blog mentions Tic-Tac-Toe?", [], [...chunks, ...fresh], 3);
   assert.equal(specific[0].title, "Some projects I have made public");
