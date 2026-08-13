@@ -17,7 +17,7 @@
   <meta name="twitter:image" content="{{ "/assets/img/Khan_logo.jpg" | absolute_url }}">
   <link rel="canonical" href="{{ page.url | absolute_url }}">
   <link rel="icon" href="{{ "/assets/img/favicon.svg" | relative_url }}" type="image/svg+xml">
-  <link rel="stylesheet" href="{{ "/assets/css/site.css?v=20260217_v4" | relative_url }}">
+  <link rel="stylesheet" href="{{ "/assets/css/site.css?v=20260813_v2" | relative_url }}">
   {% if page.use_math %}
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -67,6 +67,12 @@
           <a class="nav-link" href="https://github.com/Ibrahimkhan4real" target="_blank" rel="noopener noreferrer">GitHub</a>
         </li>
         <li>
+          <button class="nav-link ask-research-link" id="ask-research-link" type="button">
+            <span class="ask-research-dot" aria-hidden="true"></span>
+            Ask about my research
+          </button>
+        </li>
+        <li>
           <button class="nav-link theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
             <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
             <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
@@ -83,16 +89,29 @@
 
   <!-- RAG Chatbot Widget -->
   <div id="chat-widget" class="minimized">
-    <div id="chat-header">
-      <span>Ask about my research</span>
-      <span id="chat-toggle">&#9650;</span>
-    </div>
-    <div id="chat-messages">
-      <div class="chat-message bot">Hi! I can answer questions about Ibrahim's research, publications, experience, and skills. What would you like to know?</div>
-    </div>
-    <div id="chat-input-container">
-      <input type="text" id="chat-input" placeholder="e.g. What is your PhD about?" autocomplete="off" aria-label="Ask a question about Ibrahim's research">
-      <button id="chat-send">Send</button>
+    <button id="chat-header" type="button" aria-expanded="false" aria-controls="chat-panel">
+      <span class="chat-header-icon" aria-hidden="true">AI</span>
+      <span class="chat-header-copy">
+        <span class="chat-kicker"><span class="chat-status-dot" aria-hidden="true"></span>Research guide</span>
+        <strong>Ask about my research</strong>
+        <small>PhD, blogs and what I am doing now</small>
+      </span>
+      <span id="chat-toggle" aria-hidden="true">&#9650;</span>
+    </button>
+    <div id="chat-panel" inert>
+      <div id="chat-messages" role="log" aria-live="polite" aria-label="Research chat messages">
+        <div class="chat-message bot">Hi! You can ask me about my PhD, research, papers, projects, blogs, or what I am working on now.</div>
+        <div class="chat-suggestions" aria-label="Suggested questions">
+          <button type="button" data-question="What is your PhD about?">My PhD topic</button>
+          <button type="button" data-question="When will you graduate?">Graduation</button>
+          <button type="button" data-question="What are you working on now?">Current work</button>
+          <button type="button" data-question="What is your latest blog about?">Latest blog</button>
+        </div>
+      </div>
+      <div id="chat-input-container">
+        <input type="text" id="chat-input" placeholder="Ask me anything about my work..." autocomplete="off" aria-label="Ask a question about Ibrahim's research">
+        <button id="chat-send" type="button">Ask</button>
+      </div>
     </div>
   </div>
 
@@ -120,16 +139,30 @@
       const chatWidget = document.getElementById('chat-widget');
       const chatHeader = document.getElementById('chat-header');
       const chatToggleEl = document.getElementById('chat-toggle');
+      const chatPanel = document.getElementById('chat-panel');
       const chatInput = document.getElementById('chat-input');
       const chatSend = document.getElementById('chat-send');
       const chatMessages = document.getElementById('chat-messages');
+      const askResearchLink = document.getElementById('ask-research-link');
+      const suggestionButtons = document.querySelectorAll('.chat-suggestions button');
       let chatHistory = [];
       let sending = false;
 
+      function setChatOpen(open) {
+        chatWidget.classList.toggle('minimized', !open);
+        chatHeader.setAttribute('aria-expanded', String(open));
+        chatPanel.inert = !open;
+        chatToggleEl.textContent = open ? '\u25BC' : '\u25B2';
+        if (open) {
+          window.setTimeout(() => chatInput.focus(), 180);
+        }
+      }
+
       chatHeader.addEventListener('click', () => {
-        chatWidget.classList.toggle('minimized');
-        chatToggleEl.textContent = chatWidget.classList.contains('minimized') ? '\u25B2' : '\u25BC';
+        setChatOpen(chatWidget.classList.contains('minimized'));
       });
+
+      askResearchLink.addEventListener('click', () => setChatOpen(true));
 
       function addMessage(text, side) {
         const msg = document.createElement('div');
@@ -196,6 +229,16 @@
 
       chatInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') chatSend.click();
+      });
+
+      suggestionButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const question = button.dataset.question;
+          if (question && !sending) {
+            setChatOpen(true);
+            sendQuery(question);
+          }
+        });
       });
     })();
   </script>

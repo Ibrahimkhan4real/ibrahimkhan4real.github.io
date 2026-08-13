@@ -1,0 +1,20 @@
+---
+layout: default
+---
+
+<header>
+  <p>{{ page.date | date: "%d %b %Y" }}</p>
+</header>
+
+<article>
+  <div id="article_title">
+    <h1>{{ page.title }}</h1>
+  </div>
+  <div id="article_text">
+    {{ content }}
+  </div>
+</article>
+
+<footer>
+  <a class="button_accent" href="{{ '/blog.html' | relative_url }}">Back to blog</a>
+</footer>

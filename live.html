@@ -1,10 +1,11 @@
 ---
 layout: default
 title: "Live — Muhammad Ibrahim Khan"
+description: "A simple update on my current work in energy control and reliable reinforcement learning."
 ---
 
 <header>
-  <p>Updated {{ site.data.now.updated | default: "February 2026" }}</p>
+  <p>Updated {{ site.data.now.updated | default: "August 2026" }}</p>
 </header>
 
 <article>
@@ -12,7 +13,7 @@ title: "Live — Muhammad Ibrahim Khan"
     <h1>What I'm Doing Now</h1>
   </div>
   <div id="article_text">
-    <p class="lead">A snapshot of what I'm currently working on and thinking about.</p>
+    <p class="lead">A small update on what I am working on at the moment.</p>
 
     <section class="status-section">
       <h2>Current Focus</h2>
@@ -33,12 +34,56 @@ title: "Live — Muhammad Ibrahim Khan"
     {% endif %}
 
     <section class="status-section">
+      <h2>How it fits together</h2>
+      <p>Click on each step for a quick explanation.</p>
+      <div class="research-flow" aria-label="A simple three step view of my current research">
+        <button
+          class="research-step is-active"
+          type="button"
+          data-detail="The controller looks at a few possible futures before choosing what to do."
+          aria-controls="research-detail"
+          aria-pressed="true">
+          <span class="research-step-number">1</span>
+          <strong>Look ahead</strong>
+          <small>Plan before acting</small>
+        </button>
+        <span class="research-arrow" aria-hidden="true">→</span>
+        <button
+          class="research-step"
+          type="button"
+          data-detail="I run lots of small tests and check where the learning starts behaving in a strange way."
+          aria-controls="research-detail"
+          aria-pressed="false">
+          <span class="research-step-number">2</span>
+          <strong>Test the learning</strong>
+          <small>Find what goes wrong</small>
+        </button>
+        <span class="research-arrow" aria-hidden="true">→</span>
+        <button
+          class="research-step"
+          type="button"
+          data-detail="The goal is a controller that wastes less energy and learns in a more reliable way."
+          aria-controls="research-detail"
+          aria-pressed="false">
+          <span class="research-step-number">3</span>
+          <strong>Make it reliable</strong>
+          <small>Use what we learn</small>
+        </button>
+      </div>
+      <p id="research-detail" class="research-detail" aria-live="polite">
+        The controller looks at a few possible futures before choosing what to do.
+      </p>
+    </section>
+
+    <section class="status-section">
       <h2>Get in touch</h2>
-      <p>I'm always happy to talk about reinforcement learning, MCTS, energy systems control, or LLM engineering. Drop me a line at <a href="mailto:ibrahimkhanlive1000@gmail.com">ibrahimkhanlive1000@gmail.com</a>.</p>
+      <p>I'm always happy to talk about reinforcement learning, MCTS, energy systems control, or LLM engineering. Drop me a line at <a href="mailto:khanm442@uni.coventry.ac.uk">khanm442@uni.coventry.ac.uk</a>.</p>
     </section>
   </div>
 </article>
 
 <footer>
-  <a class="button_accent" href="mailto:ibrahimkhanlive1000@gmail.com">Get in touch</a>
+  <a class="button_accent" href="mailto:khanm442@uni.coventry.ac.uk">Get in touch</a>
 </footer>
+
+<script src="{{ '/assets/js/live.js?v=20260813_v1' | relative_url }}"></script>

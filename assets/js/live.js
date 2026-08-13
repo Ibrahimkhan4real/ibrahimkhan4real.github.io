@@ -20,3 +20,22 @@ const updateClocks = () => {
 
 updateClocks();
 setInterval(updateClocks, 60 * 1000);
+
+const researchSteps = document.querySelectorAll('.research-step');
+const researchDetail = document.getElementById('research-detail');
+
+researchSteps.forEach((step) => {
+  step.addEventListener('click', () => {
+    researchSteps.forEach((item) => {
+      item.classList.remove('is-active');
+      item.setAttribute('aria-pressed', 'false');
+    });
+
+    step.classList.add('is-active');
+    step.setAttribute('aria-pressed', 'true');
+
+    if (researchDetail) {
+      researchDetail.textContent = step.dataset.detail;
+    }
+  });
+});
