@@ -1,6 +1,6 @@
 # Muhammad Ibrahim Khan
 
-Coventry, UK • +44 7470800092 • [ibrahimkhanlive1000@gmail.com](mailto:ibrahimkhanlive1000@gmail.com)
+Coventry, UK • +44 7470800092 • [khanm442@uni.coventry.ac.uk](mailto:khanm442@uni.coventry.ac.uk)
 
 ---
 

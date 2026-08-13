@@ -1,2 +1,21 @@
-updated: "February 2026"
-content: "Currently working on PhD research at Coventry University focusing on MCTS and Reinforcement Learning."
+updated: "August 2026"
+content: |-
+  Right now I am working on two things which are closely connected. The first
+  one is using planning and reinforcement learning to make energy systems a bit
+  smarter. The idea is simple: help a controller look ahead, deal with
+  uncertainty, and make better choices without wasting energy.
+
+  I am also looking at why some reinforcement learning systems suddenly become
+  unstable. Sometimes a very small difference in how an action is saved and
+  used again can create a much bigger problem during learning. It sounds like a
+  small thing, but it can effect the whole training run. I am trying to
+  understand where this starts and how to make the learning more reliable.
+
+  Most of my time goes into running experiments, checking the results properly,
+  and then trying to explain it in a simple way. The maths can get messy
+  sometimes, but the basic idea is not.
+projects:
+  - name: "Smarter energy control"
+    description: "Helping controllers look ahead and make useful decisions when the future is uncertain."
+  - name: "More reliable learning"
+    description: "Finding out how tiny computer rounding differences can grow into unstable learning, and how we can reduce it."
