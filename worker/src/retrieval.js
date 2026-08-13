@@ -200,6 +200,36 @@ export function retrieveChunks(query, queryEmbedding, chunks, topK = 6) {
   return selected.slice(0, topK);
 }
 
+export function directAnswerForQuery(query, chunks) {
+  const intents = detectIntents(query);
+  if (!intents.has("latest-blog")) return null;
+
+  const post = chunks.find((chunk) => inferKind(chunk) === "blog");
+  if (!post) return null;
+
+  let published = "";
+  if (post.date) {
+    const calendarDate = String(post.date).match(/^\d{4}-\d{2}-\d{2}/)?.[0];
+    const date = new Date(calendarDate ? `${calendarDate}T00:00:00Z` : post.date);
+    if (!Number.isNaN(date.getTime())) {
+      published = `, published on ${date.toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+        timeZone: "UTC",
+      })}`;
+    }
+  }
+
+  const excerpt = String(post.excerpt || "").replace(/\s+/g, " ").trim();
+  const summary = excerpt ? ` ${excerpt}` : "";
+  const link = /^https?:\/\//.test(String(post.source || ""))
+    ? ` You can read it here: ${post.source}`
+    : "";
+
+  return `Ibrahim's latest Blog post is "${post.title}"${published}.${summary}${link}`;
+}
+
 export function freshContentToChunks(feed) {
   const chunks = [];
   if (feed?.live?.content) {
@@ -232,6 +262,7 @@ export function freshContentToChunks(feed) {
       source,
       kind: "blog",
       date: post.date || "",
+      excerpt: String(post.excerpt || "").replace(/\s+/g, " ").trim(),
       priority: index === 0 ? 5 : 0,
       text: `${blogLabel} ${String(post.content || post.excerpt || "")}`
         .replace(/\s+/g, " ")

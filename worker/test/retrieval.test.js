@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 
 import {
   detectIntents,
+  directAnswerForQuery,
   freshContentToChunks,
   retrieveChunks,
 } from "../src/retrieval.js";
@@ -45,6 +46,7 @@ const freshFeed = {
       title: "Some projects I have made public",
       date: "2026-08-13T00:00:00+01:00",
       url: "https://example.com/projects/",
+      excerpt: "A quick look at public GitHub projects.",
       content: "Public projects include RL for HVAC and an MCTS Tic-Tac-Toe game.",
     },
     {
@@ -87,6 +89,10 @@ test("selects the newest blog post and searches its content", () => {
   assert.equal(latest[0].title, "Some projects I have made public");
   assert.equal(latest.length, 1);
   assert.match(latest[0].text, /latest Blog post.*Some projects I have made public/);
+  assert.match(
+    directAnswerForQuery("What is my latest blog post?", latest),
+    /Some projects I have made public.*13 August 2026.*public GitHub projects.*https:\/\/example.com\/projects\//,
+  );
 
   const specific = retrieveChunks("Which blog mentions Tic-Tac-Toe?", [], [...chunks, ...fresh], 3);
   assert.equal(specific[0].title, "Some projects I have made public");
