@@ -9,7 +9,7 @@ the retrieval corpus and Cloudflare Worker used by the site's research guide.
 
 - `_data/profile.yml` is the verified public profile and biography.
 - `_data/now.yml` supplies the current-work summary.
-- `site_data/papers.json` is the checked-in publication snapshot rendered by
+- `_data/papers.json` is the checked-in publication snapshot rendered by
   the site.
 - `_posts/` contains public research notes.
 - `rag-feed.json` and the Worker index are generated public retrieval data.

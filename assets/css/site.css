@@ -1623,3 +1623,122 @@ main article div#article_text .now-status-strip a:focus-visible {
     flex-direction: column;
   }
 }
+.publication-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 1.5rem 0;
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+}
+
+.publication-summary > div {
+  display: flex;
+  min-width: 0;
+  padding: 0.85rem;
+  flex-direction: column;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.publication-summary strong {
+  font-size: 1.1rem;
+}
+
+.publication-summary span {
+  margin-top: 0.25rem;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.publications-tools {
+  margin: 1.2rem 0 0;
+  padding: 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
+  background: var(--accent-soft);
+}
+
+.publications-tools label {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.publications-tools > div {
+  display: flex;
+  gap: 0.5rem;
+}
+
+#publication-filter {
+  min-width: 0;
+  flex: 1;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--panel);
+  color: var(--text);
+  font: inherit;
+}
+
+#publication-filter:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.publication-list {
+  border-top: 1px solid var(--border);
+}
+
+#papers-list.publication-list li {
+  padding: 1.1rem 0;
+}
+
+.publication-heading {
+  display: grid;
+  grid-template-columns: 2.2rem minmax(0, 1fr);
+  gap: 0.5rem;
+  align-items: start;
+}
+
+.publication-heading h2 {
+  margin: 0;
+  font-size: 1.12rem;
+  line-height: 1.4;
+}
+
+.publication-number {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.9;
+}
+
+#papers-list .paper-authors,
+#papers-list .paper-meta {
+  margin-left: 2.7rem;
+}
+
+#publication-empty {
+  color: var(--text-muted);
+}
+
+@media screen and (max-width: 640px) {
+  .publication-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .publications-tools > div {
+    flex-direction: column;
+  }
+
+  .publication-heading {
+    grid-template-columns: 1.7rem minmax(0, 1fr);
+  }
+
+  #papers-list .paper-authors,
+  #papers-list .paper-meta {
+    margin-left: 2.2rem;
+  }
+}

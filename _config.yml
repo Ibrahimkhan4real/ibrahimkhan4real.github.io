@@ -15,6 +15,7 @@ exclude:
   - artifacts/
   - package.json
   - package-lock.json
+  - requirements-content.txt
   - playwright.config.js
   - Dockerfile.jekyll
   - Makefile

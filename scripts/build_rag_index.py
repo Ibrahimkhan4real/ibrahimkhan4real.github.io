@@ -221,8 +221,8 @@ def extract_chunks():
             ),
         })
 
-    # --- Papers from site_data/papers.json ---
-    papers_json = read_file("site_data/papers.json")
+    # --- Papers from _data/papers.json ---
+    papers_json = read_file("_data/papers.json")
     if papers_json:
         data = json.loads(papers_json)
         pubs = data.get("publications", data.get("papers", []))
@@ -246,7 +246,7 @@ def extract_chunks():
 
             chunks.append({
                 "id": f"paper-{i}",
-                "source": "site_data/papers.json",
+                "source": "_data/papers.json",
                 "title": title,
                 "text": text,
                 "kind": "paper",

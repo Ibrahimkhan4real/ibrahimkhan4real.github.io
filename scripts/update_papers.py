@@ -155,7 +155,7 @@ def main() -> int:
     parser.add_argument("--scholar-id", required=True, help="Google Scholar user identifier (e.g. bh9os08AAAAJ)")
     parser.add_argument(
         "--output",
-        default=pathlib.Path(__file__).resolve().parent.parent / "site_data" / "papers.json",
+        default=pathlib.Path(__file__).resolve().parent.parent / "_data" / "papers.json",
         type=pathlib.Path,
         help="Destination for the generated JSON file.",
     )

@@ -1,33 +1,110 @@
 ---
 layout: default
 title: "Publications — Muhammad Ibrahim Khan"
+description: "Server-rendered publications and preprints by Muhammad Ibrahim Khan, synced from his public Google Scholar profile."
 ---
 
+{% assign papers = site.data.papers %}
+{% assign publications = papers.publications %}
+
 <header>
-  <p>Updated from Google Scholar</p>
+  <p>
+    Publication snapshot
+    {% if papers.generated_at %}
+    <time datetime="{{ papers.generated_at }}">{{ papers.generated_at | date: "%d %B %Y" }}</time>
+    {% endif %}
+  </p>
 </header>
 
 <article>
   <div id="article_title">
+    <p class="eyebrow">Research record</p>
     <h1>Publications</h1>
   </div>
-  <div id="article_text">
-    <p class="lead">My published and preprint research. This list syncs with Google Scholar, so new papers, citation counts, and venue details appear here automatically.</p>
 
-    <ul id="papers-list"></ul>
-    <p id="papers-meta" class="papers-meta">Loading publications from Google Scholar&hellip;</p>
-    <p id="papers-error" class="papers-error" hidden></p>
+  <div id="article_text">
+    <p class="lead">
+      Peer-reviewed work, conference contributions and public preprints. The
+      complete list is rendered with the page, so it remains available without
+      JavaScript or a live Google Scholar request.
+    </p>
+
+    {% if publications and publications.size > 0 %}
+    <div class="publication-summary">
+      <div>
+        <strong>{{ publications.size }}</strong>
+        <span>publications in the current snapshot</span>
+      </div>
+      <div>
+        <strong>{{ publications | map: "year" | uniq | size }}</strong>
+        <span>publication years represented</span>
+      </div>
+      <div>
+        <strong>{{ papers.source | default: "Public profile" }}</strong>
+        <span>source, last synced {{ papers.generated_at | date: "%d %b %Y" }}</span>
+      </div>
+    </div>
+
+    <div class="publications-tools" hidden>
+      <label for="publication-filter">Filter by title, author, venue or year</label>
+      <div>
+        <input
+          id="publication-filter"
+          type="search"
+          autocomplete="off"
+          placeholder="For example: MCTS, energy, 2025">
+        <button id="publication-filter-clear" class="button_accent" type="button">Clear</button>
+      </div>
+      <p id="publication-filter-status" class="papers-meta" aria-live="polite"></p>
+    </div>
+
+    <ol id="papers-list" class="publication-list">
+      {% for paper in publications %}
+      {% capture searchable %}{{ paper.title }} {{ paper.authors }} {{ paper.venue }} {{ paper.year }}{% endcapture %}
+      <li data-publication data-search="{{ searchable | strip_html | downcase | escape }}">
+        <div class="publication-heading">
+          <span class="publication-number" aria-hidden="true">{{ forloop.index | prepend: "0" | slice: -2, 2 }}</span>
+          <h2>
+            {% if paper.link %}
+            <a href="{{ paper.link }}" target="_blank" rel="noopener noreferrer">{{ paper.title }}</a>
+            {% else %}
+            {{ paper.title }}
+            {% endif %}
+          </h2>
+        </div>
+        {% if paper.authors %}<p class="paper-authors">{{ paper.authors }}</p>{% endif %}
+        <p class="paper-meta">
+          {% if paper.venue %}{{ paper.venue }}{% else %}Venue not listed{% endif %}
+          {% if paper.year %}<span> · {{ paper.year }}</span>{% endif %}
+          {% if paper.citations %}<span> · cited {{ paper.citations }}</span>{% endif %}
+        </p>
+      </li>
+      {% endfor %}
+    </ol>
+
+    <p id="publication-empty" class="papers-error" hidden>No publications match that filter.</p>
+    {% else %}
+    <div class="public-boundary">
+      <h2>Publication snapshot unavailable</h2>
+      <p>
+        The checked-in publication data is temporarily unavailable. The public
+        Google Scholar profile remains the stable fallback.
+      </p>
+    </div>
+    {% endif %}
+
+    <p class="papers-meta">
+      Source:
+      <a href="{{ site.data.profile.links.scholar }}" target="_blank" rel="noopener noreferrer">Google Scholar profile</a>.
+      Citation counts are a dated snapshot and may change between syncs.
+    </p>
   </div>
 </article>
 
-<div id="ending_message">
-  <p>&copy; <span id="current-year"></span> Muhammad Ibrahim Khan</p>
-</div>
+<footer>
+  <p>&copy; {{ site.time | date: "%Y" }} {{ site.data.profile.identity.full_name }}</p>
+</footer>
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const yearEl = document.getElementById("current-year");
-    if (yearEl) yearEl.textContent = new Date().getFullYear();
-  });
-</script>
-<script src="{{ "/assets/js/papers.js?v=20240515" | relative_url }}" defer></script>
+{% if publications and publications.size > 0 %}
+<script src="{{ "/assets/js/papers.js?v=20260826_server" | relative_url }}" defer></script>
+{% endif %}
