@@ -1,23 +1,25 @@
+{% assign profile = site.data.profile %}
+{% assign page_description = page.description | default: profile.bio.short %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Muhammad Ibrahim Khan">
-  <title>{{ page.title | default: "Muhammad Ibrahim Khan" }}</title>
-  <meta name="description" content="{{ page.description | default: "Muhammad Ibrahim Khan — PhD researcher at Coventry University working on reinforcement learning and Monte Carlo Tree Search for predictive control of energy systems." }}">
-  <meta property="og:title" content="{{ page.title | default: "Muhammad Ibrahim Khan" }}">
-  <meta property="og:description" content="{{ page.description | default: "PhD researcher at Coventry University working on reinforcement learning and Monte Carlo Tree Search for predictive control of energy systems." }}">
+  <meta name="author" content="{{ profile.identity.full_name }}">
+  <title>{{ page.title | default: profile.identity.full_name }}</title>
+  <meta name="description" content="{{ page_description | strip_html | escape }}">
+  <meta property="og:title" content="{{ page.title | default: profile.identity.full_name }}">
+  <meta property="og:description" content="{{ page_description | strip_html | escape }}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ page.url | absolute_url }}">
   <meta property="og:image" content="{{ "/assets/img/Khan_logo.jpg" | absolute_url }}">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="{{ page.title | default: "Muhammad Ibrahim Khan" }}">
-  <meta name="twitter:description" content="{{ page.description | default: "PhD researcher at Coventry University working on reinforcement learning and Monte Carlo Tree Search for predictive control of energy systems." }}">
+  <meta name="twitter:title" content="{{ page.title | default: profile.identity.full_name }}">
+  <meta name="twitter:description" content="{{ page_description | strip_html | escape }}">
   <meta name="twitter:image" content="{{ "/assets/img/Khan_logo.jpg" | absolute_url }}">
   <link rel="canonical" href="{{ page.url | absolute_url }}">
   <link rel="icon" href="{{ "/assets/img/favicon.svg" | relative_url }}" type="image/svg+xml">
-  <link rel="stylesheet" href="{{ "/assets/css/site.css?v=20260813_v2" | relative_url }}">
+  <link rel="stylesheet" href="{{ "/assets/css/site.css?v=20260826_profile" | relative_url }}">
   {% if page.use_math %}
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -37,9 +39,10 @@
     <div id="user_meta">
       <div id="author_info">
         <a href="{{ "/" | relative_url }}">
-          <img src="{{ "/assets/img/Khan_logo.jpg" | relative_url }}" alt="Muhammad Ibrahim Khan logo" width="192" height="192">
+          <img src="{{ "/assets/img/Khan_logo.jpg" | relative_url }}" alt="Portrait logo for {{ profile.identity.full_name }}" width="192" height="192">
         </a>
-        <h2><a href="{{ "/" | relative_url }}">Muhammad Ibrahim Khan</a></h2>
+        <h2><a href="{{ "/" | relative_url }}">{{ profile.identity.full_name }}</a></h2>
+        <p>{{ profile.headline }}</p>
       </div>
       <ul>
         <li>
@@ -61,10 +64,13 @@
           <a class="nav-link{% if page.url == "/blog.html" %} current{% endif %}" href="{{ "/blog.html" | relative_url }}">Blog</a>
         </li>
         <li>
+          <a class="nav-link" href="{{ profile.links.cv | relative_url }}">CV <span aria-hidden="true">&#8595;</span></a>
+        </li>
+        <li>
           <a class="nav-link" href="{{ "/index.html#contact" | relative_url }}">Contact</a>
         </li>
         <li>
-          <a class="nav-link" href="https://github.com/Ibrahimkhan4real" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="nav-link" href="{{ profile.links.github }}" target="_blank" rel="noopener noreferrer">GitHub</a>
         </li>
         <li>
           <button class="nav-link ask-research-link" id="ask-research-link" type="button">
@@ -89,21 +95,21 @@
 
   <!-- RAG Chatbot Widget -->
   <div id="chat-widget" class="minimized">
-    <button id="chat-header" type="button" aria-expanded="false" aria-controls="chat-panel">
+    <button id="chat-header" type="button" aria-label="Open research guide" aria-expanded="false" aria-controls="chat-panel">
       <span class="chat-header-icon" aria-hidden="true">AI</span>
       <span class="chat-header-copy">
         <span class="chat-kicker"><span class="chat-status-dot" aria-hidden="true"></span>Research guide</span>
         <strong>Ask about my research</strong>
-        <small>PhD, blogs and what I am doing now</small>
+        <small>Research, publications and current work</small>
       </span>
       <span id="chat-toggle" aria-hidden="true">&#9650;</span>
     </button>
     <div id="chat-panel" inert>
       <div id="chat-messages" role="log" aria-live="polite" aria-label="Research chat messages">
-        <div class="chat-message bot">Hi! You can ask me about my PhD, research, papers, projects, blogs, or what I am working on now.</div>
+        <div class="chat-message bot">Hello! Ask about Ibrahim's research, publications, experience, teaching, or current work.</div>
         <div class="chat-suggestions" aria-label="Suggested questions">
           <button type="button" data-question="What is your PhD about?">My PhD topic</button>
-          <button type="button" data-question="When will you graduate?">Graduation</button>
+          <button type="button" data-question="What is Ibrahim's professional background?">Experience</button>
           <button type="button" data-question="What are you working on now?">Current work</button>
           <button type="button" data-question="What is your latest blog about?">Latest blog</button>
         </div>
@@ -118,18 +124,28 @@
   <script>
     // Theme Toggle Logic
     const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleLabel = themeToggle.querySelector('.theme-toggle-label');
+
+    function updateThemeControl(theme) {
+      const nextMode = theme === 'dark' ? 'light' : 'dark';
+      themeToggle.setAttribute('aria-label', `Switch to ${nextMode} mode`);
+      themeToggleLabel.textContent = `${nextMode.charAt(0).toUpperCase()}${nextMode.slice(1)} mode`;
+    }
+
+    updateThemeControl(document.documentElement.getAttribute('data-theme'));
     themeToggle.addEventListener('click', () => {
       const currentTheme = document.documentElement.getAttribute('data-theme');
       const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', nextTheme);
       localStorage.setItem('theme', nextTheme);
+      updateThemeControl(nextTheme);
     });
 
     // Reading Progress Logic
     window.addEventListener('scroll', () => {
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
       document.getElementById('reading-progress').style.width = scrolled + "%";
     });
 
@@ -151,6 +167,7 @@
       function setChatOpen(open) {
         chatWidget.classList.toggle('minimized', !open);
         chatHeader.setAttribute('aria-expanded', String(open));
+        chatHeader.setAttribute('aria-label', open ? 'Close research guide' : 'Open research guide');
         chatPanel.inert = !open;
         chatToggleEl.textContent = open ? '\u25BC' : '\u25B2';
         if (open) {

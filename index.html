@@ -1,98 +1,141 @@
 ---
 layout: default
-title: "Muhammad Ibrahim Khan — RL & Control Researcher"
+title: "Muhammad Ibrahim Khan — Reinforcement Learning & Research Software"
+description: "PhD researcher at Coventry University and Research Software Developer at UCL, working on reinforcement learning, planning, reliable control and reproducible AI software."
 ---
 
+{% assign profile = site.data.profile %}
+
 <header>
-  <p>Updated February 2026</p>
+  <p>Profile verified {{ profile.last_verified | date: "%d %B %Y" }}</p>
 </header>
 
-<article>
-  <div id="article_title">
-    <h1>Reinforcement Learning & Control Researcher</h1>
+<article class="home-profile">
+  <div id="article_title" class="profile-hero">
+    <p class="eyebrow">PhD researcher · Research software developer</p>
+    <h1>{{ profile.headline }}</h1>
+    <p class="lead">{{ profile.bio.short }}</p>
+    <div class="hero-actions" aria-label="Profile links">
+      <a class="button-primary" href="#research">Explore research</a>
+      <a class="button-secondary" href="{{ "/papers.html" | relative_url }}">Publications</a>
+      <a class="button-secondary" href="{{ profile.links.cv | relative_url }}">Download CV <span aria-hidden="true">&#8595;</span></a>
+      <a class="button-secondary" href="mailto:{{ profile.contact.email }}">Contact</a>
+    </div>
   </div>
 
   <div id="article_text">
-    <p class="lead">
-      PhD researcher at Coventry University working on <strong>Monte Carlo Tree Search (MCTS)</strong> for predictive control of energy systems. Previously an AI engineer building production LLM pipelines at scale.
-    </p>
-
     <section class="status-section" id="about">
-      <h2>About</h2>
-      <p>
-        My research develops tree-search methods that let controllers plan ahead under uncertainty. The core idea is to use <strong>MCTS as a model-predictive controller</strong> for heating systems: the algorithm simulates thousands of possible futures, then picks the action sequence that minimises energy consumption while keeping occupant comfort within bounds. I also have hands-on experience deploying LLM-based tools in production, from RAG chatbots to automated code review systems.
-      </p>
+      <h2>Biography</h2>
+      <p>{{ profile.bio.long }}</p>
     </section>
 
-    <section class="status-section" id="education">
-      <h2>Education</h2>
-      <ul>
-        <li>
-          <strong>PhD, Reinforcement Learning</strong> — Coventry University, UK<br>
-          Thesis: <em>Predictive Control Through Monte Carlo Tree Search</em><br>
-          Expected completion: March 2028
-        </li>
-        <li>
-          <strong>BEng, Mechanical Engineering</strong> — National University of Sciences and Technology (NUST), Pakistan (2019&ndash;2023)<br>
-          Final-year project: <em>Autonomous Weeding Robot</em>
-        </li>
-      </ul>
+    <section class="status-section" id="research">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Research</p>
+          <h2>Questions I work on</h2>
+        </div>
+        <a href="{{ "/live.html" | relative_url }}">See current work</a>
+      </div>
+      <div class="profile-card-grid">
+        {% for theme in profile.research_themes %}
+        <article class="profile-card">
+          <h3>{{ theme.title }}</h3>
+          <p>{{ theme.summary }}</p>
+          <p class="card-meta">{{ theme.methods }}</p>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="status-section" id="current-roles">
+      <p class="eyebrow">Now</p>
+      <h2>Current roles</h2>
+      <div class="profile-list">
+        {% for role in profile.current_roles %}
+        <div class="profile-list-item">
+          <div>
+            <h3>{{ role.title }}</h3>
+            <p class="timeline-meta">{{ role.organisation }} · {{ role.unit }}</p>
+          </div>
+          <p class="date-label">{{ role.dates }}</p>
+          <p>{{ role.summary }}</p>
+        </div>
+        {% endfor %}
+      </div>
     </section>
 
     <section class="status-section" id="experience">
-      <h2>Experience</h2>
-      <div class="timeline">
-        <div class="timeline-entry">
-          <h3>Teaching Assistant &amp; Lab Demonstrator &middot; Coventry University</h3>
-          <p class="timeline-meta">Aug 2025 &ndash; Jan 2026 &middot; Coventry, UK</p>
-          <ul>
-            <li>Ran weekly labs for 30+ MSc Data Science students covering deep learning and computer vision.</li>
-            <li>Marked 200+ assignments per semester with written feedback on model design and training methodology.</li>
-          </ul>
+      <p class="eyebrow">Experience</p>
+      <h2>Research, engineering and teaching</h2>
+      {% for item in profile.experience %}
+      <div class="profile-list-item">
+        <div>
+          <h3>{{ item.title }}</h3>
+          <p class="timeline-meta">{{ item.organisation }} · {{ item.location }}</p>
         </div>
+        <p class="date-label">{{ item.dates }}</p>
+        <ul>
+          {% for highlight in item.highlights %}<li>{{ highlight }}</li>{% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
 
-        <div class="timeline-entry">
-          <h3>Associate AI Engineer &middot; CureMD</h3>
-          <p class="timeline-meta">Jul 2023 &ndash; Sep 2024 &middot; Lahore, Pakistan</p>
-          <ul>
-            <li>Built an in-house LLM code assistant (Mixtral 8x7B + RAG) that cut code-review turnaround by <strong>25%</strong> across 150+ developers.</li>
-            <li>Shipped RAG chatbots handling 500+ daily support queries with 92% resolution accuracy and 80% faster first-response time.</li>
-            <li>Automated candidate screening with Llama 3, evaluating 100+ coding submissions per batch through logic and black-box tests.</li>
-          </ul>
+      <div class="profile-card-grid profile-card-grid--compact">
+        {% for item in profile.teaching %}
+        <article class="profile-card">
+          <h3>{{ item.title }}</h3>
+          <p class="timeline-meta">{{ item.organisation }} · {{ item.dates }}</p>
+          <p>{{ item.summary }}</p>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="status-section" id="recognition">
+      <p class="eyebrow">Recognition</p>
+      <h2>Teaching, funding and awards</h2>
+      <div class="recognition-list">
+        {% for item in profile.professional_recognition %}
+        <div>
+          <span class="date-label">{{ item.year }}</span>
+          <strong>{{ item.title }}</strong>
+          {% if item.organisation %}<span>{{ item.organisation }}</span>{% endif %}
+          {% if item.detail %}<small>{{ item.detail }}</small>{% endif %}
         </div>
+        {% endfor %}
       </div>
     </section>
 
     <section class="status-section" id="skills">
-      <h2>Technical Skills</h2>
-      <ul>
-        <li><strong>Languages:</strong> Python (primary), C++, MATLAB</li>
-        <li><strong>RL &amp; Control:</strong> Stable Baselines3, RLLib, Gymnasium, MuJoCo</li>
-        <li><strong>ML / Deep Learning:</strong> PyTorch, TensorFlow, Scikit-learn, Hugging Face Transformers</li>
-        <li><strong>LLMs &amp; NLP:</strong> LangChain, RAG pipelines, LoRA fine-tuning</li>
-        <li><strong>Infrastructure:</strong> Git, Docker, Linux, Weights &amp; Biases</li>
-      </ul>
+      <p class="eyebrow">Tools</p>
+      <h2>Technical toolkit</h2>
+      <div class="skill-groups">
+        {% for group in profile.skills %}
+        <div>
+          <h3>{{ group[0] | replace: "_", " " | capitalize }}</h3>
+          <ul class="skill-chips">
+            {% for skill in group[1] %}<li>{{ skill }}</li>{% endfor %}
+          </ul>
+        </div>
+        {% endfor %}
+      </div>
     </section>
 
-    <section class="status-section" id="awards">
-      <h2>Awards</h2>
-      <ul>
-        <li><strong>Fully Funded PhD Scholarship</strong> — Coventry University (Sep 2024)</li>
-        <li><strong>Second Runner-Up, Prime Minister's National Innovation Award</strong> — Government of Pakistan (Jul 2023). Recognised for the Autonomous Weeding Robot out of 40,000+ entries nationwide.</li>
-      </ul>
-    </section>
-
-    <section class="status-section" id="contact">
-      <h2>Contact</h2>
-      <ul>
-        <li>Email: <a href="mailto:khanm442@uni.coventry.ac.uk">khanm442@uni.coventry.ac.uk</a></li>
-        <li>LinkedIn: <a href="https://linkedin.com/in/ibrahimkhanlive1000" target="_blank" rel="noopener noreferrer">linkedin.com/in/ibrahimkhanlive1000</a></li>
-        <li>GitHub: <a href="https://github.com/Ibrahimkhan4real" target="_blank" rel="noopener noreferrer">github.com/Ibrahimkhan4real</a></li>
-      </ul>
+    <section class="status-section contact-panel" id="contact">
+      <p class="eyebrow">Contact</p>
+      <h2>Let’s discuss research or research software</h2>
+      <p>Email is the best way to reach me. You can also find my publications and public code through the links below.</p>
+      <div class="hero-actions">
+        <a class="button-primary" href="mailto:{{ profile.contact.email }}">{{ profile.contact.email }}</a>
+        <a class="button-secondary" href="{{ profile.links.scholar }}" target="_blank" rel="noopener noreferrer">Google Scholar</a>
+        <a class="button-secondary" href="{{ profile.links.github }}" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a class="button-secondary" href="{{ profile.links.linkedin }}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
     </section>
   </div>
 </article>
 
 <footer>
-  <a class="button_accent" href="mailto:khanm442@uni.coventry.ac.uk">Get in touch</a>
+  <p>Public profile details last verified {{ profile.last_verified | date: "%d %B %Y" }}.</p>
 </footer>

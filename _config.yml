@@ -7,7 +7,6 @@ markdown: kramdown
 exclude:
   - scripts/
   - worker/
-  - My_CV.pdf
   - README.md
   - GUIDE.md
   - DEVELOPMENT.md

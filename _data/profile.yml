@@ -1,0 +1,169 @@
+schema_version: 1
+last_verified: "2026-08-26"
+
+identity:
+  full_name: "Muhammad Ibrahim Khan"
+  display_name: "Ibrahim Khan"
+  aliases:
+    - "Muhammad Ibrahim Khan"
+    - "Ibrahim Khan"
+
+headline: "Reinforcement Learning, Planning and Research Software"
+
+bio:
+  short: >-
+    PhD researcher at Coventry University and Research Software Developer at
+    UCL, working on reinforcement learning, planning, reliable control and
+    reproducible AI research software.
+  long: >-
+    I develop learning and planning methods for energy-efficient building
+    control, with a particular focus on Monte Carlo Tree Search, PPO and SAC.
+    My research also studies interpretable policies and the numerical behaviour
+    that can make reinforcement learning unreliable. At UCL, I build
+    reproducible experimental software for multi-agent LLM research.
+
+contact:
+  email: "khanm442@uni.coventry.ac.uk"
+
+links:
+  website: "https://ibrahimkhan4real.github.io"
+  cv: "/assets/docs/Ibrahim_CV.pdf"
+  scholar: "https://scholar.google.com/citations?user=bh9os08AAAAJ"
+  github: "https://github.com/Ibrahimkhan4real"
+  linkedin: "https://www.linkedin.com/in/ibrahimkhanlive1000"
+
+affiliations:
+  - name: "Coventry University"
+    unit: "Centre for Computational Science and Mathematical Modelling"
+    location: "Coventry, United Kingdom"
+  - name: "University College London"
+    unit: "The Bartlett School of Sustainable Construction"
+    location: "London, United Kingdom"
+
+current_roles:
+  - title: "Research Software Developer"
+    organisation: "University College London"
+    unit: "The Bartlett School of Sustainable Construction"
+    dates: "June 2026–present"
+    summary: >-
+      Building reproducible multi-agent LLM experiment software for management
+      research, including configuration, structured logging and auditable runs.
+  - title: "Doctoral Researcher"
+    organisation: "Coventry University"
+    unit: "Centre for Computational Science and Mathematical Modelling"
+    dates: "September 2024–present"
+    summary: >-
+      Researching planning and reinforcement learning for energy-efficient
+      building control, interpretability and reliable learning.
+
+education:
+  - award: "Doctor of Philosophy"
+    field: "Reinforcement Learning"
+    institution: "Coventry University"
+    dates: "September 2024–March 2028 (expected)"
+    thesis: "Predictive Control Through Monte Carlo Tree Search"
+    supervisor: "Professor James Brusey"
+    funding: "Fully funded PhD studentship, CSMM"
+  - award: "Bachelor of Engineering"
+    field: "Mechanical Engineering"
+    institution: "National University of Sciences and Technology"
+    dates: "September 2019–June 2023"
+    project: "Autonomous Weeding Robot"
+
+research_themes:
+  - title: "Energy-aware control"
+    summary: >-
+      Planning and reinforcement learning for building energy systems under
+      changing prices, deadlines, uncertainty and comfort constraints.
+    methods: "MCTS · PPO · SAC · BOPTEST"
+  - title: "Reliable reinforcement learning"
+    summary: >-
+      Understanding how numerical details can affect policy optimisation and
+      making experimental claims reproducible and easier to audit.
+    methods: "Numerical stability · evaluation · reproducibility"
+  - title: "Interpretable policies"
+    summary: >-
+      Turning learned control behaviour into compact explanations that people
+      can inspect, compare and reason about.
+    methods: "Policy analysis · SINDy · diagnostics"
+  - title: "Research software"
+    summary: >-
+      Building configurable, structured and repeatable software for AI
+      experiments, including multi-agent LLM studies.
+    methods: "Python · Docker · logging · experiment design"
+
+experience:
+  - title: "Associate AI Engineer"
+    organisation: "CureMD"
+    location: "Lahore, Pakistan"
+    dates: "July 2023–September 2024"
+    highlights:
+      - "Built an internal LLM and RAG code assistant used across 150+ developers, helping reduce code-review turnaround by more than 25%."
+      - "Shipped RAG support systems handling 500+ daily queries with a reported 92% resolution rate."
+      - "Developed automated code-grading workflows using Llama 3 and programmatic tests."
+
+teaching:
+  - title: "Teaching Assistant and Lab Demonstrator"
+    organisation: "Coventry University"
+    dates: "August 2025–January 2026"
+    summary: >-
+      Led weekly deep learning and computer vision labs for 30+ MSc Data
+      Science students and graded 200+ assignments per semester.
+  - title: "Volunteer Teaching Assistant"
+    organisation: "Coventry University"
+    dates: "2025–2026"
+    summary: "Supported module delivery and student learning beyond contracted duties."
+
+professional_recognition:
+  - title: "Associate Fellow of the Higher Education Academy"
+    organisation: "Advance HE"
+    year: "2026"
+  - title: "Turing Scheme Award"
+    year: "2026"
+    detail: "Funded international research visit."
+  - title: "Fully Funded PhD Studentship"
+    organisation: "Coventry University, CSMM"
+    year: "2024"
+  - title: "Second Runner-Up, Prime Minister’s National Innovation Award"
+    organisation: "Government of Pakistan"
+    year: "2023"
+    detail: "Autonomous Weeding Robot, selected from 40,000+ entries."
+
+talks_and_service:
+  - "Oral presentation at AAAI 2026 on deadline-aware, energy-efficient domestic hot-water control."
+  - "Talk at the Tri-University International AI Symposium, 2026."
+  - "Co-organiser of the Coventry–NUST–Monash Suzhou symposium, April 2026."
+  - "Peer reviewer for Elsevier and MDPI journals."
+
+skills:
+  languages:
+    - "Python"
+    - "C++"
+    - "MATLAB"
+  reinforcement_learning_and_control:
+    - "Stable Baselines3"
+    - "RLlib"
+    - "Gymnasium"
+    - "MuJoCo"
+    - "BOPTEST"
+    - "Monte Carlo Tree Search"
+    - "SINDy"
+  machine_learning:
+    - "PyTorch"
+    - "TensorFlow"
+    - "scikit-learn"
+    - "OpenCV"
+    - "Hugging Face"
+  research_infrastructure:
+    - "Git"
+    - "Docker"
+    - "Linux"
+    - "HPC and SLURM"
+    - "Weights & Biases"
+    - "LaTeX"
+
+public_boundaries:
+  excluded:
+    - "Private contact and reference details"
+    - "Unpublished employer or collaborator information"
+    - "Anonymous-review identities, venues and non-public results"
