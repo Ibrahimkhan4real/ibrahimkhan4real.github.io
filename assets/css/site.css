@@ -1488,3 +1488,138 @@ main article div#article_text .service-list {
     grid-template-columns: 1fr;
   }
 }
+.now-status-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+
+main article div#article_text .now-status-strip a {
+  display: flex;
+  min-width: 0;
+  padding: 0.8rem;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
+  color: var(--text);
+  text-decoration: none;
+}
+
+main article div#article_text .now-status-strip a:hover,
+main article div#article_text .now-status-strip a:focus-visible {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  text-decoration: none;
+}
+
+.now-status-strip span {
+  margin-bottom: 0.35rem;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.now-status-strip strong {
+  line-height: 1.35;
+}
+
+.now-streams {
+  display: grid;
+  gap: 1rem;
+}
+
+.now-card {
+  padding: 1.15rem;
+  scroll-margin-top: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
+  background: var(--panel);
+}
+
+.now-card-header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.now-card-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.status-pill {
+  flex: 0 0 auto;
+  padding: 0.28rem 0.55rem;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.now-card-body {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem 1.2rem;
+  padding-top: 0.9rem;
+}
+
+.now-card-body .now-question {
+  grid-column: 1 / -1;
+}
+
+.now-card h4 {
+  margin: 0 0 0.3rem;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.now-card-body p {
+  margin: 0;
+}
+
+.public-note {
+  margin: 0.9rem 0 0;
+  padding: 0.75rem;
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft);
+  font-size: 0.9rem;
+}
+
+.now-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 0.9rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.public-boundary {
+  padding: 1.1rem;
+  border: 1px dashed var(--border);
+  border-radius: var(--card-radius);
+}
+
+@media screen and (max-width: 640px) {
+  .now-status-strip,
+  .now-card-body {
+    grid-template-columns: 1fr;
+  }
+
+  .now-card-body .now-question {
+    grid-column: 1;
+  }
+
+  .now-card-header {
+    flex-direction: column;
+  }
+}

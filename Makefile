@@ -15,6 +15,7 @@ serve:
 
 test:
 	npm run test:syntax
+	npm run test:content
 	npm run test:worker
 
 smoke:

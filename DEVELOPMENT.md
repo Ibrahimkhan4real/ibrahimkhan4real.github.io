@@ -26,6 +26,7 @@ Ensure the `bin` directory printed by `gem env user_gemhome` is on `PATH`.
 ```bash
 nvm use
 make setup
+python3 -m pip install --user -r requirements-content.txt
 ```
 
 `make setup` installs the locked Ruby gems, root browser-test packages, Worker
@@ -37,7 +38,7 @@ or modify website content.
 ```bash
 make build          # strict Jekyll build into _site/
 make serve          # local site at http://127.0.0.1:4000
-make test           # JavaScript syntax and Worker unit tests
+make test           # JavaScript, content updater, and Worker unit tests
 make smoke          # start Jekyll and test all primary routes in Chromium
 make screenshots    # desktop/mobile, light/dark screenshots
 make worker-dry-run # validate the Worker deployment bundle
