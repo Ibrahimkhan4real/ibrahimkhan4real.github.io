@@ -95,3 +95,19 @@ npm --prefix worker run deploy:dry-run
 ```
 
 Production deployment and secrets are deliberately not part of `make check`.
+
+## Publication snapshot
+
+The Papers page never fetches Google Scholar in a visitor's browser. Its
+server-rendered data lives in `_data/papers.json`. To attempt a local refresh:
+
+```bash
+python3 scripts/update_papers.py --scholar-id bh9os08AAAAJ
+```
+
+The updater rejects empty, duplicated, malformed, or unexpectedly shrunken
+results and replaces the file atomically. The scheduled workflow adds
+`--allow-stale`, because Scholar frequently returns HTTP 403 to hosted runners;
+in that case the validated last-known-good snapshot remains in place and the
+job summary records a warning. A large intentional reduction requires a manual
+run with `--allow-shrink` after checking the Scholar profile directly.

@@ -2,41 +2,66 @@ name: Sync papers from Google Scholar
 
 on:
   workflow_dispatch:
+    inputs:
+      allow_shrink:
+        description: Allow a manually verified reduction of more than half the records
+        required: false
+        default: false
+        type: boolean
   schedule:
-    - cron: '30 6 * * *'
+    - cron: "30 6 * * 1"
 
 permissions:
   contents: write
 
+concurrency:
+  group: public-content-writes
+  cancel-in-progress: false
+
 jobs:
   sync:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
-          python-version: '3.11'
+          python-version: "3.12"
 
       - name: Update papers dataset
         env:
           SCHOLAR_AUTHOR_ID: ${{ secrets.SCHOLAR_AUTHOR_ID }}
+          ALLOW_SHRINK: ${{ inputs.allow_shrink || 'false' }}
         run: |
+          set -o pipefail
           SCHOLAR_ID="${SCHOLAR_AUTHOR_ID:-bh9os08AAAAJ}"
-          python scripts/update_papers.py --scholar-id "${SCHOLAR_ID}"
+          arguments=(--scholar-id "${SCHOLAR_ID}" --allow-stale)
+          if [[ "${ALLOW_SHRINK}" == "true" ]]; then
+            arguments+=(--allow-shrink)
+          fi
+          python scripts/update_papers.py "${arguments[@]}" 2>&1 | tee /tmp/paper-sync.log
+          {
+            echo "## Publication sync"
+            echo
+            echo '```text'
+            tail -n 20 /tmp/paper-sync.log
+            echo '```'
+          } >> "${GITHUB_STEP_SUMMARY}"
 
       - name: Commit updates
         run: |
-          if git diff --quiet --exit-code; then
-            echo "No changes to commit"
+          if git diff --quiet -- _data/papers.json; then
+            echo "No publication update to commit"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -am "chore: sync papers from scholar"
+          git add _data/papers.json
+          git commit -m "chore: sync validated scholar snapshot"
           git push

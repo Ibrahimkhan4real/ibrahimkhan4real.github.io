@@ -9,8 +9,9 @@ the retrieval corpus and Cloudflare Worker used by the site's research guide.
 
 - `_data/profile.yml` is the verified public profile and biography.
 - `_data/now.yml` supplies the current-work summary.
-- `_data/papers.json` is the checked-in publication snapshot rendered by
-  the site.
+- `_data/papers.json` is the checked-in publication snapshot rendered by the
+  site. `scripts/update_papers.py` validates a full replacement before an
+  atomic write and retains this last-known-good copy when Scholar blocks CI.
 - `_posts/` contains public research notes.
 - `rag-feed.json` and the Worker index are generated public retrieval data.
 - `assets/docs/Ibrahim_CV.pdf` is the downloadable CV.
