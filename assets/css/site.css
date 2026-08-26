@@ -1448,3 +1448,43 @@ main article div#article_text .skill-chips li {
     display: none;
   }
 }
+.work-steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+}
+
+.work-steps > div {
+  padding: 1rem;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.work-steps span {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.work-steps h3 {
+  margin: 0.55rem 0 0.35rem;
+  font-size: 1.02rem;
+}
+
+.work-steps p {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+main article div#article_text .service-list {
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+@media screen and (max-width: 640px) {
+  .work-steps {
+    grid-template-columns: 1fr;
+  }
+}

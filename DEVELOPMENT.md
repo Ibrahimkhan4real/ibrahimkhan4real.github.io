@@ -63,7 +63,7 @@ ignored by Git. Playwright traces and failure screenshots are written beneath
 `artifacts/playwright/`.
 
 The smoke suite uses a locked local browser rather than a signed-in or in-app
-browser session. It covers Home, Live, Papers, Blog, Demos, and Travel at
+browser session. It covers Home, Live, Work, Papers, Blog, and Demos at
 desktop and mobile widths in light and dark themes. Add route-specific content
 assertions alongside each feature rather than weakening the structural checks.
 

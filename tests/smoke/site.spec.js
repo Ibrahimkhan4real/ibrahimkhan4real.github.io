@@ -8,7 +8,7 @@ const primaryRoutes = [
   { path: '/papers.html', slug: 'papers' },
   { path: '/blog.html', slug: 'blog' },
   { path: '/demos.html', slug: 'demos' },
-  { path: '/travel.html', slug: 'travel' },
+  { path: '/work.html', slug: 'work' },
 ];
 
 for (const route of primaryRoutes) {
@@ -39,13 +39,7 @@ for (const route of primaryRoutes) {
     );
     expect(hasHorizontalOverflow, `${route.path} should not overflow horizontally`).toBe(false);
 
-    // Travel currently relies on an unpinned third-party map script. Keep the
-    // structural route smoke test useful without making CI depend on that CDN;
-    // the known exception should be removed when the map dependency is pinned.
-    const unexpectedErrors = pageErrors.filter(
-      (message) => route.path !== '/travel.html' || !message.includes('jsVectorMap'),
-    );
-    expect(unexpectedErrors, `${route.path} should not raise page errors`).toEqual([]);
+    expect(pageErrors, `${route.path} should not raise page errors`).toEqual([]);
 
     if (process.env.SITE_CAPTURE_SCREENSHOTS === '1') {
       const screenshotDirectory = resolve('artifacts', 'screenshots', testInfo.project.name);

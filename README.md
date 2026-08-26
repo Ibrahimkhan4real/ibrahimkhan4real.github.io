@@ -1,91 +1,64 @@
-# Muhammad Ibrahim Khan
+# Ibrahim Khan — research website
 
-Coventry, UK • +44 7470800092 • [khanm442@uni.coventry.ac.uk](mailto:khanm442@uni.coventry.ac.uk)
+Source for [ibrahimkhan4real.github.io](https://ibrahimkhan4real.github.io),
+a Jekyll site covering Muhammad Ibrahim Khan's research, publications, public
+software, teaching and professional experience. The repository also contains
+the retrieval corpus and Cloudflare Worker used by the site's research guide.
 
----
+## Content sources
 
-## Education
+- `_data/profile.yml` is the verified public profile and biography.
+- `_data/now.yml` supplies the current-work summary.
+- `site_data/papers.json` is the checked-in publication snapshot rendered by
+  the site.
+- `_posts/` contains public research notes.
+- `rag-feed.json` and the Worker index are generated public retrieval data.
+- `assets/docs/Ibrahim_CV.pdf` is the downloadable CV.
 
-**PhD in Reinforcement Learning**  
-*Coventry University, Coventry, UK*  
-_expected completion – Mar 2028_  
-Thesis title: **Multi-Sensor Fusion for Robust Reinforcement Learning in Uncertain Environments**
+Keep private contact details, references, employer-confidential material and
+anonymous-review information out of structured site data and retrieval sources.
 
-**Bachelor of Mechanical Engineering**  
-*National University of Sciences and Technology (NUST), Islamabad, Pakistan*  
-Jun 2023
+## Local development
 
----
+The reproducible setup is documented in [DEVELOPMENT.md](DEVELOPMENT.md).
+The no-sudo Docker path is the most portable:
 
-## Skills
+```bash
+make build-docker
+make smoke-docker
+make screenshots-docker
+```
 
-**Programming**
+A host Ruby/Node setup can run the complete gate with:
 
-- Python (NumPy, Pandas, PySpark, Scikit-learn, Matplotlib, YOLO, PyTorch, Langchain, TensorFlow)
+```bash
+make setup
+make check
+```
 
-**Modelling and Machine Learning**
+The site pins the GitHub Pages dependency bundle, Node/npm versions,
+Playwright, Worker packages and Wrangler. CI repeats the strict build, syntax,
+Worker and browser checks.
 
-- Reinforcement Learning: PPO, SAC, Q-learning  
-- Classification: SVMs, KNNs, Logistic Regression, Naïve Bayes  
-- Prediction: Linear Regression, XGBoost, Random Forest, CART, Neural Networks  
-- Clustering: K-means, Hierarchical  
-- NLP: LLMs, RNNs, LSTMs, Transformers, RAG, Fine-tuning
+## Primary routes
 
-**Certifications**
+- Home: profile and biography
+- Work: roles, research practice, public projects and teaching
+- Live: current research focus
+- Papers: server-rendered publication record
+- Blog: research notes
+- Demos: interactive reinforcement-learning examples
 
-- Machine Learning Specialization (Coursera)  
-- Deep Learning Specialization (Coursera)
+## Updating public facts
 
----
+1. Update the appropriate structured source rather than duplicating facts in a
+   template.
+2. Keep dates and claims within what the public CV, publication record or
+   linked public repository supports.
+3. Run the full local acceptance gate.
+4. Inspect desktop/mobile and light/dark screenshots in
+   `artifacts/screenshots/`.
+5. Commit the source and any required generated public data together.
 
-## Experience
-
-### Teaching Assistant and Lab Demonstrator  
-**Coventry University, Coventry, UK**  
-_Aug 2025 – Present_
-
-- Conducted detailed labs for the “Deep Learning and Computer Vision” module, supporting MSc Data Science students.  
-- Graded postgraduate coursework for MSc Data Science students, ensuring accurate and timely evaluation of assignments.  
-- Collaborated with faculty to maintain smooth course delivery and provided feedback to improve teaching materials.
-
-### Associate AI Engineer  
-**CureMD, Lahore, Pakistan**  
-_Jul 2023 – Sep 2024_
-
-- Developed an in-house “LLM for Code”, an advanced tool similar to GitHub Copilot, leveraging RAG with Mixtral 8x7B for code explanation, generation, and translation to support software development.  
-- Fine-tuned LLMs on a proprietary code base to develop a chatbot tailored for software specialists.  
-- Utilised Retrieval Augmented Generation (RAG) with LLMs to develop a chatbot for the Customer Service Department.  
-- Built an automated LLM-based “Code Grader” using Llama 3, which graded over 100 candidates in under a minute, evaluating code based on logic and black-box testing.  
-- Applied machine learning and deep learning models to enhance internal productivity and create products for the US healthcare industry.
-
-### Field Engineer – Intern  
-**Engro Fertilizers, Daharki, Pakistan**  
-_Jun 2022 – Aug 2022_
-
-- Assisted with engine replacement of a 7700 HP aeroderivative engine (Taurus 60) during a 24-day forced outage.  
-- Worked closely with the Field Service Representative from Egypt and produced a comprehensive report on the engine replacement.  
-- Examined internal components and assemblies of centrifugal compressors and steam turbines and observed complete overhauls.
-
----
-
-## Data Science Projects
-
-**LLM-Based Code Grading System**  
-_Feb 2024_  
-- Used open-source LLMs such as Llama 3 to develop an automated code grading system capable of evaluating code quality using logical assessment and black-box testing.
-
----
-
-## Research Publications
-
-- **Learning from Less: SINDy Surrogates in RL**  
-  _ICLR 2025, Apr 2025_
-
----
-
-## Awards and Distinctions
-
-- Awarded Fully Funded PhD  
-  _Sep 2024_  
-- Second Runner-Up, Prime Minister’s National Innovation Award 2023  
-  _Jul 2023_
+Production publication is separate from local validation. Do not deploy the
+GitHub Pages site or Worker merely because the local gate passes.

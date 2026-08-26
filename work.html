@@ -1,0 +1,144 @@
+---
+layout: default
+title: "Work — Muhammad Ibrahim Khan"
+description: "Research, engineering, teaching and public software by Muhammad Ibrahim Khan."
+---
+
+{% assign profile = site.data.profile %}
+
+<header>
+  <p>Research · Engineering · Teaching</p>
+</header>
+
+<article>
+  <div id="article_title">
+    <p class="eyebrow">Professional work</p>
+    <h1>Turning research questions into reliable software</h1>
+  </div>
+
+  <div id="article_text">
+    <p class="lead">
+      My work connects reinforcement learning, planning and research software.
+      I build experiments that can be audited, communicate what the evidence
+      supports, and turn difficult ideas into tools other people can inspect.
+    </p>
+
+    <section class="status-section" id="roles">
+      <h2>Current roles</h2>
+      <div class="profile-list">
+        {% for role in profile.current_roles %}
+        <div class="profile-list-item">
+          <div>
+            <h3>{{ role.title }}</h3>
+            <p class="timeline-meta">{{ role.organisation }} · {{ role.unit }}</p>
+          </div>
+          <p class="date-label">{{ role.dates }}</p>
+          <p>{{ role.summary }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="status-section" id="approach">
+      <p class="eyebrow">How I work</p>
+      <h2>A reproducible research loop</h2>
+      <div class="work-steps">
+        <div>
+          <span>01</span>
+          <h3>Frame the decision</h3>
+          <p>Start with the operational question, constraints and evidence needed to make a useful claim.</p>
+        </div>
+        <div>
+          <span>02</span>
+          <h3>Build the comparison</h3>
+          <p>Define baselines, controlled changes and evaluation conditions before interpreting results.</p>
+        </div>
+        <div>
+          <span>03</span>
+          <h3>Make runs auditable</h3>
+          <p>Use explicit configuration, structured outputs and checks that make experimental runs easier to reproduce.</p>
+        </div>
+        <div>
+          <span>04</span>
+          <h3>Explain the evidence</h3>
+          <p>Separate what was measured from what is inferred, then communicate the result at the reader’s level.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="status-section" id="public-projects">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Open work</p>
+          <h2>Selected public projects</h2>
+        </div>
+        <a href="{{ profile.links.github }}" target="_blank" rel="noopener noreferrer">All GitHub repositories</a>
+      </div>
+
+      <div class="public-projects">
+        <a class="public-project-card" href="https://github.com/Ibrahimkhan4real/RL_for_HVAC_System" target="_blank" rel="noopener noreferrer">
+          <strong>RL for HVAC systems</strong>
+          <span>Control experiments for balancing indoor comfort with changing energy conditions.</span>
+          <small>View repository →</small>
+        </a>
+        <a class="public-project-card" href="https://github.com/Ibrahimkhan4real/Hot_Water_Immersion_System" target="_blank" rel="noopener noreferrer">
+          <strong>Hot-water control</strong>
+          <span>Planning and reinforcement-learning approaches for heating water by a deadline while managing energy use.</span>
+          <small>View repository →</small>
+        </a>
+        <a class="public-project-card" href="https://github.com/Ibrahimkhan4real/MCTS-Tic-Tac-Toe" target="_blank" rel="noopener noreferrer">
+          <strong>MCTS Tic-Tac-Toe</strong>
+          <span>A compact, interactive example of tree search balancing exploration with exploitation.</span>
+          <small>View repository →</small>
+        </a>
+        <a class="public-project-card" href="https://github.com/Ibrahimkhan4real/SM_meeting_transcriber" target="_blank" rel="noopener noreferrer">
+          <strong>Meeting transcriber</strong>
+          <span>A workflow for turning research-meeting audio into transcripts, summaries and action points.</span>
+          <small>View repository →</small>
+        </a>
+      </div>
+    </section>
+
+    <section class="status-section" id="industry">
+      <p class="eyebrow">Applied AI</p>
+      <h2>Production engineering</h2>
+      {% for item in profile.experience %}
+      <div class="profile-list-item">
+        <div>
+          <h3>{{ item.title }} · {{ item.organisation }}</h3>
+          <p class="timeline-meta">{{ item.location }}</p>
+        </div>
+        <p class="date-label">{{ item.dates }}</p>
+        <ul>{% for highlight in item.highlights %}<li>{{ highlight }}</li>{% endfor %}</ul>
+      </div>
+      {% endfor %}
+    </section>
+
+    <section class="status-section" id="teaching">
+      <p class="eyebrow">Teaching and service</p>
+      <h2>Supporting research communities</h2>
+      <div class="profile-card-grid profile-card-grid--compact">
+        {% for item in profile.teaching %}
+        <article class="profile-card">
+          <h3>{{ item.title }}</h3>
+          <p class="timeline-meta">{{ item.organisation }} · {{ item.dates }}</p>
+          <p>{{ item.summary }}</p>
+        </article>
+        {% endfor %}
+      </div>
+      <ul class="service-list">
+        {% for item in profile.talks_and_service %}<li>{{ item }}</li>{% endfor %}
+      </ul>
+    </section>
+
+    <section class="status-section contact-panel">
+      <h2>Explore the work</h2>
+      <p>Read the publications, try the interactive demos, or download the verified CV for a concise record.</p>
+      <div class="hero-actions">
+        <a class="button-primary" href="{{ "/papers.html" | relative_url }}">Publications</a>
+        <a class="button-secondary" href="{{ "/demos.html" | relative_url }}">Interactive demos</a>
+        <a class="button-secondary" href="{{ profile.links.cv | relative_url }}">Download CV</a>
+      </div>
+    </section>
+  </div>
+</article>
