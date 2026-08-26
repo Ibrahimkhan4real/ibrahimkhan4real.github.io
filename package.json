@@ -1,0 +1,24 @@
+{
+  "name": "ibrahimkhan4real-site-tooling",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "24.11.1",
+    "npm": "11.6.2"
+  },
+  "scripts": {
+    "build": "bundle exec jekyll build --strict_front_matter",
+    "serve": "bundle exec jekyll serve --host 127.0.0.1 --port 4000 --livereload",
+    "test": "npm run test:syntax && npm run test:worker && npm run test:smoke",
+    "test:syntax": "node scripts/check-js.mjs",
+    "test:worker": "npm --prefix worker test",
+    "test:smoke": "playwright test",
+    "smoke": "playwright test",
+    "screenshots": "SITE_CAPTURE_SCREENSHOTS=1 playwright test",
+    "worker:dry-run": "npm --prefix worker run deploy:dry-run"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1"
+  }
+}

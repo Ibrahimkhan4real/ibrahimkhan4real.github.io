@@ -9,6 +9,16 @@ exclude:
   - worker/
   - My_CV.pdf
   - README.md
+  - GUIDE.md
+  - DEVELOPMENT.md
+  - node_modules/
+  - tests/
+  - artifacts/
+  - package.json
+  - package-lock.json
+  - playwright.config.js
+  - Dockerfile.jekyll
+  - Makefile
   - .github/
   - vendor/
 
