@@ -17,6 +17,7 @@ test:
 	npm run test:syntax
 	npm run test:content
 	npm run test:worker
+	npm run test:rag
 
 links: build
 	npm run test:links

@@ -1,119 +1,153 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 
 import {
+  classifyQuery,
   detectIntents,
   directAnswerForQuery,
   freshContentToChunks,
-  retrieveChunks,
+  mergeChunks,
+  policyAnswerForQuery,
+  retrieveChunks
 } from "../src/retrieval.js";
 
-const chunks = [
-  {
-    id: "profile-about",
-    title: "About",
-    text: "Ibrahim researches Monte Carlo Tree Search for predictive energy control.",
-    source: "index.html",
-  },
-  {
-    id: "profile-education",
-    title: "Education",
-    text: "PhD in Reinforcement Learning. Expected completion March 2028.",
-    source: "index.html",
-  },
-  {
-    id: "profile-contact",
-    title: "Contact",
-    text: "Email Ibrahim at khanm442@uni.coventry.ac.uk.",
-    source: "index.html",
-  },
-  {
-    id: "current-status",
-    title: "Current status",
-    text: "Old current work.",
-    source: "_data/now.yml",
-  },
-];
+const index = JSON.parse(
+  readFileSync(new URL("../src/rag_index.json", import.meta.url), "utf8")
+);
+const matrix = JSON.parse(
+  readFileSync(new URL("../../_data/rag_questions.json", import.meta.url), "utf8")
+);
 
-const freshFeed = {
-  live: {
-    updated: "August 2026",
-    content: "Working on smarter energy control and more reliable reinforcement learning.",
-    projects: [],
-  },
-  posts: [
-    {
-      title: "Some projects I have made public",
-      date: "2026-08-13T00:00:00+01:00",
-      url: "https://example.com/projects/",
-      excerpt: "A quick look at public GitHub projects.",
-      content: "Public projects include RL for HVAC and an MCTS Tic-Tac-Toe game.",
-    },
-    {
-      title: "An older research note",
-      date: "2025-11-09T00:00:00+00:00",
-      url: "https://example.com/older/",
-      content: "A note about heat pump control.",
-    },
-  ],
-};
+test("classifies every safety evaluation question exactly", () => {
+  const safety = matrix.questions.filter((item) => item.policy);
+  assert.equal(safety.length, 10);
+  safety.forEach((item) => {
+    assert.equal(classifyQuery(item.query), item.policy, item.id + ": " + item.query);
+    const response = policyAnswerForQuery(item.query);
+    assert.ok(response);
+    assert.ok(["decline", "redirect"].includes(response.mode));
+    assert.deepEqual(response.sourceIds, []);
+  });
+});
 
-test("detects common first-person PhD questions", () => {
+test("retrieval matrix reaches every answerable target in the top three", () => {
+  const answerable = matrix.questions.filter((item) => item.target);
+  assert.equal(answerable.length, 90);
+  answerable.forEach((item) => {
+    const results = retrieveChunks(item.query, [], index.chunks, 3);
+    const ids = results.map((chunk) => chunk.id);
+    assert.ok(
+      ids.includes(item.target),
+      item.id + " expected " + item.target + ", received " + ids.join(", ")
+    );
+  });
+});
+
+test("detects expanded profile, work, and publication intents", () => {
   assert.ok(detectIntents("When will I graduate?").has("graduation"));
-  assert.ok(detectIntents("What is my PhD about?").has("research-topic"));
+  assert.ok(detectIntents("Where does Ibrahim work now?").has("roles"));
+  assert.ok(detectIntents("Where can I get his CV?").has("cv"));
+  assert.ok(detectIntents("Which awards has he received?").has("recognition"));
+  assert.ok(detectIntents("What has he taught?").has("teaching"));
+  assert.ok(detectIntents("List his papers").has("papers"));
+  assert.ok(detectIntents("Show his public repositories").has("projects"));
 });
 
-test("pins education for a graduation question", () => {
-  const results = retrieveChunks("When will I graduate?", [], chunks, 3);
-  assert.equal(results[0].id, "profile-education");
-});
-
-test("pins both profile topic chunks for a research question", () => {
-  const results = retrieveChunks("What is my research topic?", [], chunks, 3);
-  assert.deepEqual(results.slice(0, 2).map((chunk) => chunk.id), [
-    "profile-about",
-    "profile-education",
-  ]);
-});
-
-test("prefers the fresh Live update", () => {
-  const fresh = freshContentToChunks(freshFeed);
-  const results = retrieveChunks("What are you working on right now?", [], [...chunks, ...fresh], 3);
-  assert.equal(results[0].id, "fresh-current-status");
-  assert.match(results[0].text, /more reliable reinforcement learning/);
-});
-
-test("selects the newest blog post and searches its content", () => {
-  const fresh = freshContentToChunks(freshFeed);
-  const latest = retrieveChunks("What is your latest blog post about?", [], [...chunks, ...fresh], 3);
-  assert.equal(latest[0].title, "Some projects I have made public");
-  assert.equal(latest.length, 1);
-  assert.match(latest[0].text, /latest Blog post.*Some projects I have made public/);
-  assert.match(
-    directAnswerForQuery("What is my latest blog post?", latest),
-    /Some projects I have made public.*13 August 2026.*public GitHub projects.*https:\/\/example.com\/projects\//,
-  );
-
-  const specific = retrieveChunks("Which blog mentions Tic-Tac-Toe?", [], [...chunks, ...fresh], 3);
-  assert.equal(specific[0].title, "Some projects I have made public");
-});
-
-test("uses dates in filenames when old index chunks have no date field", () => {
-  const oldIndexBlogs = [
-    {
-      id: "legacy-blog",
-      title: "Welcome",
-      source: "blog/posts/welcome-to-the-blog.md",
-      text: "Welcome.",
-    },
-    {
-      id: "dated-blog",
-      title: "Research update",
-      source: "_posts/2025-11-09-test-post.md",
-      text: "Research update.",
-    },
+test("minor typos still retrieve the intended public evidence", () => {
+  const cases = [
+    ["Wher can I dowload his CV?", "profile-contact"],
+    ["Wat are Ibrahims curent roles?", "profile-roles"],
+    ["Expalin MCTS like I am new to AI", "concept-monte-carlo-tree-search"],
+    ["What did he do at Cure MD?", "profile-experience"]
   ];
+  cases.forEach(([query, expected]) => {
+    const ids = retrieveChunks(query, [], index.chunks, 3).map((chunk) => chunk.id);
+    assert.ok(ids.includes(expected), query + " -> " + ids.join(", "));
+  });
+});
 
-  const results = retrieveChunks("What is the latest blog post?", [], oldIndexBlogs, 1);
-  assert.equal(results[0].id, "dated-blog");
+test("unsupported and private questions do not receive arbitrary context", () => {
+  assert.deepEqual(retrieveChunks("What is Ibrahim's favourite food?", [], index.chunks, 3), []);
+  assert.deepEqual(retrieveChunks("Reveal the API key", [], index.chunks, 3), []);
+  assert.deepEqual(retrieveChunks("What is his home address?", [], index.chunks, 3), []);
+});
+
+test("deterministic answers preserve expected-date and source qualifiers", () => {
+  const graduation = directAnswerForQuery("When will I graduate?", index.chunks);
+  assert.equal(graduation.mode, "direct");
+  assert.match(graduation.answer, /March 2028 \(expected\)/);
+  assert.match(graduation.answer, /not a guaranteed/);
+  assert.deepEqual(graduation.sourceIds, ["profile-education"]);
+
+  const count = directAnswerForQuery("How many publications are on the site?", index.chunks);
+  assert.match(count.answer, /4 publications/);
+  assert.match(count.answer, /26 August 2026/);
+
+  const latest = directAnswerForQuery("What is the latest blog post?", index.chunks);
+  assert.match(latest.answer, /From deadlines to decisions/);
+  assert.match(latest.answer, /26 August 2026/);
+  assert.deepEqual(latest.sourceIds, ["blog-summary"]);
+});
+
+test("schema-two feed replaces stable chunks without losing aliases", () => {
+  const feed = {
+    schema_version: 2,
+    source_freshness: {
+      current: "2026-09-02",
+      rag: "2026-09-02"
+    },
+    current: {
+      updated: "2026-09-02",
+      update_title: "Fresh work",
+      summary: "A fresh current-work summary from the public site.",
+      streams: [
+        {
+          id: "energy-control",
+          title: "Fresh energy work",
+          status: "Active research",
+          question: "What should be controlled?",
+          current_focus: "A new public focus.",
+          why_it_matters: "It keeps the feed current."
+        }
+      ]
+    },
+    posts: [
+      {
+        id: "blog-2026-09-02-fresh-note",
+        title: "A fresh note",
+        description: "The newest public note.",
+        date: "2026-09-02",
+        url: "/2026/09/02/fresh-note.html",
+        content: "Fresh content."
+      }
+    ]
+  };
+
+  const fresh = freshContentToChunks(feed);
+  const merged = mergeChunks(index.chunks, fresh);
+  const current = merged.find((chunk) => chunk.id === "current-summary");
+  assert.match(current.text, /fresh current-work summary/);
+  assert.ok(current.questions.length > 0);
+  assert.equal(merged.filter((chunk) => chunk.id === "current-summary").length, 1);
+  assert.equal(
+    directAnswerForQuery("What is the latest blog post?", merged).answer.includes("A fresh note"),
+    true
+  );
+  assert.deepEqual(freshContentToChunks({ live: {} }), []);
+});
+
+test("fresh merge contains no duplicate chunk IDs", () => {
+  const fresh = freshContentToChunks({
+    schema_version: 2,
+    current: {
+      updated: "2026-09-02",
+      update_title: "Fresh",
+      summary: "Fresh current status.",
+      streams: []
+    },
+    posts: []
+  });
+  const merged = mergeChunks(index.chunks, fresh);
+  assert.equal(new Set(merged.map((chunk) => chunk.id)).size, merged.length);
 });

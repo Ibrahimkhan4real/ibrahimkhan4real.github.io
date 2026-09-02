@@ -38,7 +38,7 @@ or modify website content.
 ```bash
 make build          # strict Jekyll build into _site/
 make serve          # local site at http://127.0.0.1:4000
-make test           # JavaScript, content updater, and Worker unit tests
+make test           # JavaScript, content, RAG freshness, and Worker tests
 make links          # built-site internal targets, fragments, email and HTTPS
 make links-external # additionally request every external HTTPS destination
 make smoke          # test all primary routes in Chromium
@@ -108,6 +108,22 @@ npm --prefix worker run deploy:dry-run
 ```
 
 Production deployment and secrets are deliberately not part of `make check`.
+
+## Research-guide corpus
+
+The public corpus is generated only from reviewed `_data/` files and published
+posts. Rebuild its deterministic lexical form and verify freshness with:
+
+```bash
+python3 scripts/build_rag_index.py --no-embeddings
+python3 scripts/build_rag_index.py --check
+npm run test:rag
+```
+
+An API key is not required for the default corpus or its evaluation. Optional
+embeddings are all-or-nothing and are documented in `worker/README.md`. The
+100-question audience and safety matrix, acceptance criteria, and maintenance
+workflow are documented in [RAG_EVALUATION.md](RAG_EVALUATION.md).
 
 ## Publication snapshot
 

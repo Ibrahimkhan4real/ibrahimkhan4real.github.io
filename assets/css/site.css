@@ -110,7 +110,7 @@
   bottom: 22px;
   right: 22px;
   width: min(370px, calc(100vw - 32px));
-  max-height: min(520px, calc(100vh - 40px));
+  max-height: min(610px, calc(100vh - 40px));
   background: var(--panel);
   border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--border));
   border-radius: 18px;
@@ -120,7 +120,6 @@
   z-index: 1000;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  animation: chat-arrive 0.6s ease-out both;
 }
 
 #chat-widget.minimized {
@@ -236,7 +235,7 @@
   overflow-y: auto;
   font-size: 0.88em;
   min-height: 245px;
-  max-height: 340px;
+  max-height: 390px;
 }
 
 .chat-message {
@@ -315,6 +314,75 @@
   background: var(--accent-soft);
 }
 
+.chat-sources {
+  margin-top: 0.7rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid color-mix(in srgb, var(--accent) 22%, var(--border));
+  font-size: 0.84em;
+}
+
+.chat-sources strong {
+  display: block;
+  margin-bottom: 0.2rem;
+  color: var(--text-muted);
+  font-size: 0.9em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.chat-sources ul {
+  margin: 0;
+  padding-left: 1rem;
+}
+
+.chat-sources li + li {
+  margin-top: 0.2rem;
+}
+
+.chat-sources a {
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.chat-privacy-row {
+  display: flex;
+  padding: 8px 12px;
+  border-top: 1px solid var(--border);
+  align-items: center;
+  gap: 8px;
+  background: var(--accent-soft);
+}
+
+#chat-privacy {
+  flex: 1;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.69em;
+  line-height: 1.3;
+}
+
+#chat-clear {
+  padding: 4px 7px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--panel);
+  color: var(--text-muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.7em;
+}
+
+#chat-clear:hover,
+#chat-clear:focus-visible {
+  color: var(--accent);
+}
+
+#chat-clear:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+
 .ask-research-link {
   display: inline-flex;
   align-items: center;
@@ -326,15 +394,6 @@
   cursor: pointer;
   font: inherit;
   font-weight: 600;
-}
-
-@keyframes chat-arrive {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 @keyframes chat-attention {
@@ -867,16 +926,7 @@ main article div#article_text .public-project-card:focus-visible {
   color: #c62828;
 }
 
-#travel-map {
-  width: 100%;
-  min-height: 520px;
-  border: 1px solid var(--border);
-  border-radius: var(--card-radius);
-  background-color: var(--panel);
-  box-shadow: var(--shadow-soft);
-}
-
-.travel-note {
+.demo-note {
   margin-top: 0.8em;
   font-size: 0.9em;
   color: var(--text-muted);
@@ -1155,7 +1205,7 @@ sup {
 
   #chat-messages {
     min-height: 220px;
-    max-height: calc(100vh - 190px);
+    max-height: calc(100vh - 250px);
   }
 
   .chat-header-copy small {

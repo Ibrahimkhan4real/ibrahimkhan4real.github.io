@@ -27,7 +27,7 @@ description: "Interactive browser demonstrations of Monte Carlo Tree Search, Q-l
         </div>
       </div>
       <div class="demo-stats" id="mcts-info" role="status" aria-live="polite" aria-atomic="true"></div>
-      <p class="travel-note">Internal nodes show visit count (top) and average reward (bottom). Leaf nodes show their reward value. Node colour intensity reflects how often a node has been visited. The algorithm uses UCB1 (C=&radic;2) to balance exploration and exploitation.</p>
+      <p class="demo-note">Internal nodes show visit count (top) and average reward (bottom). Leaf nodes show their reward value. Node colour intensity reflects how often a node has been visited. The algorithm uses UCB1 (C=&radic;2) to balance exploration and exploitation.</p>
     </section>
 
     <section class="status-section">
@@ -54,7 +54,7 @@ description: "Interactive browser demonstrations of Monte Carlo Tree Search, Q-l
         </div>
         <div class="demo-stats" id="ql-stats" role="status" aria-live="polite" aria-atomic="true"></div>
       </div>
-      <p class="travel-note">S = start (top-left), G = goal (bottom-right by default). Grey cells are walls. The agent uses &epsilon;-greedy exploration with decay (&alpha;=0.1, &gamma;=0.95).</p>
+      <p class="demo-note">S = start (top-left), G = goal (bottom-right by default). Grey cells are walls. The agent uses &epsilon;-greedy exploration with decay (&alpha;=0.1, &gamma;=0.95).</p>
     </section>
 
     <section class="status-section">
@@ -82,7 +82,7 @@ description: "Interactive browser demonstrations of Monte Carlo Tree Search, Q-l
         </div>
         <div class="demo-stats" id="mvg-stats" role="status" aria-live="polite" aria-atomic="true"></div>
       </div>
-      <p class="travel-note">Leaf nodes show reward values. Node numbers show visit counts (MCTS). Highlighted paths show the final chosen route. MCTS uses C=&radic;2 for exploration.</p>
+      <p class="demo-note">Leaf nodes show reward values. Node numbers show visit counts (MCTS). Highlighted paths show the final chosen route. MCTS uses C=&radic;2 for exploration.</p>
     </section>
 
     <section class="status-section">
@@ -110,7 +110,7 @@ description: "Interactive browser demonstrations of Monte Carlo Tree Search, Q-l
         </div>
         <div class="demo-stats" id="bandit-stats" role="status" aria-live="polite" aria-atomic="true"></div>
       </div>
-      <p class="travel-note">Click directly on an arm bar to pull it manually. The bar chart shows estimated reward per arm; the line chart tracks cumulative regret over time. Each arm is a Bernoulli bandit with fixed hidden probability.</p>
+      <p class="demo-note">Click directly on an arm bar to pull it manually. The bar chart shows estimated reward per arm; the line chart tracks cumulative regret over time. Each arm is a Bernoulli bandit with fixed hidden probability.</p>
     </section>
   </div>
 </article>

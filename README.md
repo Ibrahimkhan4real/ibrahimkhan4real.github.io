@@ -9,6 +9,10 @@ the retrieval corpus and Cloudflare Worker used by the site's research guide.
 
 - `_data/profile.yml` is the verified public profile and biography.
 - `_data/now.yml` supplies the current-work summary.
+- `_data/projects.yml` records verified public software projects.
+- `_data/rag.yml` contains public explainers and research-guide resources.
+- `_data/rag_questions.json` is the maintained novice, professional, general,
+  personal-public and safety evaluation matrix.
 - `_data/papers.json` is the checked-in publication snapshot rendered by the
   site. `scripts/update_papers.py` validates a full replacement before an
   atomic write and retains this last-known-good copy when Scholar blocks CI.
@@ -40,7 +44,8 @@ make check
 The site pins the GitHub Pages dependency bundle, Node/npm versions,
 Playwright, axe-core, Worker packages and Wrangler. CI repeats the strict
 build, syntax, content, internal-link, accessibility, metadata, discovery,
-Worker and responsive browser checks. Live external links are checked weekly.
+RAG freshness and retrieval, Worker and responsive browser checks. Live
+external links are checked weekly. See [RAG_EVALUATION.md](RAG_EVALUATION.md).
 
 ## Primary routes
 
