@@ -1,6 +1,7 @@
 ---
 layout: null
 permalink: /rag-feed.json
+sitemap: false
 ---
 {
   "generated_at": {{ site.time | date_to_xmlschema | jsonify }},

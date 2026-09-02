@@ -1,4 +1,4 @@
-.PHONY: setup build serve test smoke screenshots worker-dry-run check clean \
+.PHONY: setup build serve test links links-external smoke screenshots worker-dry-run check clean \
 	jekyll-image build-docker serve-docker smoke-docker screenshots-docker check-docker
 
 setup:
@@ -18,16 +18,22 @@ test:
 	npm run test:content
 	npm run test:worker
 
-smoke:
+links: build
+	npm run test:links
+
+links-external: build
+	npm run test:links:external
+
+smoke: build
 	npm run test:smoke
 
-screenshots:
+screenshots: build
 	npm run screenshots
 
 worker-dry-run:
 	npm run worker:dry-run
 
-check: build test smoke worker-dry-run
+check: test links links-external smoke worker-dry-run
 
 jekyll-image:
 	docker --context default build -f Dockerfile.jekyll -t ibrahim-site-jekyll:232 .
@@ -44,7 +50,11 @@ smoke-docker: jekyll-image
 screenshots-docker: jekyll-image
 	SITE_CAPTURE_SCREENSHOTS=1 scripts/run-smoke-docker.sh
 
-check-docker: build-docker test smoke-docker worker-dry-run
+check-docker: build-docker test
+	npm run test:links
+	npm run test:links:external
+	scripts/run-smoke-docker.sh
+	npm run worker:dry-run
 
 clean:
 	bundle exec jekyll clean

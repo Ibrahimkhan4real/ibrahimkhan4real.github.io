@@ -21,7 +21,7 @@ export default defineConfig({
   webServer: externalBaseURL
     ? undefined
     : {
-        command: 'bundle exec jekyll serve --host 127.0.0.1 --port 4000 --no-watch --quiet',
+        command: 'bundle exec ruby -run -e httpd _site -p 4000 -b 127.0.0.1',
         url: 'http://127.0.0.1:4000/',
         reuseExistingServer: !process.env.CI,
         timeout: 120_000,

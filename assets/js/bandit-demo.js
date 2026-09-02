@@ -247,6 +247,12 @@
       }
     }
   });
+  document.querySelectorAll('[data-bandit-arm]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      pullArm(Number(button.dataset.banditArm) - 1);
+    });
+  });
+
 
   document.getElementById('bandit-auto').addEventListener('click', function () { autoRun(100); });
   document.getElementById('bandit-reset').addEventListener('click', reset);

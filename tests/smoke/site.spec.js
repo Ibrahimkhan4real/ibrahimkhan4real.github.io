@@ -9,6 +9,7 @@ const primaryRoutes = [
   { path: '/blog.html', slug: 'blog' },
   { path: '/demos.html', slug: 'demos' },
   { path: '/work.html', slug: 'work' },
+  { path: '/404.html', slug: '404' },
 ];
 
 for (const route of primaryRoutes) {
@@ -20,7 +21,7 @@ for (const route of primaryRoutes) {
     expect(response, `${route.path} should return a response`).not.toBeNull();
     expect(response.status(), `${route.path} should return HTTP 200`).toBe(200);
 
-    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en-GB');
     expect(await page.title()).toMatch(/\S/);
     await expect(page.locator('main')).toBeVisible();
     const stylesheetCount = await page.locator('link[rel="stylesheet"]').count();

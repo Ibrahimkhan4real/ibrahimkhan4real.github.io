@@ -55,6 +55,9 @@ jobs:
 
       - name: Build site
         run: npm run build
+      - name: Check built-site links and fragments
+        run: npm run test:links
+
 
       - name: Check JavaScript syntax
         run: npm run test:syntax

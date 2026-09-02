@@ -30,6 +30,39 @@
   box-sizing: border-box;
 }
 
+.skip-link {
+  position: fixed;
+  top: -5rem;
+  left: 1rem;
+  z-index: 10000;
+  padding: 0.7rem 1rem;
+  border-radius: 0 0 6px 6px;
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 700;
+}
+
+.skip-link:focus {
+  top: 0;
+  text-decoration: none;
+}
+
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /* Reading Progress Bar */
 #reading-progress {
   position: fixed;
@@ -473,6 +506,10 @@ main article div#article_text li {
 main article div#article_text a {
   text-decoration: underline;
 }
+main footer a {
+  text-decoration: underline;
+}
+
 
 main article div#article_text blockquote {
   margin: 24px 12px;
@@ -1047,7 +1084,8 @@ sup {
   border: 1px solid var(--border);
 }
 
-.demo-select {
+.demo-select,
+.demo-number {
   padding: 6px 10px;
   border: 1px solid var(--border);
   border-radius: 4px;
@@ -1060,9 +1098,12 @@ sup {
 }
 
 .demo-select:hover,
-.demo-select:focus {
+.demo-number:hover,
+.demo-select:focus-visible,
+.demo-number:focus-visible {
   border-color: var(--accent);
-  outline: none;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .demo-slider {
@@ -1071,10 +1112,14 @@ sup {
   height: 4px;
   border-radius: 2px;
   background: var(--border);
-  outline: none;
   flex: 0 0 100px;
 }
 
+
+.demo-slider:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
 .demo-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;

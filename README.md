@@ -38,8 +38,9 @@ make check
 ```
 
 The site pins the GitHub Pages dependency bundle, Node/npm versions,
-Playwright, Worker packages and Wrangler. CI repeats the strict build, syntax,
-Worker and browser checks.
+Playwright, axe-core, Worker packages and Wrangler. CI repeats the strict
+build, syntax, content, internal-link, accessibility, metadata, discovery,
+Worker and responsive browser checks. Live external links are checked weekly.
 
 ## Primary routes
 
@@ -56,7 +57,7 @@ Worker and browser checks.
    template.
 2. Keep dates and claims within what the public CV, publication record or
    linked public repository supports.
-3. Run the full local acceptance gate.
+3. Run the full local acceptance gate (`make check` or `make check-docker`).
 4. Inspect desktop/mobile and light/dark screenshots in
    `artifacts/screenshots/`.
 5. Commit the source and any required generated public data together.

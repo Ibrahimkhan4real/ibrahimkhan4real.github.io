@@ -39,10 +39,12 @@ or modify website content.
 make build          # strict Jekyll build into _site/
 make serve          # local site at http://127.0.0.1:4000
 make test           # JavaScript, content updater, and Worker unit tests
-make smoke          # start Jekyll and test all primary routes in Chromium
+make links          # built-site internal targets, fragments, email and HTTPS
+make links-external # additionally request every external HTTPS destination
+make smoke          # test all primary routes in Chromium
 make screenshots    # desktop/mobile, light/dark screenshots
 make worker-dry-run # validate the Worker deployment bundle
-make check          # complete local validation gate
+make check          # complete local validation gate, including live links
 make clean          # remove Jekyll build output
 ```
 
@@ -63,10 +65,20 @@ Screenshots are written to `artifacts/screenshots/` and are intentionally
 ignored by Git. Playwright traces and failure screenshots are written beneath
 `artifacts/playwright/`.
 
-The smoke suite uses a locked local browser rather than a signed-in or in-app
-browser session. It covers Home, Live, Work, Papers, Blog, and Demos at
-desktop and mobile widths in light and dark themes. Add route-specific content
-assertions alongside each feature rather than weakening the structural checks.
+The smoke suite first performs a production-URL Jekyll build and then serves
+the finished `_site/` directory from a random loopback port. This preserves
+canonical and social URLs during local checks and avoids test-port collisions.
+It uses a locked local Chromium build rather than a signed-in or in-app browser
+session. It covers Home, Live, Work, Demos, Papers, Blog, and the custom 404 at
+desktop and mobile widths in light and dark themes. The suite also checks
+keyboard alternatives for canvas demos, page metadata, discovery files, and
+serious or critical automated WCAG A/AA findings with axe-core.
+
+The internal link gate runs in the main CI workflow. A separate scheduled
+workflow requests all external HTTPS links each Tuesday; access-restricted
+responses from sites such as LinkedIn are warnings, while missing or broken
+destinations fail the job. Add route-specific assertions alongside each
+feature rather than weakening these checks.
 
 ## Dependency updates
 
@@ -75,6 +87,7 @@ Update one dependency family at a time and commit its lockfile:
 ```bash
 bundle update github-pages webrick
 npm install --save-dev --save-exact @playwright/test@VERSION
+npm install --save-dev --save-exact @axe-core/playwright@VERSION
 npm --prefix worker install --save-dev --save-exact wrangler@VERSION
 make check
 ```
