@@ -76,26 +76,13 @@ description: "Research, engineering, teaching and public software by Muhammad Ib
       </div>
 
       <div class="public-projects">
-        <a class="public-project-card" href="https://github.com/Ibrahimkhan4real/RL_for_HVAC_System" target="_blank" rel="noopener noreferrer">
-          <strong>RL for HVAC systems</strong>
-          <span>Control experiments for balancing indoor comfort with changing energy conditions.</span>
-          <small>View repository →</small>
+        {% for project in site.data.projects.items %}
+        <a class="public-project-card" href="{{ project.repository }}" target="_blank" rel="noopener noreferrer">
+          <strong>{{ project.title }}</strong>
+          <span>{{ project.summary }}</span>
+          <small>{{ project.language }} · View repository →</small>
         </a>
-        <a class="public-project-card" href="https://github.com/Ibrahimkhan4real/Hot_Water_Immersion_System" target="_blank" rel="noopener noreferrer">
-          <strong>Hot-water control</strong>
-          <span>Planning and reinforcement-learning approaches for heating water by a deadline while managing energy use.</span>
-          <small>View repository →</small>
-        </a>
-        <a class="public-project-card" href="https://github.com/Ibrahimkhan4real/MCTS-Tic-Tac-Toe" target="_blank" rel="noopener noreferrer">
-          <strong>MCTS Tic-Tac-Toe</strong>
-          <span>A compact, interactive example of tree search balancing exploration with exploitation.</span>
-          <small>View repository →</small>
-        </a>
-        <a class="public-project-card" href="https://github.com/Ibrahimkhan4real/SM_meeting_transcriber" target="_blank" rel="noopener noreferrer">
-          <strong>Meeting transcriber</strong>
-          <span>A workflow for turning research-meeting audio into transcripts, summaries and action points.</span>
-          <small>View repository →</small>
-        </a>
+        {% endfor %}
       </div>
     </section>
 

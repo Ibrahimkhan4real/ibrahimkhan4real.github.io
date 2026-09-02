@@ -10,9 +10,10 @@
   "scripts": {
     "build": "bundle exec jekyll build --strict_front_matter",
     "serve": "bundle exec jekyll serve --host 127.0.0.1 --port 4000 --livereload",
-    "test": "npm run test:syntax && npm run test:content && npm run test:worker",
+    "test": "npm run test:syntax && npm run test:content && npm run test:rag && npm run test:worker",
     "test:syntax": "node scripts/check-js.mjs",
     "test:content": "python3 -m unittest discover -s tests/unit -p 'test_*.py'",
+    "test:rag": "python3 scripts/build_rag_index.py --check",
     "test:worker": "npm --prefix worker test",
     "test:links": "node scripts/check-links.mjs",
     "test:links:external": "CHECK_EXTERNAL_LINKS=1 node scripts/check-links.mjs",

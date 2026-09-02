@@ -37,8 +37,16 @@ test('sitemap, Atom feed, robots and public RAG feed are valid', async ({ reques
   const ragResponse = await request.get('/rag-feed.json');
   expect(ragResponse.status()).toBe(200);
   const rag = await ragResponse.json();
+  expect(rag.schema_version).toBe(2);
+  expect(rag.profile.identity.full_name).toBe('Muhammad Ibrahim Khan');
+  expect(rag.current.summary).toContain('three connected areas');
+  expect(rag.current.streams).toHaveLength(3);
+  expect(rag.projects.items).toHaveLength(4);
+  expect(rag.publications.publications).toHaveLength(4);
+  expect(rag.reference.explainers).toHaveLength(10);
+  expect(rag.reference.resources).toHaveLength(1);
   expect(rag.posts).toHaveLength(2);
-  expect(rag.live).toBeTruthy();
+  expect(rag.posts[0].id).toBe('blog-2026-08-26-deadlines-to-decisions');
 });
 
 test('custom 404 is useful and obsolete/tooling routes stay unpublished', async ({ page, request }, testInfo) => {

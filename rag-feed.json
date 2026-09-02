@@ -4,20 +4,33 @@ permalink: /rag-feed.json
 sitemap: false
 ---
 {
+  "schema_version": 2,
   "generated_at": {{ site.time | date_to_xmlschema | jsonify }},
-  "live": {
-    "updated": {{ site.data.now.updated | jsonify }},
-    "content": {{ site.data.now.content | jsonify }},
-    "projects": {{ site.data.now.projects | jsonify }}
+  "source_freshness": {
+    "profile": {{ site.data.profile.last_verified | jsonify }},
+    "current": {{ site.data.now.updated | jsonify }},
+    "projects": {{ site.data.projects.last_verified | jsonify }},
+    "publications": {{ site.data.papers.generated_at | jsonify }},
+    "rag": {{ site.data.rag.last_verified | jsonify }}
+  },
+  "profile": {{ site.data.profile | jsonify }},
+  "current": {{ site.data.now | jsonify }},
+  "projects": {{ site.data.projects | jsonify }},
+  "publications": {{ site.data.papers | jsonify }},
+  "reference": {
+    "explainers": {{ site.data.rag.explainers | jsonify }},
+    "resources": {{ site.data.rag.resources | jsonify }}
   },
   "posts": [
     {% for post in site.posts %}
     {
+      "id": {{ post.date | date: "%Y-%m-%d" | append: "-" | append: post.slug | prepend: "blog-" | jsonify }},
       "title": {{ post.title | jsonify }},
-      "date": {{ post.date | date_to_xmlschema | jsonify }},
-      "url": {{ post.url | absolute_url | jsonify }},
-      "excerpt": {{ post.excerpt | strip_html | jsonify }},
-      "content": {{ post.content | strip_html | jsonify }}
+      "description": {{ post.description | jsonify }},
+      "date": {{ post.date | date: "%Y-%m-%d" | jsonify }},
+      "url": {{ post.url | jsonify }},
+      "excerpt": {{ post.excerpt | strip_html | strip_newlines | jsonify }},
+      "content": {{ post.content | strip_html | strip_newlines | jsonify }}
     }{% unless forloop.last %},{% endunless %}
     {% endfor %}
   ]

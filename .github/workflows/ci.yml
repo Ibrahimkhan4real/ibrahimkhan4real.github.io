@@ -62,8 +62,11 @@ jobs:
       - name: Check JavaScript syntax
         run: npm run test:syntax
 
-      - name: Run content updater tests
+      - name: Run content and corpus tests
         run: npm run test:content
+
+      - name: Check public RAG index freshness
+        run: npm run test:rag
 
       - name: Run Worker tests
         run: npm run test:worker

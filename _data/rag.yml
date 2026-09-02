@@ -1,0 +1,196 @@
+schema_version: 1
+last_verified: "2026-09-02"
+
+answer_policy:
+  scope: >-
+    Answer only from the public profile, current-work record, publications,
+    selected public repositories, research notes and these plain-language
+    explainers.
+  uncertainty: >-
+    Say when the public sources do not establish an answer. Never turn an
+    expected date, a repository result or an inference into a guaranteed fact.
+  privacy: >-
+    Do not provide phone numbers, home addresses, personal relationships,
+    private references, credentials, employer-confidential details, or
+    anonymous-review and unpublished-result details.
+
+explainers:
+  - id: "reinforcement-learning"
+    title: "Reinforcement learning"
+    plain_definition: >-
+      Reinforcement learning trains an agent to choose actions by learning from
+      the consequences of earlier decisions.
+    relevance: >-
+      Ibrahim uses it for sequential control problems where heating decisions
+      affect later comfort, deadlines and energy use.
+    source_url: "/index.html#research"
+    keywords:
+      - "RL"
+      - "agent"
+      - "reward"
+      - "policy"
+      - "sequential decision"
+
+  - id: "monte-carlo-tree-search"
+    title: "Monte Carlo Tree Search"
+    plain_definition: >-
+      Monte Carlo Tree Search, or MCTS, looks ahead by simulating possible
+      action sequences and spending more search effort on promising choices
+      while still exploring alternatives.
+    relevance: >-
+      It is a central planning method in Ibrahim's PhD and appears in his
+      hot-water, heat-pump and Tic-Tac-Toe work.
+    source_url: "/demos.html"
+    keywords:
+      - "MCTS"
+      - "tree search"
+      - "selection"
+      - "expansion"
+      - "simulation"
+      - "backpropagation"
+      - "UCB1"
+
+  - id: "proximal-policy-optimization"
+    title: "Proximal Policy Optimization"
+    plain_definition: >-
+      Proximal Policy Optimization, or PPO, is a policy-gradient reinforcement
+      learning algorithm that limits how far a policy changes during each
+      update.
+    relevance: >-
+      Ibrahim uses PPO in building-control research and studies how numerical
+      details can make policy optimisation unreliable.
+    source_url: "/live.html"
+    keywords:
+      - "PPO"
+      - "policy gradient"
+      - "policy update"
+      - "numerical stability"
+      - "state-dependent exploration"
+      - "gSDE"
+
+  - id: "soft-actor-critic"
+    title: "Soft Actor-Critic"
+    plain_definition: >-
+      Soft Actor-Critic, or SAC, is an off-policy reinforcement learning
+      algorithm for continuous actions. It reuses past experience and balances
+      reward with continued exploration.
+    relevance: >-
+      Ibrahim uses SAC for continuous heating-control experiments, including
+      the public HVAC project.
+    source_url: "/work.html#public-projects"
+    keywords:
+      - "SAC"
+      - "off-policy"
+      - "continuous control"
+      - "replay buffer"
+
+  - id: "boptest"
+    title: "BOPTEST"
+    plain_definition: >-
+      BOPTEST is a building-control benchmark that exposes realistic simulated
+      buildings through a common test interface.
+    relevance: >-
+      It lets Ibrahim compare learned and conventional heating controllers
+      under aligned weather, comfort and energy conditions.
+    source_url: "/work.html#public-projects"
+    keywords:
+      - "building simulation"
+      - "benchmark"
+      - "HVAC"
+      - "heat pump"
+      - "comfort"
+
+  - id: "sindy"
+    title: "Sparse Identification of Nonlinear Dynamics"
+    plain_definition: >-
+      SINDy finds compact equations that approximate a system's dynamics from
+      data by favouring a small number of useful terms.
+    relevance: >-
+      Ibrahim co-authored work on SINDy surrogate environments for reducing
+      the real environment interactions needed during reinforcement learning.
+    source_url: "/papers.html"
+    keywords:
+      - "SINDy"
+      - "surrogate model"
+      - "system identification"
+      - "sample efficiency"
+
+  - id: "retrieval-augmented-generation"
+    title: "Retrieval-Augmented Generation"
+    plain_definition: >-
+      Retrieval-Augmented Generation, or RAG, first retrieves relevant source
+      material and then asks a language model to answer using that material.
+    relevance: >-
+      Ibrahim has built production RAG systems and this website's research
+      guide uses the same grounded-answer pattern.
+    source_url: "/index.html#experience"
+    keywords:
+      - "RAG"
+      - "retrieval"
+      - "grounding"
+      - "LLM"
+      - "chatbot"
+
+  - id: "multi-agent-llm-research"
+    title: "Multi-agent LLM research"
+    plain_definition: >-
+      A multi-agent LLM experiment gives language-model agents distinct roles
+      and lets them interact inside a controlled scenario.
+    relevance: >-
+      At UCL, Ibrahim builds configurable software and structured logging for
+      reproducible experiments on LLM agents in simulated organisations.
+    source_url: "/live.html"
+    keywords:
+      - "multi-agent"
+      - "language model agents"
+      - "simulated organisation"
+      - "UCL"
+      - "structured logging"
+
+  - id: "reproducible-research"
+    title: "Reproducible and auditable research"
+    plain_definition: >-
+      Reproducible research records enough configuration, data conditions and
+      outputs for another person to repeat the procedure. Auditable research
+      also keeps a traceable route from a claim back to its evidence.
+    relevance: >-
+      Ibrahim treats this as part of experiment design, not as a final cleanup
+      step.
+    source_url: "/work.html#approach"
+    keywords:
+      - "reproducibility"
+      - "audit"
+      - "seeds"
+      - "configuration"
+      - "evidence"
+      - "controlled comparison"
+
+  - id: "planning-versus-learning"
+    title: "Planning versus learned control"
+    plain_definition: >-
+      A planning controller searches possible futures when it acts, while a
+      learned controller trains a policy in advance and then applies it
+      quickly. Neither is automatically better in every setting.
+    relevance: >-
+      Ibrahim compares the two under the same task and reports deadline,
+      comfort and energy outcomes separately.
+    source_url: "/2026/08/26/deadlines-to-decisions.html"
+    keywords:
+      - "planning"
+      - "model predictive control"
+      - "learned policy"
+      - "MCTS versus PPO"
+      - "fair comparison"
+
+resources:
+  - id: "site-demos"
+    title: "Interactive research demos"
+    source_url: "/demos.html"
+    text: >-
+      The site includes four browser-based demonstrations: Monte Carlo Tree
+      Search for Tic-Tac-Toe, deadline-aware hot-water planning, an interactive
+      PPO clipping explorer, and a SINDy system-identification demo. Each is an
+      educational visualisation rather than a benchmark result.
+    keywords:
+      - "interactive demos"
+      - "Tic-Tac-Toe"
