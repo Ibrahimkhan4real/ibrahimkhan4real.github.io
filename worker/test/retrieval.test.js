@@ -81,8 +81,14 @@ test("deterministic answers preserve expected-date and source qualifiers", () =>
   assert.deepEqual(graduation.sourceIds, ["profile-education"]);
 
   const count = directAnswerForQuery("How many publications are on the site?", index.chunks);
+  const publicationSnapshotDate = new Intl.DateTimeFormat("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC"
+  }).format(new Date(index.sourceFreshness.publications));
   assert.match(count.answer, /4 publications/);
-  assert.match(count.answer, /26 August 2026/);
+  assert.ok(count.answer.includes(publicationSnapshotDate));
 
   const latest = directAnswerForQuery("What is the latest blog post?", index.chunks);
   assert.match(latest.answer, /From deadlines to decisions/);
