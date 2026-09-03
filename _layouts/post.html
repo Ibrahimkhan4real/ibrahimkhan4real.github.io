@@ -3,7 +3,7 @@ layout: default
 ---
 
 <header>
-  <p>{{ page.date | date: "%d %b %Y" }}</p>
+  <p><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%d %b %Y" }}</time></p>
 </header>
 
 <article>

@@ -1,6 +1,7 @@
 ---
 layout: default
 title: "AI Demos — Muhammad Ibrahim Khan"
+description: "Interactive browser demonstrations of Monte Carlo Tree Search, Q-learning, strategy comparison, and multi-armed bandits."
 ---
 
 <header>
@@ -21,28 +22,39 @@ title: "AI Demos — Muhammad Ibrahim Khan"
       <div id="mcts-container" style="width: 100%; height: 400px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel); position: relative; overflow: hidden;">
         <canvas id="mcts-canvas" role="img" aria-label="MCTS decision tree visualization showing selection, expansion, simulation, and backpropagation phases"></canvas>
         <div id="mcts-controls" style="position: absolute; bottom: 10px; left: 10px; display: flex; gap: 10px;">
-          <button class="button_accent" id="mcts-step">Step</button>
-          <button class="button_accent" id="mcts-reset">Reset</button>
+          <button class="button_accent" id="mcts-step" type="button">Step</button>
+          <button class="button_accent" id="mcts-reset" type="button">Reset</button>
         </div>
       </div>
-      <div class="demo-stats" id="mcts-info"></div>
-      <p class="travel-note">Internal nodes show visit count (top) and average reward (bottom). Leaf nodes show their reward value. Node colour intensity reflects how often a node has been visited. The algorithm uses UCB1 (C=&radic;2) to balance exploration and exploitation.</p>
+      <div class="demo-stats" id="mcts-info" role="status" aria-live="polite" aria-atomic="true"></div>
+      <p class="demo-note">Internal nodes show visit count (top) and average reward (bottom). Leaf nodes show their reward value. Node colour intensity reflects how often a node has been visited. The algorithm uses UCB1 (C=&radic;2) to balance exploration and exploitation.</p>
     </section>
 
     <section class="status-section">
       <h2>Q-Learning Grid World</h2>
-      <p>Watch a <strong>Q-learning</strong> agent learn the optimal policy in an 8&times;8 grid. Click cells to toggle walls, shift-click or right-click to set the goal. Arrow direction shows the best action; color intensity shows Q-value magnitude.</p>
+      <p>Watch a <strong>Q-learning</strong> agent learn the optimal policy in an 8&times;8 grid. Pointer users can edit the canvas directly; keyboard users can choose a row and column with the labelled controls. Arrow direction shows the best action and colour intensity shows Q-value magnitude.</p>
 
       <div id="ql-container" class="demo-container">
         <canvas id="ql-canvas" role="img" aria-label="Q-learning grid world showing agent policy arrows and Q-value intensities"></canvas>
-        <div class="demo-controls">
-          <button class="button_accent" id="ql-train1">Train 1 Episode</button>
-          <button class="button_accent" id="ql-train100">Train 100 Episodes</button>
-          <button class="button_accent" id="ql-reset">Reset</button>
+        <div class="demo-controls" aria-label="Edit a grid cell with the keyboard">
+          <label for="ql-row">Row
+            <input class="demo-number" id="ql-row" type="number" min="1" max="8" value="2" inputmode="numeric">
+          </label>
+          <label for="ql-column">Column
+            <input class="demo-number" id="ql-column" type="number" min="1" max="8" value="2" inputmode="numeric">
+          </label>
+          <button class="button_accent" id="ql-toggle-wall" type="button">Toggle wall</button>
+          <button class="button_accent" id="ql-set-goal" type="button">Set goal</button>
         </div>
-        <div class="demo-stats" id="ql-stats"></div>
+        <p class="demo-action-status" id="ql-edit-status" role="status" aria-live="polite" aria-atomic="true">Use the row and column controls to edit the grid without a pointer.</p>
+        <div class="demo-controls">
+          <button class="button_accent" id="ql-train1" type="button">Train 1 Episode</button>
+          <button class="button_accent" id="ql-train100" type="button">Train 100 Episodes</button>
+          <button class="button_accent" id="ql-reset" type="button">Reset</button>
+        </div>
+        <div class="demo-stats" id="ql-stats" role="status" aria-live="polite" aria-atomic="true"></div>
       </div>
-      <p class="travel-note">S = start (top-left), G = goal (bottom-right by default). Grey cells are walls. The agent uses &epsilon;-greedy exploration with decay (&alpha;=0.1, &gamma;=0.95).</p>
+      <p class="demo-note">S = start (top-left), G = goal (bottom-right by default). Grey cells are walls. The agent uses &epsilon;-greedy exploration with decay (&alpha;=0.1, &gamma;=0.95).</p>
     </section>
 
     <section class="status-section">
@@ -61,41 +73,49 @@ title: "AI Demos — Muhammad Ibrahim Khan"
       </div>
       <div class="demo-container" style="border-top: none; border-radius: 0 0 8px 8px; margin-top: -1px;">
         <div class="demo-controls">
-          <button class="button_accent" id="mvg-generate">New Tree</button>
-          <button class="button_accent" id="mvg-run">Run Comparison</button>
-          <button class="button_accent" id="mvg-step">Step</button>
+          <button class="button_accent" id="mvg-generate" type="button">New Tree</button>
+          <button class="button_accent" id="mvg-run" type="button">Run Comparison</button>
+          <button class="button_accent" id="mvg-step" type="button">Step</button>
           <label class="demo-slider-label">Speed
             <input type="range" class="demo-slider" id="mvg-speed" min="1" max="100" value="50">
           </label>
         </div>
-        <div class="demo-stats" id="mvg-stats"></div>
+        <div class="demo-stats" id="mvg-stats" role="status" aria-live="polite" aria-atomic="true"></div>
       </div>
-      <p class="travel-note">Leaf nodes show reward values. Node numbers show visit counts (MCTS). Highlighted paths show the final chosen route. MCTS uses C=&radic;2 for exploration.</p>
+      <p class="demo-note">Leaf nodes show reward values. Node numbers show visit counts (MCTS). Highlighted paths show the final chosen route. MCTS uses C=&radic;2 for exploration.</p>
     </section>
 
     <section class="status-section">
       <h2>Multi-Armed Bandit Playground</h2>
-      <p>Explore the <strong>exploration vs exploitation</strong> dilemma. Each arm is a slot machine with a hidden reward probability. Click an arm to pull it manually, or use an automated strategy.</p>
+      <p>Explore the <strong>exploration vs exploitation</strong> dilemma. Each arm is a slot machine with a hidden reward probability. Pull an arm with the canvas or the labelled buttons, or use an automated strategy.</p>
 
       <div id="bandit-container" class="demo-container">
         <canvas id="bandit-canvas" role="img" aria-label="Multi-armed bandit bar chart showing estimated reward per arm"></canvas>
         <canvas id="bandit-regret-canvas" role="img" aria-label="Cumulative regret line chart over time for the bandit strategy"></canvas>
         <div class="demo-controls">
+          <div class="demo-controls" role="group" aria-label="Pull an arm manually">
+            <button class="button_accent" type="button" data-bandit-arm="1">Pull arm 1</button>
+            <button class="button_accent" type="button" data-bandit-arm="2">Pull arm 2</button>
+            <button class="button_accent" type="button" data-bandit-arm="3">Pull arm 3</button>
+            <button class="button_accent" type="button" data-bandit-arm="4">Pull arm 4</button>
+            <button class="button_accent" type="button" data-bandit-arm="5">Pull arm 5</button>
+          </div>
+          <label for="bandit-strategy">Strategy</label>
           <select class="demo-select" id="bandit-strategy">
             <option value="epsilon">&epsilon;-Greedy (&epsilon;=0.1)</option>
             <option value="ucb1">UCB1</option>
           </select>
-          <button class="button_accent" id="bandit-auto">Auto Run 100</button>
-          <button class="button_accent" id="bandit-reset">Reset</button>
+          <button class="button_accent" id="bandit-auto" type="button">Auto Run 100</button>
+          <button class="button_accent" id="bandit-reset" type="button">Reset</button>
         </div>
-        <div class="demo-stats" id="bandit-stats"></div>
+        <div class="demo-stats" id="bandit-stats" role="status" aria-live="polite" aria-atomic="true"></div>
       </div>
-      <p class="travel-note">Click directly on an arm bar to pull it manually. The bar chart shows estimated reward per arm; the line chart tracks cumulative regret over time. Each arm is a Bernoulli bandit with fixed hidden probability.</p>
+      <p class="demo-note">Click directly on an arm bar to pull it manually. The bar chart shows estimated reward per arm; the line chart tracks cumulative regret over time. Each arm is a Bernoulli bandit with fixed hidden probability.</p>
     </section>
   </div>
 </article>
 
-<script src="{{ "/assets/js/mcts-demo.js" | relative_url }}"></script>
-<script src="{{ "/assets/js/qlearning-demo.js" | relative_url }}"></script>
-<script src="{{ "/assets/js/mcts-vs-greedy-demo.js" | relative_url }}"></script>
-<script src="{{ "/assets/js/bandit-demo.js" | relative_url }}"></script>
+<script src="{{ "/assets/js/mcts-demo.js?v=20260902_accessibility" | relative_url }}"></script>
+<script src="{{ "/assets/js/qlearning-demo.js?v=20260902_accessibility" | relative_url }}"></script>
+<script src="{{ "/assets/js/mcts-vs-greedy-demo.js?v=20260902_accessibility" | relative_url }}"></script>
+<script src="{{ "/assets/js/bandit-demo.js?v=20260902_accessibility" | relative_url }}"></script>

@@ -243,6 +243,26 @@
     }
   }
 
+  function editCell(r, c, makeGoal) {
+    if (animating || r < 0 || r >= GRID || c < 0 || c >= GRID) return;
+    if (r === 0 && c === 0) return;
+    if (makeGoal) {
+      goal = [r, c];
+      walls[r][c] = false;
+    } else {
+      if (r === goal[0] && c === goal[1]) return;
+      walls[r][c] = !walls[r][c];
+    }
+    draw();
+    var editStatus = document.getElementById('ql-edit-status');
+    if (editStatus) {
+      editStatus.textContent = makeGoal
+        ? 'Goal moved to row ' + (r + 1) + ', column ' + (c + 1) + '.'
+        : (walls[r][c] ? 'Wall added at ' : 'Wall removed from ') +
+          'row ' + (r + 1) + ', column ' + (c + 1) + '.';
+    }
+  }
+
   // Click handling
   canvas.addEventListener('click', function (e) {
     if (animating) return;
@@ -251,17 +271,7 @@
     var off_ = gridOffset();
     var c = Math.floor((e.clientX - rect.left - off_[0]) / cs_);
     var r = Math.floor((e.clientY - rect.top - off_[1]) / cs_);
-    if (r < 0 || r >= GRID || c < 0 || c >= GRID) return;
-    if (r === 0 && c === 0) return; // Don't wall start
-    if (r === goal[0] && c === goal[1]) return;
-
-    if (e.shiftKey) {
-      goal = [r, c];
-      walls[r][c] = false;
-    } else {
-      walls[r][c] = !walls[r][c];
-    }
-    draw();
+    editCell(r, c, e.shiftKey);
   });
 
   canvas.addEventListener('contextmenu', function (e) {
@@ -272,11 +282,22 @@
     var off_ = gridOffset();
     var c = Math.floor((e.clientX - rect.left - off_[0]) / cs_);
     var r = Math.floor((e.clientY - rect.top - off_[1]) / cs_);
-    if (r < 0 || r >= GRID || c < 0 || c >= GRID) return;
-    if (r === 0 && c === 0) return;
-    goal = [r, c];
-    walls[r][c] = false;
-    draw();
+    editCell(r, c, true);
+  });
+  function selectedGridCell() {
+    return [
+      Number(document.getElementById('ql-row').value) - 1,
+      Number(document.getElementById('ql-column').value) - 1,
+    ];
+  }
+
+  document.getElementById('ql-toggle-wall').addEventListener('click', function () {
+    var cell = selectedGridCell();
+    editCell(cell[0], cell[1], false);
+  });
+  document.getElementById('ql-set-goal').addEventListener('click', function () {
+    var cell = selectedGridCell();
+    editCell(cell[0], cell[1], true);
   });
 
   document.getElementById('ql-train1').addEventListener('click', function () { trainN(1); });

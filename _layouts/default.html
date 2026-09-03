@@ -1,25 +1,72 @@
+{% assign profile = site.data.profile %}
+{% assign page_description = page.description | default: profile.bio.short %}
+{% assign social_type = "website" %}
+{% if page.layout == "post" %}{% assign social_type = "article" %}{% endif %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ site.lang | default: "en" }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Muhammad Ibrahim Khan">
-  <title>{{ page.title | default: "Muhammad Ibrahim Khan" }}</title>
-  <meta name="description" content="{{ page.description | default: "Muhammad Ibrahim Khan — PhD researcher at Coventry University working on reinforcement learning and Monte Carlo Tree Search for predictive control of energy systems." }}">
-  <meta property="og:title" content="{{ page.title | default: "Muhammad Ibrahim Khan" }}">
-  <meta property="og:description" content="{{ page.description | default: "PhD researcher at Coventry University working on reinforcement learning and Monte Carlo Tree Search for predictive control of energy systems." }}">
-  <meta property="og:type" content="website">
+  <meta name="author" content="{{ profile.identity.full_name }}">
+  <title>{{ page.title | default: profile.identity.full_name }}</title>
+  <meta name="description" content="{{ page_description | strip_html | escape }}">
+  <meta property="og:site_name" content="{{ site.title }}">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:title" content="{{ page.title | default: profile.identity.full_name }}">
+  <meta property="og:description" content="{{ page_description | strip_html | escape }}">
+  <meta property="og:type" content="{{ social_type }}">
   <meta property="og:url" content="{{ page.url | absolute_url }}">
   <meta property="og:image" content="{{ "/assets/img/Khan_logo.jpg" | absolute_url }}">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="{{ page.title | default: "Muhammad Ibrahim Khan" }}">
-  <meta name="twitter:description" content="{{ page.description | default: "PhD researcher at Coventry University working on reinforcement learning and Monte Carlo Tree Search for predictive control of energy systems." }}">
+  <meta property="og:image:alt" content="Portrait of {{ profile.identity.full_name }}">
+  <meta property="og:image:width" content="1881">
+  <meta property="og:image:height" content="1881">
+  <meta name="twitter:title" content="{{ page.title | default: profile.identity.full_name }}">
+  <meta name="twitter:description" content="{{ page_description | strip_html | escape }}">
   <meta name="twitter:image" content="{{ "/assets/img/Khan_logo.jpg" | absolute_url }}">
   <link rel="canonical" href="{{ page.url | absolute_url }}">
+  <link rel="alternate" type="application/atom+xml" title="{{ site.title }} research notes" href="{{ "/feed.xml" | absolute_url }}">
+  <meta name="twitter:image:alt" content="Portrait of {{ profile.identity.full_name }}">
+  {% if page.layout == "post" %}
+  <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+  <meta property="article:author" content="{{ site.url | append: site.baseurl }}">
+  {% endif %}
   <link rel="icon" href="{{ "/assets/img/favicon.svg" | relative_url }}" type="image/svg+xml">
-  <link rel="stylesheet" href="{{ "/assets/css/site.css?v=20260813_v2" | relative_url }}">
+  <link rel="stylesheet" href="{{ "/assets/css/site.css?v=20260902_rag" | relative_url }}">
+  {% if page.url == "/" or page.url == "/index.html" %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": {{ profile.identity.full_name | jsonify }},
+    "url": {{ site.url | append: site.baseurl | jsonify }},
+    "image": {{ "/assets/img/Khan_logo.jpg" | absolute_url | jsonify }},
+    "jobTitle": ["Doctoral Researcher", "Research Software Developer"],
+    "sameAs": [
+      {{ profile.links.scholar | jsonify }},
+      {{ profile.links.github | jsonify }},
+      {{ profile.links.linkedin | jsonify }}
+    ]
+  }
+  </script>
+  {% elsif page.layout == "post" %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": {{ page.title | jsonify }},
+    "description": {{ page_description | strip_html | jsonify }},
+    "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
+    "mainEntityOfPage": {{ page.url | absolute_url | jsonify }},
+    "author": {
+      "@type": "Person",
+      "name": {{ profile.identity.full_name | jsonify }},
+      "url": {{ site.url | append: site.baseurl | jsonify }}
+    }
+  }
+  </script>
+  {% endif %}
   {% if page.use_math %}
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   {% endif %}
   <script>
@@ -31,40 +78,46 @@
   </script>
 </head>
 <body>
-  <div id="reading-progress"></div>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="reading-progress" aria-hidden="true"></div>
 
   <aside>
     <div id="user_meta">
       <div id="author_info">
         <a href="{{ "/" | relative_url }}">
-          <img src="{{ "/assets/img/Khan_logo.jpg" | relative_url }}" alt="Muhammad Ibrahim Khan logo" width="192" height="192">
+          <img src="{{ "/assets/img/Khan_logo.jpg" | relative_url }}" alt="Portrait logo for {{ profile.identity.full_name }}" width="192" height="192">
         </a>
-        <h2><a href="{{ "/" | relative_url }}">Muhammad Ibrahim Khan</a></h2>
+        <h2><a href="{{ "/" | relative_url }}">{{ profile.identity.full_name }}</a></h2>
+        <p>{{ profile.headline }}</p>
       </div>
-      <ul>
-        <li>
-          <a class="nav-link{% if page.url == "/" or page.url == "/index.html" %} current{% endif %}" href="{{ "/" | relative_url }}">Home</a>
+      <nav aria-label="Primary navigation">
+        <ul>
+          <li>
+          <a class="nav-link{% if page.url == "/" or page.url == "/index.html" %} current{% endif %}"{% if page.url == "/" or page.url == "/index.html" %} aria-current="page"{% endif %} href="{{ "/" | relative_url }}">Home</a>
         </li>
         <li>
-          <a class="nav-link{% if page.url == "/live.html" %} current{% endif %}" href="{{ "/live.html" | relative_url }}">Live</a>
+          <a class="nav-link{% if page.url == "/live.html" %} current{% endif %}"{% if page.url == "/live.html" %} aria-current="page"{% endif %} href="{{ "/live.html" | relative_url }}">Live</a>
         </li>
         <li>
-          <a class="nav-link{% if page.url == "/travel.html" %} current{% endif %}" href="{{ "/travel.html" | relative_url }}">Travel</a>
+          <a class="nav-link{% if page.url == "/work.html" %} current{% endif %}"{% if page.url == "/work.html" %} aria-current="page"{% endif %} href="{{ "/work.html" | relative_url }}">Work</a>
         </li>
         <li>
-          <a class="nav-link{% if page.url == "/demos.html" %} current{% endif %}" href="{{ "/demos.html" | relative_url }}">Demos</a>
+          <a class="nav-link{% if page.url == "/demos.html" %} current{% endif %}"{% if page.url == "/demos.html" %} aria-current="page"{% endif %} href="{{ "/demos.html" | relative_url }}">Demos</a>
         </li>
         <li>
-          <a class="nav-link{% if page.url == "/papers.html" %} current{% endif %}" href="{{ "/papers.html" | relative_url }}">Papers</a>
+          <a class="nav-link{% if page.url == "/papers.html" %} current{% endif %}"{% if page.url == "/papers.html" %} aria-current="page"{% endif %} href="{{ "/papers.html" | relative_url }}">Papers</a>
         </li>
         <li>
-          <a class="nav-link{% if page.url == "/blog.html" %} current{% endif %}" href="{{ "/blog.html" | relative_url }}">Blog</a>
+          <a class="nav-link{% if page.url == "/blog.html" %} current{% endif %}"{% if page.url == "/blog.html" %} aria-current="page"{% endif %} href="{{ "/blog.html" | relative_url }}">Blog</a>
+        </li>
+        <li>
+          <a class="nav-link" href="{{ profile.links.cv | relative_url }}">CV <span aria-hidden="true">&#8595;</span></a>
         </li>
         <li>
           <a class="nav-link" href="{{ "/index.html#contact" | relative_url }}">Contact</a>
         </li>
         <li>
-          <a class="nav-link" href="https://github.com/Ibrahimkhan4real" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="nav-link" href="{{ profile.links.github }}" target="_blank" rel="noopener noreferrer">GitHub</a>
         </li>
         <li>
           <button class="nav-link ask-research-link" id="ask-research-link" type="button">
@@ -79,37 +132,42 @@
             <span class="theme-toggle-label">Dark mode</span>
           </button>
         </li>
-      </ul>
+        </ul>
+      </nav>
     </div>
   </aside>
 
-  <main>
+  <main id="main-content" tabindex="-1">
     {{ content }}
   </main>
 
-  <!-- RAG Chatbot Widget -->
+  <!-- Public research guide -->
   <div id="chat-widget" class="minimized">
-    <button id="chat-header" type="button" aria-expanded="false" aria-controls="chat-panel">
+    <button id="chat-header" type="button" aria-label="Open research guide" aria-expanded="false" aria-controls="chat-panel">
       <span class="chat-header-icon" aria-hidden="true">AI</span>
       <span class="chat-header-copy">
         <span class="chat-kicker"><span class="chat-status-dot" aria-hidden="true"></span>Research guide</span>
         <strong>Ask about my research</strong>
-        <small>PhD, blogs and what I am doing now</small>
+        <small>Grounded in verified public sources</small>
       </span>
       <span id="chat-toggle" aria-hidden="true">&#9650;</span>
     </button>
     <div id="chat-panel" inert>
       <div id="chat-messages" role="log" aria-live="polite" aria-label="Research chat messages">
-        <div class="chat-message bot">Hi! You can ask me about my PhD, research, papers, projects, blogs, or what I am working on now.</div>
+        <div class="chat-message bot">Hello! I can use Ibrahim's verified public profile, publications, projects, research explainers and current-work record.</div>
         <div class="chat-suggestions" aria-label="Suggested questions">
           <button type="button" data-question="What is your PhD about?">My PhD topic</button>
-          <button type="button" data-question="When will you graduate?">Graduation</button>
+          <button type="button" data-question="Explain MCTS in simple words.">Explain MCTS</button>
           <button type="button" data-question="What are you working on now?">Current work</button>
-          <button type="button" data-question="What is your latest blog about?">Latest blog</button>
+          <button type="button" data-question="What is your latest blog post?">Latest Blog</button>
         </div>
       </div>
+      <div class="chat-privacy-row">
+        <p id="chat-privacy">Questions are processed by the site Worker and may use Google Gemini. Do not include sensitive information.</p>
+        <button id="chat-clear" type="button">Clear</button>
+      </div>
       <div id="chat-input-container">
-        <input type="text" id="chat-input" placeholder="Ask me anything about my work..." autocomplete="off" aria-label="Ask a question about Ibrahim's research">
+        <input type="text" id="chat-input" maxlength="1000" placeholder="Ask about the public work..." autocomplete="off" aria-label="Ask a question about Ibrahim's research" aria-describedby="chat-privacy">
         <button id="chat-send" type="button">Ask</button>
       </div>
     </div>
@@ -118,30 +176,41 @@
   <script>
     // Theme Toggle Logic
     const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleLabel = themeToggle.querySelector('.theme-toggle-label');
+
+    function updateThemeControl(theme) {
+      const nextMode = theme === 'dark' ? 'light' : 'dark';
+      themeToggle.setAttribute('aria-label', `Switch to ${nextMode} mode`);
+      themeToggleLabel.textContent = `${nextMode.charAt(0).toUpperCase()}${nextMode.slice(1)} mode`;
+    }
+
+    updateThemeControl(document.documentElement.getAttribute('data-theme'));
     themeToggle.addEventListener('click', () => {
       const currentTheme = document.documentElement.getAttribute('data-theme');
       const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', nextTheme);
       localStorage.setItem('theme', nextTheme);
+      updateThemeControl(nextTheme);
     });
 
     // Reading Progress Logic
     window.addEventListener('scroll', () => {
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
       document.getElementById('reading-progress').style.width = scrolled + "%";
     });
 
-    // Chat Widget Logic
+    // Public research guide
     (function() {
-      const CHAT_API = 'https://ibrahim-research-chat.immicoc1.workers.dev';
+      const CHAT_API = {{ site.chat_api | jsonify }};
       const chatWidget = document.getElementById('chat-widget');
       const chatHeader = document.getElementById('chat-header');
       const chatToggleEl = document.getElementById('chat-toggle');
       const chatPanel = document.getElementById('chat-panel');
       const chatInput = document.getElementById('chat-input');
       const chatSend = document.getElementById('chat-send');
+      const chatClear = document.getElementById('chat-clear');
       const chatMessages = document.getElementById('chat-messages');
       const askResearchLink = document.getElementById('ask-research-link');
       const suggestionButtons = document.querySelectorAll('.chat-suggestions button');
@@ -151,32 +220,80 @@
       function setChatOpen(open) {
         chatWidget.classList.toggle('minimized', !open);
         chatHeader.setAttribute('aria-expanded', String(open));
+        chatHeader.setAttribute('aria-label', open ? 'Close research guide' : 'Open research guide');
         chatPanel.inert = !open;
         chatToggleEl.textContent = open ? '\u25BC' : '\u25B2';
         if (open) {
-          window.setTimeout(() => chatInput.focus(), 180);
+          window.setTimeout(function() { chatInput.focus(); }, 180);
         }
       }
 
-      chatHeader.addEventListener('click', () => {
+      chatHeader.addEventListener('click', function() {
         setChatOpen(chatWidget.classList.contains('minimized'));
       });
-
-      askResearchLink.addEventListener('click', () => setChatOpen(true));
+      askResearchLink.addEventListener('click', function() { setChatOpen(true); });
 
       function addMessage(text, side) {
         const msg = document.createElement('div');
         msg.className = 'chat-message ' + side;
+        msg.dataset.chatDynamic = 'true';
         msg.textContent = text;
         chatMessages.appendChild(msg);
         chatMessages.scrollTop = chatMessages.scrollHeight;
         return msg;
       }
 
+      function publicSourceUrl(value) {
+        if (typeof value !== 'string') return null;
+        try {
+          const url = new URL(value, window.location.origin);
+          if (url.protocol !== 'https:' && url.origin !== window.location.origin) return null;
+          return url;
+        } catch (error) {
+          return null;
+        }
+      }
+
+      function renderSources(message, sources) {
+        if (!Array.isArray(sources) || sources.length === 0) return;
+        const sourceBox = document.createElement('div');
+        sourceBox.className = 'chat-sources';
+        const label = document.createElement('strong');
+        label.textContent = sources.length === 1 ? 'Public source' : 'Public sources';
+        sourceBox.appendChild(label);
+        const list = document.createElement('ul');
+        sources.slice(0, 4).forEach(function(source) {
+          const url = publicSourceUrl(source && source.url);
+          if (!url || !source.title) return;
+          const item = document.createElement('li');
+          const link = document.createElement('a');
+          link.href = url.href;
+          link.textContent = source.title;
+          if (url.origin !== window.location.origin) {
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+          }
+          item.appendChild(link);
+          list.appendChild(item);
+        });
+        if (list.children.length === 0) return;
+        sourceBox.appendChild(list);
+        message.appendChild(sourceBox);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
       function setInputEnabled(enabled) {
         chatInput.disabled = !enabled;
         chatSend.disabled = !enabled;
+        chatClear.disabled = !enabled;
         sending = !enabled;
+      }
+
+      function responseErrorMessage(status, code) {
+        if (status === 429) return 'The guide has received too many requests. Please wait a moment and try again.';
+        if (status === 413 || code === 'query_too_long') return 'That question is too long. Please shorten it and try again.';
+        if (status >= 500) return 'The research guide is temporarily unavailable. Please try again shortly.';
+        return 'I could not process that question. Please check it and try again.';
       }
 
       async function sendQuery(text) {
@@ -184,55 +301,74 @@
         chatHistory.push({ role: 'user', text: text });
         chatInput.value = '';
         setInputEnabled(false);
-
-        const thinkingMsg = addMessage('Thinking...', 'bot');
+        const thinkingMsg = addMessage('Checking the public sources...', 'bot');
+        let timeoutId;
 
         try {
+          if (!CHAT_API) throw new Error('missing_endpoint');
           const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 15000);
-
+          timeoutId = window.setTimeout(function() { controller.abort(); }, 20000);
           const resp = await fetch(CHAT_API, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               query: text,
-              history: chatHistory.slice(-6),
+              history: chatHistory.slice(-6)
             }),
-            signal: controller.signal,
+            signal: controller.signal
           });
-
-          clearTimeout(timeoutId);
-
+          const data = await resp.json().catch(function() { return {}; });
           if (!resp.ok) {
-            const err = await resp.json().catch(() => ({}));
-            throw new Error(err.error || 'Request failed');
+            const requestError = new Error(data.code || 'request_failed');
+            requestError.status = resp.status;
+            requestError.code = data.code;
+            throw requestError;
           }
-
-          const data = await resp.json();
-          thinkingMsg.textContent = data.answer || 'No response received.';
+          if (typeof data.answer !== 'string' || !Array.isArray(data.sources)) {
+            const schemaError = new Error('invalid_response');
+            schemaError.status = 502;
+            throw schemaError;
+          }
+          thinkingMsg.textContent = data.answer;
+          renderSources(thinkingMsg, data.sources);
           chatHistory.push({ role: 'assistant', text: data.answer });
-        } catch (err) {
-          thinkingMsg.textContent = err.name === 'AbortError'
-            ? 'Request timed out. The backend may be unavailable — please try again later.'
-            : 'Sorry, I could not connect to the backend. Please try again later.';
-          console.error('Chat error:', err);
+        } catch (error) {
+          if (error.name === 'AbortError') {
+            thinkingMsg.textContent = 'The request timed out. Please try again shortly.';
+          } else if (error.message === 'missing_endpoint') {
+            thinkingMsg.textContent = 'The research guide is not configured right now.';
+          } else {
+            thinkingMsg.textContent = responseErrorMessage(error.status || 0, error.code || '');
+          }
+          console.error('Chat error:', error);
         } finally {
+          if (timeoutId) window.clearTimeout(timeoutId);
           setInputEnabled(true);
           chatInput.focus();
         }
       }
 
-      chatSend.addEventListener('click', () => {
+      chatSend.addEventListener('click', function() {
         const text = chatInput.value.trim();
         if (text && !sending) sendQuery(text);
       });
-
-      chatInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') chatSend.click();
+      chatInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          chatSend.click();
+        }
       });
-
-      suggestionButtons.forEach((button) => {
-        button.addEventListener('click', () => {
+      chatClear.addEventListener('click', function() {
+        if (sending) return;
+        chatHistory = [];
+        chatMessages.querySelectorAll('[data-chat-dynamic]').forEach(function(message) {
+          message.remove();
+        });
+        addMessage('Conversation cleared. You can start a new public-source question.', 'bot');
+        chatInput.focus();
+      });
+      suggestionButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
           const question = button.dataset.question;
           if (question && !sending) {
             setChatOpen(true);

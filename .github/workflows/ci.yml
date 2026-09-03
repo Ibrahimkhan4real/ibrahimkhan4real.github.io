@@ -1,0 +1,87 @@
+name: Validate site
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Ruby and locked gems
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            worker/package-lock.json
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install locked Node dependencies
+        run: |
+          npm ci
+          npm --prefix worker ci
+
+      - name: Install pinned content dependencies
+        run: python -m pip install -r requirements-content.txt
+
+      - name: Install Chromium for smoke tests
+        run: npx playwright install --with-deps chromium
+
+      - name: Build site
+        run: npm run build
+      - name: Check built-site links and fragments
+        run: npm run test:links
+
+
+      - name: Check JavaScript syntax
+        run: npm run test:syntax
+
+      - name: Run content and corpus tests
+        run: npm run test:content
+
+      - name: Check public RAG index freshness
+        run: npm run test:rag
+
+      - name: Run Worker tests
+        run: npm run test:worker
+
+      - name: Run browser smoke tests
+        run: npm run test:smoke
+
+      - name: Validate Worker deployment bundle
+        run: npm run worker:dry-run
+
+      - name: Upload browser diagnostics
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: browser-diagnostics
+          path: artifacts/
+          if-no-files-found: ignore
+          retention-days: 7

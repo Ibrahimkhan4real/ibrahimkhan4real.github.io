@@ -1,89 +1,116 @@
 ---
 layout: default
 title: "Live — Muhammad Ibrahim Khan"
-description: "A simple update on my current work in energy control and reliable reinforcement learning."
+description: "Verified current work in energy-aware control, reliable reinforcement learning and reproducible AI research software."
 ---
 
+{% assign now = site.data.now %}
+{% assign profile = site.data.profile %}
+
 <header>
-  <p>Updated {{ site.data.now.updated | default: "August 2026" }}</p>
+  <p>Last reviewed <time datetime="{{ now.updated }}">{{ now.updated | date: "%d %B %Y" }}</time></p>
 </header>
 
 <article>
   <div id="article_title">
-    <h1>What I'm Doing Now</h1>
+    <p class="eyebrow">Current work</p>
+    <h1>What I am working on now</h1>
   </div>
-  <div id="article_text">
-    <p class="lead">A small update on what I am working on at the moment.</p>
 
-    <section class="status-section">
-      <h2>Current Focus</h2>
-      <div id="now-content">
-        {{ site.data.now.content | default: "Loading current status..." | markdownify }}
+  <div id="article_text">
+    <p class="lead">{{ now.summary }}</p>
+
+    <div class="now-status-strip" aria-label="Current workstreams">
+      {% for stream in now.streams %}
+      <a href="#{{ stream.id }}">
+        <span>{{ stream.status }}</span>
+        <strong>{{ stream.title }}</strong>
+      </a>
+      {% endfor %}
+    </div>
+
+    <section class="status-section" id="workstreams">
+      <p class="eyebrow">In progress</p>
+      <h2>Active workstreams</h2>
+
+      <div class="now-streams">
+        {% for stream in now.streams %}
+        <article class="now-card" id="{{ stream.id }}">
+          <div class="now-card-header">
+            <div>
+              <p class="eyebrow">Workstream {{ forloop.index }}</p>
+              <h3>{{ stream.title }}</h3>
+            </div>
+            <span class="status-pill">{{ stream.status }}</span>
+          </div>
+
+          <div class="now-card-body">
+            <div class="now-question">
+              <h4>Research question</h4>
+              <p>{{ stream.question }}</p>
+            </div>
+            <div>
+              <h4>Current focus</h4>
+              <p>{{ stream.current_focus }}</p>
+            </div>
+            <div>
+              <h4>Why it matters</h4>
+              <p>{{ stream.why_it_matters }}</p>
+            </div>
+          </div>
+
+          {% if stream.public_note %}
+          <p class="public-note"><strong>Public scope:</strong> {{ stream.public_note }}</p>
+          {% endif %}
+
+          {% if stream.links %}
+          <div class="now-links" aria-label="Public links for {{ stream.title }}">
+            {% for link in stream.links %}
+            <a href="{{ link.url | relative_url }}"{% if link.url contains "http" %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ link.label }} <span aria-hidden="true">→</span></a>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </article>
+        {% endfor %}
       </div>
     </section>
 
-    {% if site.data.now.projects %}
-    <section class="status-section">
-      <h2>Active Projects</h2>
-      <ul>
-        {% for project in site.data.now.projects %}
-        <li><strong>{{ project.name }}:</strong> {{ project.description }}</li>
+    <section class="status-section" id="method">
+      <p class="eyebrow">Research practice</p>
+      <h2>How I evaluate the work</h2>
+      <div class="work-steps">
+        {% for step in now.method_steps %}
+        <div>
+          <span>{{ step.number }}</span>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.description }}</p>
+        </div>
         {% endfor %}
+      </div>
+    </section>
+
+    <section class="status-section public-boundary" id="public-scope">
+      <p class="eyebrow">Public scope</p>
+      <h2>What this page deliberately leaves out</h2>
+      <p>
+        This is a public progress page, not a lab notebook. It gives enough
+        context to explain the direction of the work without exposing private,
+        employer-confidential or anonymous-review material.
+      </p>
+      <ul>
+        {% for boundary in now.public_boundaries %}<li>{{ boundary }}</li>{% endfor %}
       </ul>
     </section>
-    {% endif %}
 
-    <section class="status-section">
-      <h2>How it fits together</h2>
-      <p>Click on each step for a quick explanation.</p>
-      <div class="research-flow" aria-label="A simple three step view of my current research">
-        <button
-          class="research-step is-active"
-          type="button"
-          data-detail="The controller looks at a few possible futures before choosing what to do."
-          aria-controls="research-detail"
-          aria-pressed="true">
-          <span class="research-step-number">1</span>
-          <strong>Look ahead</strong>
-          <small>Plan before acting</small>
-        </button>
-        <span class="research-arrow" aria-hidden="true">→</span>
-        <button
-          class="research-step"
-          type="button"
-          data-detail="I run lots of small tests and check where the learning starts behaving in a strange way."
-          aria-controls="research-detail"
-          aria-pressed="false">
-          <span class="research-step-number">2</span>
-          <strong>Test the learning</strong>
-          <small>Find what goes wrong</small>
-        </button>
-        <span class="research-arrow" aria-hidden="true">→</span>
-        <button
-          class="research-step"
-          type="button"
-          data-detail="The goal is a controller that wastes less energy and learns in a more reliable way."
-          aria-controls="research-detail"
-          aria-pressed="false">
-          <span class="research-step-number">3</span>
-          <strong>Make it reliable</strong>
-          <small>Use what we learn</small>
-        </button>
+    <section class="status-section contact-panel">
+      <h2>Follow the public work</h2>
+      <p>For stable records, use the publications, Work page and verified CV. For a question about the current direction, email me.</p>
+      <div class="hero-actions">
+        <a class="button-primary" href="{{ "/papers.html" | relative_url }}">Publications</a>
+        <a class="button-secondary" href="{{ "/work.html" | relative_url }}">Work overview</a>
+        <a class="button-secondary" href="{{ profile.links.cv | relative_url }}">Download CV</a>
+        <a class="button-secondary" href="mailto:{{ profile.contact.email }}">Email</a>
       </div>
-      <p id="research-detail" class="research-detail" aria-live="polite">
-        The controller looks at a few possible futures before choosing what to do.
-      </p>
-    </section>
-
-    <section class="status-section">
-      <h2>Get in touch</h2>
-      <p>I'm always happy to talk about reinforcement learning, MCTS, energy systems control, or LLM engineering. Drop me a line at <a href="mailto:khanm442@uni.coventry.ac.uk">khanm442@uni.coventry.ac.uk</a>.</p>
     </section>
   </div>
 </article>
-
-<footer>
-  <a class="button_accent" href="mailto:khanm442@uni.coventry.ac.uk">Get in touch</a>
-</footer>
-
-<script src="{{ '/assets/js/live.js?v=20260813_v1' | relative_url }}"></script>

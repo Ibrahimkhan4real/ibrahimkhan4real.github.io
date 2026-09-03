@@ -1,13 +1,13 @@
 # Site Technical Guide
 
-This document explains how every dynamic component on the site works — the RAG chatbot, the four interactive demos, and the infrastructure that ties them together. It is written so you can understand the theory, modify any part, and deploy from scratch.
+This guide explains the grounded research guide and the four interactive learning demos. Reproducible environment commands live in [`DEVELOPMENT.md`](DEVELOPMENT.md); the maintained RAG acceptance matrix lives in [`RAG_EVALUATION.md`](RAG_EVALUATION.md).
 
 ---
 
 ## Table of Contents
 
-1. [RAG Chatbot — Setup Instructions](#1-rag-chatbot--setup-instructions)
-2. [RAG Chatbot — How It Works](#2-rag-chatbot--how-it-works)
+1. [Research Guide — Setup and Operations](#1-research-guide--setup-and-operations)
+2. [Research Guide — How It Works](#2-research-guide--how-it-works)
 3. [Demo 1: MCTS Decision Tree Visualization](#3-demo-1-mcts-decision-tree-visualization)
 4. [Demo 2: Q-Learning Grid World](#4-demo-2-q-learning-grid-world)
 5. [Demo 3: MCTS vs Greedy Comparison](#5-demo-3-mcts-vs-greedy-comparison)
@@ -16,256 +16,120 @@ This document explains how every dynamic component on the site works — the RAG
 
 ---
 
-## 1. RAG Chatbot — Setup Instructions
+## 1. Research Guide — Setup and Operations
 
-The chat widget in the bottom-right corner of every page connects to a Cloudflare Worker that answers questions about your research using Retrieval-Augmented Generation (RAG) with Google Gemini.
+The guide is a Cloudflare Worker-backed public research interface. It is useful without an API key: deterministic facts, evaluated lexical retrieval, policy refusals, citations, and extractive fallback all run from the checked-in corpus.
 
-### Prerequisites
+### Build the public corpus
 
-You need three things before starting:
-
-| What | Where to get it |
-|------|----------------|
-| **Google Gemini API key** | [Google AI Studio](https://aistudio.google.com/apikey) — sign in, click "Create API Key". Free tier gives 15 requests/minute, 1,500/day. |
-| **Cloudflare account** | [Cloudflare sign-up](https://dash.cloudflare.com/sign-up) — free tier is sufficient. After signing up, go to Workers & Pages > Overview and note your `*.workers.dev` subdomain (e.g. `abc123.workers.dev`). |
-| **Node.js 18+** | [nodejs.org](https://nodejs.org/) — needed for the Wrangler CLI that deploys the Worker. |
-
-### Step-by-step deployment
-
-**Step 1: Build the RAG index**
-
-This reads all your site content and turns it into searchable embeddings.
+From the repository root:
 
 ```bash
-# From the repo root
-export GEMINI_API_KEY="your-gemini-api-key-here"
-python scripts/build_rag_index.py
+python3 scripts/build_rag_index.py --no-embeddings
+python3 scripts/build_rag_index.py --check
+npm run test:rag
 ```
 
-You should see output like:
+The indexer reads only reviewed profile, current-work, project, publication, explainer, resource, and Blog sources. It does not crawl the repository or parse the raw CV. The generated file is `worker/src/rag_index.json`.
 
-```
-Extracting content chunks...
-  Found 15 chunks
-Generating embeddings via Gemini...
-  [1/15] About Muhammad Ibrahim Khan...
-  [2/15] Education...
-  ...
-Done! Wrote 15 entries to worker/src/rag_index.json
-  Index size: 142.3 KB
-```
-
-If you get an error about the API key, double-check you exported it correctly. On Windows (Git Bash), use `export GEMINI_API_KEY="..."`. On Windows CMD, use `set GEMINI_API_KEY=...`.
-
-**Step 2: Install Worker dependencies**
-
-```bash
-cd worker
-npm install
-```
-
-This installs the Wrangler CLI (Cloudflare's deployment tool).
-
-**Step 3: Log in to Cloudflare**
-
-```bash
-npx wrangler login
-```
-
-This opens a browser window. Authorise Wrangler to access your Cloudflare account.
-
-**Step 4: Store your API key as a secret**
-
-Secrets are encrypted and never visible in code or logs.
-
-```bash
-npx wrangler secret put GEMINI_API_KEY
-```
-
-It will prompt you to paste your Gemini API key. Paste it and press Enter.
-
-**Step 5: Deploy the Worker**
-
-```bash
-npx wrangler deploy
-```
-
-Wrangler will print the URL of your deployed Worker, e.g.:
-
-```
-Published ibrahim-research-chat (1.2 sec)
-  https://ibrahim-research-chat.abc123.workers.dev
-```
-
-Copy this URL.
-
-**Step 6: Update the frontend**
-
-Open `_layouts/default.html` and find this line (around line 92):
-
-```javascript
-const CHAT_API = 'https://ibrahim-research-chat.YOUR_CF_SUBDOMAIN.workers.dev';
-```
-
-Replace `YOUR_CF_SUBDOMAIN` with your actual Cloudflare subdomain from step 5. For example:
-
-```javascript
-const CHAT_API = 'https://ibrahim-research-chat.abc123.workers.dev';
-```
-
-**Step 7: Push and test**
-
-Commit and push to GitHub. Once GitHub Pages rebuilds, open your site, click the chat widget, and ask a question like "What is your PhD about?".
-
-### Updating the index later
-
-Blog posts and the Live page now update through `rag-feed.json` when GitHub Pages builds the site. The Worker refreshes that feed every 5 minutes, so those two sources do not need a new embedding build.
-
-Whenever you publish papers or update stable profile facts:
+Optional semantic ranking uses a complete embedding set. A partial or dimension-mismatched result never replaces the current index:
 
 ```bash
 export GEMINI_API_KEY="your-key"
-python scripts/build_rag_index.py
+python3 scripts/build_rag_index.py
+```
+
+### Validate the Worker
+
+```bash
+npm --prefix worker ci
+npm --prefix worker test
+npm --prefix worker run deploy:dry-run
+```
+
+The tests cover the 100-question audience and policy matrix, typos, direct facts, privacy and prompt injection, unsupported questions, feed failure, provider failure, request limits, exact CORS behavior, safe API-key handling, and source serialization.
+
+### Configure and deploy
+
+The production frontend reads its Worker endpoint from `chat_api` in `_config.yml`; the current value is `https://ibrahim-research-chat.immicoc1.workers.dev`. Do not duplicate this endpoint in a layout script.
+
+`worker/wrangler.toml` holds the exact production origin and public feed URL. For a browser-based local session, add only the exact temporary local origin to `ALLOWED_ORIGINS`; do not weaken the production allowlist.
+
+Store the provider key as a Worker secret:
+
+```bash
 cd worker
+npx wrangler secret put GEMINI_API_KEY
+```
+
+Deployment is deliberately separate from validation and requires an explicit decision:
+
+```bash
 npx wrangler deploy
 ```
 
-### Testing locally
-
-```bash
-cd worker
-npx wrangler dev
-```
-
-This runs the Worker at `http://localhost:8787`. The frontend also allows `localhost:4000` (Jekyll's default) for CORS, so you can test end-to-end with:
-
-```bash
-# Terminal 1: run the worker locally
-cd worker && npx wrangler dev
-
-# Terminal 2: run Jekyll locally
-bundle exec jekyll serve
-```
-
-Then temporarily change `CHAT_API` to `http://localhost:8787` in the layout file for testing.
-
-### Cost
-
-- **Cloudflare Workers free tier**: 100,000 requests/day. You will never hit this on a personal site.
-- **Gemini API free tier**: Each chat message costs 2 API calls (1 embedding + 1 generation). The free tier allows ~1,500 calls/day — more than enough.
-- **Total cost**: Zero for a personal site's traffic level.
+See [`worker/README.md`](worker/README.md) for the response schema, configuration keys, model identifiers, and failure behavior.
 
 ---
 
-## 2. RAG Chatbot — How It Works
+## 2. Research Guide — How It Works
 
-RAG stands for **Retrieval-Augmented Generation**. The core idea is: instead of asking an LLM to answer from memory (where it might hallucinate), you first *retrieve* relevant documents, then feed those documents to the LLM as context so it answers based on facts.
+RAG means Retrieval-Augmented Generation: retrieve public evidence first, then answer from that evidence. This implementation adds deterministic routing so questions that should never reach a model are handled before retrieval or provider use.
 
-### The full pipeline
+### Request pipeline
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                    BUILD TIME (offline)                   │
-│                                                           │
-│  1. Python script reads your site content                 │
-│     (index.html, papers.json, blog posts, now.yml)        │
-│                                                           │
-│  2. Splits content into "chunks" (~300-500 chars each)    │
-│     e.g. one chunk for "About", one per paper, etc.       │
-│                                                           │
-│  3. Sends each chunk to Gemini Embedding API              │
-│     Text → 768-dimensional vector of floats               │
-│                                                           │
-│  4. Saves stable chunks + vectors to rag_index.json       │
-│     This file is bundled into the Cloudflare Worker        │
-└─────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────┐
-│                   QUERY TIME (live)                       │
-│                                                           │
-│  1. User types: "What papers has Ibrahim published?"      │
-│                                                           │
-│  2. Browser sends POST to Cloudflare Worker               │
-│     Body: { query: "What papers...", history: [...] }     │
-│                                                           │
-│  3. Worker embeds the query using Gemini Embedding API    │
-│     "What papers..." → [0.12, -0.03, 0.87, ...]          │
-│                                                           │
-│  4. Worker loads the latest Blog and Live public feed,    │
-│     then combines vector and keyword matching             │
-│                                                           │
-│  5. Pins clear intents (graduation, topic, current work)  │
-│     and picks the best 6 chunks                           │
-│                                                           │
-│  6. Sends to Gemini Chat API:                             │
-│     System prompt: "You are a research assistant..."      │
-│     User message: "[chunk1]\n[chunk2]\n...\nQuestion:..." │
-│                                                           │
-│  7. Gemini generates answer grounded in those chunks      │
-│                                                           │
-│  8. Worker returns { answer: "...", sources: [...] }      │
-│     Browser displays the answer in the chat widget        │
-└─────────────────────────────────────────────────────────┘
+```text
+Browser
+  -> validate origin, method, type, size, query and short history
+  -> policy-first route: privacy, private research, injection, unrelated
+  -> deterministic public fact when available
+  -> merge checked-in corpus with the current public rag-feed.json
+  -> evaluated aliases plus weighted lexical retrieval
+  -> optional semantic reranking when every embedding is compatible
+  -> source-constrained Gemini generation when a key is configured
+  -> grounded extractive fallback when no key or provider is unavailable
+  -> answer, mode, public sources, freshness and diagnostic metadata
 ```
 
-### Key concepts explained
+### Retrieval and evidence
 
-**Embeddings.** An embedding is a list of numbers (a vector) that represents the *meaning* of a piece of text. Texts with similar meanings have vectors that point in similar directions. The site uses Gemini `gemini-embedding-001`; the current index stores its full 3072-dimensional vectors. For example:
+Each chunk has a stable ID, title, kind, public URL, text, search questions, keywords, and content hash. Evaluated question aliases receive a strong exact-match boost; title, question, keyword, and body matches have separate weights. Minor typo tolerance helps natural queries, while a relevance threshold prevents unrelated content from being forced into an answer.
 
-- "MCTS for energy control" → `[0.42, -0.11, 0.73, ...]`
-- "Monte Carlo Tree Search in heating systems" → `[0.40, -0.09, 0.71, ...]` (very similar)
-- "Recipe for chocolate cake" → `[-0.55, 0.82, -0.13, ...]` (very different)
+The live `rag-feed.json` uses the same schema for public profile, themes, current work, projects, papers, explainers, resources, and posts. Fresh chunks replace matching stable IDs rather than creating duplicates. If the feed fails, the checked-in corpus remains usable.
 
-**Cosine similarity.** Measures how similar two vectors are by computing the cosine of the angle between them. Returns a value between -1 (opposite) and 1 (identical). The formula is:
+### Direct answers and policies
 
-```
-similarity = (A · B) / (|A| × |B|)
-```
+Stable facts such as the public name, contact links, CV, roles, latest Blog entry, and publication snapshot can be formatted deterministically. Privacy, private-research, prompt-injection, and unrelated requests return fixed policy responses with no retrieved context and no provider call.
 
-Where `A · B` is the dot product, and `|A|` is the magnitude. In the code (`worker/src/index.js`, line 106-114):
+Conversation history is limited and validated for continuity only. It is treated as untrusted text, never as factual evidence or instruction. Public source records are delimited in the model prompt and the model is asked to cite them with source markers.
 
-```javascript
-function cosineSimilarity(a, b) {
-  let dot = 0, magA = 0, magB = 0;
-  for (let i = 0; i < a.length; i++) {
-    dot += a[i] * b[i];       // dot product
-    magA += a[i] * a[i];      // squared magnitude of a
-    magB += b[i] * b[i];      // squared magnitude of b
-  }
-  return dot / (Math.sqrt(magA) * Math.sqrt(magB));
-}
-```
+### Security and failure behavior
 
-**Chunking.** You can't embed your entire website as one giant string — the embedding would be too vague to match specific questions. Instead, the indexing script (`scripts/build_rag_index.py`) splits content into semantically meaningful chunks: one for "About", one for "Education", one per paper, etc. Each chunk is small enough to have a focused meaning but large enough to contain a complete thought.
+- The browser never receives the Gemini key.
+- Provider keys travel in the `x-goog-api-key` header, not in URLs.
+- Only exact allowed origins receive CORS access.
+- Body, query, and history sizes are bounded.
+- Upstream requests have timeouts.
+- Only public HTTPS source URLs are returned.
+- The frontend renders answers with text nodes and rejects unsafe source schemes.
+- Feed and provider outages fall back to local grounded behavior.
+- An optional Cloudflare rate-limiter binding is honored when configured.
 
-**System prompt.** The system prompt tells Gemini how to behave. Ours says: answer only from the provided context, don't make things up, keep it concise. This is what prevents the model from hallucinating facts about you.
-
-**Conversation history.** The frontend keeps the last 6 messages and sends them with each request. The Worker passes these to Gemini so it can understand follow-up questions like "Tell me more about that paper."
-
-### Why a Cloudflare Worker?
-
-Your site is static HTML on GitHub Pages — there's no server. But you can't call the Gemini API directly from browser JavaScript because that would expose your API key in the page source. The Cloudflare Worker acts as a thin proxy:
-
-```
-Browser → Worker (has API key stored securely) → Gemini API
-```
-
-The Worker runs on Cloudflare's edge network (200+ data centres worldwide), so it's fast regardless of where the visitor is. The free tier gives 100,000 requests/day, which is effectively unlimited for a personal site.
-
-### File reference
+### Core files
 
 | File | Role |
-|------|------|
-| `scripts/build_rag_index.py` | Reads site content, calls Gemini embedding API, outputs `rag_index.json` |
-| `worker/src/index.js` | The Worker: handles requests, does similarity search, calls Gemini chat API |
-| `worker/src/retrieval.js` | Combines semantic, keyword and intent-aware retrieval |
-| `worker/src/rag_index.json` | Pre-computed chunks + embeddings (generated by the Python script) |
-| `worker/wrangler.toml` | Worker configuration (name, CORS settings) |
-| `rag-feed.json` | Public Jekyll feed that keeps Blog and Live content fresh |
-| `_layouts/default.html` | Frontend chat widget (lines 73-155) — sends queries, displays responses |
+|---|---|
+| `scripts/build_rag_index.py` | Validates structured sources and atomically builds the corpus |
+| `_data/rag_questions.json` | 100-question retrieval and safety evaluation matrix |
+| `worker/src/retrieval.js` | Policy routing, intents, direct answers, merge, lexical and semantic ranking |
+| `worker/src/index.js` | HTTP boundary, rate limiting, fresh feed, provider calls and response serialization |
+| `worker/src/rag_index.json` | Checked-in public corpus, optionally with a complete embedding set |
+| `rag-feed.json` | Server-rendered public freshness feed |
+| `_layouts/default.html` | Accessible chat UI, safe rendering, privacy notice and citations |
+| `worker/test/` | Retrieval and Worker HTTP/provider regression suites |
+| `tests/smoke/chat.spec.js` | Responsive frontend, XSS, source, clear-history and error-state checks |
 
 ---
-
 ## 3. Demo 1: MCTS Decision Tree Visualization
 
 **File:** `assets/js/mcts-demo.js`

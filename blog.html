@@ -20,7 +20,7 @@ description: "Notes about my research, public projects, and things I learn while
     <ul class="blog-list">
       {% for post in site.posts %}
         <li>
-          <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+          <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
           <p class="blog-meta">
             {{ post.date | date: "%d %b %Y" }}
           </p>

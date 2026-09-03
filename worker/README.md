@@ -1,126 +1,127 @@
-# RAG Chatbot — Cloudflare Worker
+# Grounded Research Guide Worker
 
-A Cloudflare Worker that powers the "Ask about my research" chat widget on the site. It uses Google Gemini for embeddings and generation, with a pre-built vector index of site content for retrieval-augmented generation.
+This Cloudflare Worker powers the site's "Ask about my research" guide. It answers from verified public website content, exposes inspectable source links, and declines questions that are private, unrelated, or about unpublished research.
 
-## Architecture
+## Request flow
 
+1. Validate the origin, method, content type, body size, query, and short conversation history.
+2. Route privacy, prompt-injection, private-research, and unrelated requests to deterministic policies before any upstream call.
+3. Answer stable facts such as contact details, current roles, CV, latest Blog post, and publication counts deterministically.
+4. Merge the checked-in corpus with the current public `rag-feed.json`, then use evaluated aliases and weighted lexical retrieval.
+5. Use semantic retrieval only when every corpus chunk has a compatible embedding.
+6. If a Gemini key is configured, generate a source-constrained answer with `models/gemini-3.5-flash-lite`; otherwise return the grounded extractive answer.
+7. Return only public HTTPS source links. Provider and feed failures fall back to the checked-in corpus.
+
+The browser never receives the Gemini key. The key is sent to Google in the `x-goog-api-key` header, not in a URL.
+
+## Public content contract
+
+The indexer reads only these reviewed sources:
+
+- `_data/profile.yml`: biography, public contact, roles, education, skills, service, and recognition
+- `_data/now.yml`: current public workstreams
+- `_data/projects.yml`: verified public software projects
+- `_data/papers.json`: validated publication snapshot
+- `_data/rag.yml`: novice explainers and public resources
+- `_posts/`: published research notes
+- `_data/rag_questions.json`: 100-question retrieval and policy evaluation matrix
+
+It does not parse the raw CV or arbitrary repository files. Keep private details, references, confidential work, and anonymous-review material out of all public structured data.
+
+## Build and validate the corpus
+
+From the repository root, build the deterministic lexical corpus without an API key:
+
+```bash
+python3 scripts/build_rag_index.py --no-embeddings
 ```
-Browser chat widget
-        |
-        v
-Cloudflare Worker (this code)
-  1. Embeds user query via Gemini embedding API
-  2. Loads the latest public Blog and Live feed (cached for 5 minutes)
-  3. Combines semantic, keyword and common-question retrieval
-  4. Sends the best context + query to Gemini for a grounded answer
-  5. Returns the response
+
+Verify that the committed index is current and that every evaluated question is covered:
+
+```bash
+python3 scripts/build_rag_index.py --check
+npm run test:rag
 ```
 
-## Setup
+To build an optional all-or-nothing semantic index:
 
-### Prerequisites
+```bash
+export GEMINI_API_KEY="your-key"
+python3 scripts/build_rag_index.py
+```
 
-- A [Cloudflare account](https://dash.cloudflare.com/sign-up) (free tier works)
-- A [Google AI Studio API key](https://aistudio.google.com/apikey) for Gemini
-- Node.js 18+
+The embedding build uses `models/gemini-embedding-001` with the `RETRIEVAL_DOCUMENT` task type. A query uses `QUESTION_ANSWERING`. If any embedding fails or has the wrong dimension, the index is not partially overwritten.
 
-### 1. Install dependencies
+## Test locally
+
+```bash
+npm --prefix worker ci
+npm --prefix worker test
+npm --prefix worker run deploy:dry-run
+```
+
+The test suite covers the complete question matrix, typo-tolerant retrieval, deterministic facts, privacy and injection policies, unsupported questions, feed replacement, request limits, exact CORS behavior, safe provider headers, provider failure, and the optional rate-limiter binding.
+
+For a local HTTP session:
 
 ```bash
 cd worker
-npm install
+npx wrangler dev
+curl -X POST http://localhost:8787 \
+  -H "Content-Type: application/json" \
+  -d '{"query":"What is Ibrahim researching?","history":[]}'
 ```
 
-### 2. Build the RAG index
+## API shape
 
-From the repo root, run the indexing script to embed all site content:
+Successful responses use this stable structure:
 
-```bash
-export GEMINI_API_KEY="your-gemini-api-key"
-python scripts/build_rag_index.py
+```json
+{
+  "answer": "...",
+  "mode": "direct",
+  "sources": [
+    {"id":"profile-overview","title":"About Ibrahim","url":"https://...","kind":"profile","date":""}
+  ],
+  "freshness": {},
+  "meta": {
+    "corpusVersion": "...",
+    "retrieval": "lexical",
+    "provider": "none",
+    "fresh": true
+  }
+}
 ```
 
-This reads your site content (profile, papers, blog posts, status) and generates `worker/src/rag_index.json` with text chunks and their embeddings.
+`mode` distinguishes direct, RAG, extractive, decline, and unsupported responses. Sources never contain internal paths, similarity scores, or non-public URLs.
 
-You can check content coverage without an API key:
+## Configuration
 
-```bash
-python scripts/build_rag_index.py --check
-```
+`worker/wrangler.toml` contains non-secret defaults:
 
-### 3. Set the API key as a Worker secret
+- `ALLOWED_ORIGIN`: exact production origin. `ALLOWED_ORIGINS` may supply a comma-separated exact allowlist.
+- `RAG_FEED_URL`: public Jekyll feed used for fresh content.
+- `SITE_ORIGIN`: optional public source-link origin override.
+- `RATE_LIMITER`: optional Cloudflare rate-limiter binding; requests remain functional when it is absent.
+
+Set the secret separately:
 
 ```bash
 cd worker
 npx wrangler secret put GEMINI_API_KEY
-# Paste your Gemini API key when prompted
 ```
 
-### 4. Deploy
+The frontend endpoint is configured once as `chat_api` in `_config.yml`.
 
-```bash
-npx wrangler deploy
-```
+## Deployment
 
-This will output your Worker URL, e.g.:
-```
-https://ibrahim-research-chat.YOUR_SUBDOMAIN.workers.dev
-```
-
-### 5. Update the frontend
-
-In `_layouts/default.html`, find the line:
-
-```javascript
-const CHAT_API = 'https://ibrahim-research-chat.YOUR_CF_SUBDOMAIN.workers.dev';
-```
-
-Replace `YOUR_CF_SUBDOMAIN` with your actual Cloudflare Workers subdomain.
-
-### 6. (Optional) Configure CORS
-
-In `wrangler.toml`, the `ALLOWED_ORIGIN` variable controls which domains can call the Worker. It defaults to `https://ibrahimkhan4real.github.io`. For local development, `http://localhost:4000` is also allowed.
-
-## Local development
+Validation deliberately does not deploy. After reviewing the corpus, tests, and screenshots, deployment is a separate authorized action:
 
 ```bash
 cd worker
-npm test
-npx wrangler dev
+npx wrangler deploy
 ```
 
-This runs the Worker locally at `http://localhost:8787`. You can test it with:
+Model names should be checked against the official [Gemini models](https://ai.google.dev/gemini-api/docs/models) and [embeddings](https://ai.google.dev/gemini-api/docs/embeddings) documentation before a future upgrade.
 
-```bash
-curl -X POST http://localhost:8787 \
-  -H "Content-Type: application/json" \
-  -d '{"query": "What is Ibrahim researching?"}'
-```
-
-## Keeping content updated
-
-- **Blog and Live:** GitHub Pages generates `/rag-feed.json` from `site.posts` and `_data/now.yml`. The Worker checks it automatically and caches it for 5 minutes. Publish the site normally; no embedding rebuild is needed.
-- **Profile, education, papers and other stable facts:** rebuild and redeploy the embedded index:
-
-```bash
-export GEMINI_API_KEY="your-key"
-python scripts/build_rag_index.py
-cd worker && npx wrangler deploy
-```
-
-## Files
-
-| File | Purpose |
-|------|---------|
-| `wrangler.toml` | Worker configuration |
-| `src/index.js` | Worker entry point — handles requests, RAG logic, Gemini API calls |
-| `src/retrieval.js` | Hybrid retrieval and common-question routing |
-| `src/rag_index.json` | Pre-computed embeddings index (generated by `build_rag_index.py`) |
-| `../rag-feed.json` | Jekyll feed for fresh Blog and Live content |
-| `test/retrieval.test.js` | Regression tests for common questions |
-| `package.json` | Node dependencies |
-
-## Cost
-
-- **Cloudflare Workers free tier**: 100,000 requests/day
-- **Gemini API**: Each chat message makes 2 API calls (1 embedding + 1 generation). The free tier allows 15 requests/minute and 1,500/day, which is sufficient for a personal site.
+See [`RAG_EVALUATION.md`](../RAG_EVALUATION.md) for the maintained acceptance criteria and question coverage.

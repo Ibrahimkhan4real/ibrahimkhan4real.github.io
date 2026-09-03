@@ -1,14 +1,44 @@
 title: "Muhammad Ibrahim Khan"
+description: "Research profile, publications, current work and technical notes by Muhammad Ibrahim Khan."
 url: "https://ibrahimkhan4real.github.io"
 baseurl: ""
+chat_api: "https://ibrahim-research-chat.immicoc1.workers.dev"
 markdown: kramdown
+timezone: "Europe/London"
+lang: "en-GB"
+author:
+  name: "Muhammad Ibrahim Khan"
+  url: "https://ibrahimkhan4real.github.io"
+logo: "/assets/img/Khan_logo.jpg"
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+feed:
+  path: feed.xml
 
 # Exclude files from Jekyll processing
 exclude:
+  - Gemfile
+  - Gemfile.lock
+  - .ruby-version
+  - .nvmrc
+  - .dockerignore
   - scripts/
   - worker/
-  - My_CV.pdf
   - README.md
+  - GUIDE.md
+  - DEVELOPMENT.md
+  - node_modules/
+  - tests/
+  - artifacts/
+  - package.json
+  - package-lock.json
+  - requirements-content.txt
+  - playwright.config.js
+  - Dockerfile.jekyll
+  - Makefile
   - .github/
   - vendor/
 

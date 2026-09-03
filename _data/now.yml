@@ -1,21 +1,81 @@
-updated: "August 2026"
-content: |-
-  Right now I am working on two things which are closely connected. The first
-  one is using planning and reinforcement learning to make energy systems a bit
-  smarter. The idea is simple: help a controller look ahead, deal with
-  uncertainty, and make better choices without wasting energy.
+schema_version: 2
+updated: "2026-08-26"
+update_title: "Current research and software work"
+summary: >-
+  I am currently working across three connected areas: planning and
+  reinforcement learning for energy control, reliable reinforcement-learning
+  experiments, and reproducible software for multi-agent LLM research. The
+  common thread is making sequential AI systems easier to evaluate, audit and
+  explain.
 
-  I am also looking at why some reinforcement learning systems suddenly become
-  unstable. Sometimes a very small difference in how an action is saved and
-  used again can create a much bigger problem during learning. It sounds like a
-  small thing, but it can effect the whole training run. I am trying to
-  understand where this starts and how to make the learning more reliable.
+streams:
+  - id: "energy-control"
+    title: "Planning for energy-aware control"
+    status: "Active research"
+    question: >-
+      How can a controller look ahead, meet time and comfort constraints, and
+      avoid unnecessary energy use when future conditions are uncertain?
+    current_focus: >-
+      Comparing planning and reinforcement-learning approaches for building
+      heating and domestic hot-water control, using MCTS, PPO, SAC and BOPTEST.
+    why_it_matters: >-
+      A useful controller must balance efficiency with operational reliability;
+      average reward alone does not show whether deadlines or constraints were
+      actually met.
+    links:
+      - label: "Deadline-aware hot-water paper"
+        url: "https://arxiv.org/abs/2601.18123"
+      - label: "Interactive planning demos"
+        url: "/demos.html"
 
-  Most of my time goes into running experiments, checking the results properly,
-  and then trying to explain it in a simple way. The maths can get messy
-  sometimes, but the basic idea is not.
-projects:
-  - name: "Smarter energy control"
-    description: "Helping controllers look ahead and make useful decisions when the future is uncertain."
-  - name: "More reliable learning"
-    description: "Finding out how tiny computer rounding differences can grow into unstable learning, and how we can reduce it."
+  - id: "reliable-rl"
+    title: "Reliable reinforcement learning"
+    status: "Active research"
+    question: >-
+      Which numerical and experimental details can change policy optimisation,
+      and how can those effects be isolated without overstating the evidence?
+    current_focus: >-
+      Running controlled comparisons, checking policy and task behaviour
+      separately, and keeping a traceable route from each conclusion to its
+      supporting run.
+    why_it_matters: >-
+      Small implementation details can undermine a comparison if they are not
+      measured and reported explicitly.
+    public_note: >-
+      Only the broad public research direction is described here. Details tied
+      to anonymous review or unpublished results are withheld until public.
+
+  - id: "research-software"
+    title: "Reproducible AI research software"
+    status: "Active role at UCL"
+    question: >-
+      How can multi-agent LLM experiments be configured, logged and repeated so
+      that management-research claims remain inspectable?
+    current_focus: >-
+      Building experiment software with explicit configuration, structured
+      logging and auditable run outputs for multi-agent LLM studies.
+    why_it_matters: >-
+      Reproducible infrastructure makes it easier for collaborators to compare
+      runs, find errors and understand which evidence supports a conclusion.
+    links:
+      - label: "Professional work overview"
+        url: "/work.html"
+
+method_steps:
+  - number: "01"
+    title: "Define the decision"
+    description: "State the task, constraints, baselines and evidence needed before running experiments."
+  - number: "02"
+    title: "Control the comparison"
+    description: "Change one intended factor at a time and keep evaluation conditions aligned."
+  - number: "03"
+    title: "Audit the run"
+    description: "Record configuration, outputs and diagnostics that separate numerical survival, policy health and task performance."
+  - number: "04"
+    title: "Communicate the limit"
+    description: "Explain what was measured, what is inferred and what remains unknown."
+
+public_boundaries:
+  - "No employer-confidential data, private collaborator details or unpublished outcomes."
+  - "No anonymous-review identity, venue or result details before they are public."
+  - "Dates and role descriptions follow the verified public profile and CV."

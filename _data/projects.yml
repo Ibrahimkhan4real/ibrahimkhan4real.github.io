@@ -1,0 +1,71 @@
+schema_version: 1
+last_verified: "2026-09-02"
+github_profile: "https://github.com/Ibrahimkhan4real"
+
+items:
+  - id: "rl-hvac"
+    title: "Reinforcement Learning for HVAC Systems"
+    repository: "https://github.com/Ibrahimkhan4real/RL_for_HVAC_System"
+    language: "Python"
+    summary: >-
+      A public SAC and PPO control project built around the BOPTEST
+      bestest_hydronic_heat_pump benchmark.
+    detail: >-
+      The repository exposes a Gymnasium wrapper, configurable training,
+      baseline-controller comparisons and diagnostic outputs for studying
+      comfort, energy and price-aware heating decisions.
+    methods:
+      - "Soft Actor-Critic"
+      - "PPO"
+      - "BOPTEST"
+      - "Gymnasium"
+      - "Stable Baselines3"
+
+  - id: "hot-water-control"
+    title: "Deadline-Aware Hot-Water Control"
+    repository: "https://github.com/Ibrahimkhan4real/Hot_Water_Immersion_System"
+    language: "Python"
+    summary: >-
+      The public implementation accompanying the deadline-aware domestic
+      hot-water control paper.
+    detail: >-
+      It compares bang-bang control, Monte Carlo Tree Search and PPO under the
+      same thermal model, target-temperature and deadline constraints.
+    methods:
+      - "Monte Carlo Tree Search"
+      - "PPO"
+      - "Gymnasium"
+      - "Control evaluation"
+
+  - id: "mcts-tic-tac-toe"
+    title: "MCTS Tic-Tac-Toe"
+    repository: "https://github.com/Ibrahimkhan4real/MCTS-Tic-Tac-Toe"
+    language: "Python"
+    summary: >-
+      A small playable example of Monte Carlo Tree Search.
+    detail: >-
+      The implementation makes selection, expansion, simulation and
+      backpropagation concrete in a familiar game, including UCB1-based
+      exploration and unit tests.
+    methods:
+      - "Monte Carlo Tree Search"
+      - "UCB1"
+      - "Python"
+      - "Unit testing"
+
+  - id: "meeting-transcriber"
+    title: "Research Meeting Transcriber"
+    repository: "https://github.com/Ibrahimkhan4real/SM_meeting_transcriber"
+    language: "Shell and Python"
+    summary: >-
+      A public workflow for turning meeting audio into transcripts, structured
+      notes and action points.
+    detail: >-
+      Audio is transcribed locally with faster-whisper before the transcript is
+      sent to Gemini for structured analysis. Audio and generated
+      transcriptions are excluded from version control.
+    methods:
+      - "faster-whisper"
+      - "Gemini"
+      - "Local transcription"
+      - "Structured notes"

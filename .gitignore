@@ -1,0 +1,22 @@
+# Jekyll and Bundler output
+_site/
+.jekyll-cache/
+.jekyll-metadata
+.sass-cache/
+.bundle/
+vendor/bundle/
+
+# Node and browser-test output
+node_modules/
+worker/node_modules/
+artifacts/
+playwright-report/
+test-results/
+
+# Python caches
+__pycache__/
+*.py[cod]
+
+# Local editor and operating-system files
+.DS_Store
+*.swp

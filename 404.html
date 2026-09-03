@@ -1,0 +1,36 @@
+---
+layout: default
+title: "Page not found — Muhammad Ibrahim Khan"
+description: "The requested page is not available. Continue to Muhammad Ibrahim Khan's research profile, publications, current work, or blog."
+permalink: /404.html
+sitemap: false
+---
+
+<header>
+  <p>Error 404</p>
+</header>
+
+<article>
+  <div id="article_title">
+    <p class="eyebrow">Page not found</p>
+    <h1>That page is not part of this site</h1>
+  </div>
+
+  <div id="article_text">
+    <p class="lead">
+      The address may be outdated or mistyped. The main research pages are
+      available below.
+    </p>
+
+    <div class="hero-actions" aria-label="Continue browsing">
+      <a class="button-primary" href="{{ "/" | relative_url }}">Research profile</a>
+      <a class="button-secondary" href="{{ "/live.html" | relative_url }}">Current work</a>
+      <a class="button-secondary" href="{{ "/papers.html" | relative_url }}">Publications</a>
+      <a class="button-secondary" href="{{ "/blog.html" | relative_url }}">Research notes</a>
+    </div>
+  </div>
+</article>
+
+<footer>
+  <p>If you followed a broken link, please <a href="mailto:{{ site.data.profile.contact.email }}">let me know</a>.</p>
+</footer>
