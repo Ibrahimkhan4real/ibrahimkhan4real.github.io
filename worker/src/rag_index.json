@@ -1,12 +1,12 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-02T08:38:01Z",
-  "sourceHash": "sha256:9dc2911b3fbbccd4665626117c384608337aeb207fce8736337c98646e252efb",
+  "generatedAt": "2026-09-03T06:41:10Z",
+  "sourceHash": "sha256:2535eb52a9dc94c2d4061bc9fe7fba512286e8129df4e11df92efde5f609343f",
   "sourceFreshness": {
     "profile": "2026-08-26",
     "current": "2026-08-26",
     "projects": "2026-09-02",
-    "publications": "2026-08-26T19:01:16Z",
+    "publications": "2026-08-28T18:52:11Z",
     "rag": "2026-09-02",
     "evaluation": "2026-09-02"
   },
@@ -812,9 +812,9 @@
       "id": "publications-summary",
       "kind": "publication",
       "title": "Publication overview",
-      "text": "The verified Google Scholar snapshot dated 2026-08-26T19:01:16Z contains 4 publications. Deadline-Aware, Energy-Efficient Control of Domestic Immersion Hot Water Heaters (2026, arXiv preprint arXiv:2601.18123). Design of a six wheel suspension and a three-axis linear actuation mechanism for a laser weeding robot (2025, arXiv preprint arXiv:2512.10319). PhD Forum Abstract: Hybrid MCTS for Heat Pump Control (2025, Proceedings of the 12th ACM International Conference on Systems for Energy …). Learning from Less: SINDy Surrogates in RL (2025, arXiv preprint arXiv:2504.18113).",
+      "text": "The verified Google Scholar snapshot dated 2026-08-28T18:52:11Z contains 4 publications. Deadline-Aware, Energy-Efficient Control of Domestic Immersion Hot Water Heaters (2026, arXiv preprint arXiv:2601.18123). Design of a six wheel suspension and a three-axis linear actuation mechanism for a laser weeding robot (2025, arXiv preprint arXiv:2512.10319). PhD Forum Abstract: Hybrid MCTS for Heat Pump Control (2025, Proceedings of the 12th ACM International Conference on Systems for Energy …). Learning from Less: SINDy Surrogates in RL (2025, arXiv preprint arXiv:2504.18113).",
       "source": "/papers.html",
-      "updatedAt": "2026-08-26T19:01:16Z",
+      "updatedAt": "2026-08-28T18:52:11Z",
       "priority": 10,
       "keywords": [
         "Google Scholar",
@@ -831,18 +831,18 @@
       ],
       "facts": {
         "count": 4,
-        "snapshotDate": "2026-08-26T19:01:16Z",
+        "snapshotDate": "2026-08-28T18:52:11Z",
         "latestTitle": "Deadline-Aware, Energy-Efficient Control of Domestic Immersion Hot Water Heaters"
       },
-      "contentHash": "sha256:6501e00661cf976cfb84b502d05fc0b8092caaaad4f59e3a47321c6171c77c54"
+      "contentHash": "sha256:2863bd7cfb1f86b8f8f0c833dd3b2f1ee02cdfb58c8ff80e6485b362e2d0d963"
     },
     {
       "id": "paper-deadline-aware-energy-efficient-control-of-domestic-immersion-hot-water-heaters",
       "kind": "publication",
       "title": "Deadline-Aware, Energy-Efficient Control of Domestic Immersion Hot Water Heaters",
-      "text": "Authors: MI Khan, B Pradeep, J Brusey. Venue: arXiv preprint arXiv:2601.18123. Year: 2026. The 2026-08-26T19:01:16Z snapshot does not list a citation count.",
+      "text": "Authors: MI Khan, B Pradeep, J Brusey. Venue: arXiv preprint arXiv:2601.18123. Year: 2026. The 2026-08-28T18:52:11Z snapshot does not list a citation count.",
       "source": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bh9os08AAAAJ&pagesize=100&sortby=pubdate&citation_for_view=bh9os08AAAAJ:9yKSN-GCB0IC",
-      "updatedAt": "2026-08-26T19:01:16Z",
+      "updatedAt": "2026-08-28T18:52:11Z",
       "priority": 9,
       "keywords": [
         "2026",
@@ -863,17 +863,17 @@
         "year": "2026",
         "citations": null,
         "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bh9os08AAAAJ&pagesize=100&sortby=pubdate&citation_for_view=bh9os08AAAAJ:9yKSN-GCB0IC",
-        "snapshotDate": "2026-08-26T19:01:16Z"
+        "snapshotDate": "2026-08-28T18:52:11Z"
       },
-      "contentHash": "sha256:6df7bc6b331d103a44f8682e5e59ae0049fa95179b0e7439a222aed403516af9"
+      "contentHash": "sha256:a520564bf3007598027fd3ee71c40d0ac2c60403af053e43425554c6a1d31a9d"
     },
     {
       "id": "paper-design-of-a-six-wheel-suspension-and-a-three-axis-linear-actuation-mechanism-for-a-laser-weeding-robot",
       "kind": "publication",
       "title": "Design of a six wheel suspension and a three-axis linear actuation mechanism for a laser weeding robot",
-      "text": "Authors: M Usama, MI Khan, A Hasan, MS Nadeem, KF Iqbal, J Aslam, MA Ali, .... Venue: arXiv preprint arXiv:2512.10319. Year: 2025. Citation count in the 2026-08-26T19:01:16Z snapshot: 1.",
+      "text": "Authors: M Usama, MI Khan, A Hasan, MS Nadeem, KF Iqbal, J Aslam, MA Ali, .... Venue: arXiv preprint arXiv:2512.10319. Year: 2025. Citation count in the 2026-08-28T18:52:11Z snapshot: 1.",
       "source": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bh9os08AAAAJ&pagesize=100&sortby=pubdate&citation_for_view=bh9os08AAAAJ:qjMakFHDy7sC",
-      "updatedAt": "2026-08-26T19:01:16Z",
+      "updatedAt": "2026-08-28T18:52:11Z",
       "priority": 9,
       "keywords": [
         "2025",
@@ -894,17 +894,17 @@
         "year": "2025",
         "citations": "1",
         "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bh9os08AAAAJ&pagesize=100&sortby=pubdate&citation_for_view=bh9os08AAAAJ:qjMakFHDy7sC",
-        "snapshotDate": "2026-08-26T19:01:16Z"
+        "snapshotDate": "2026-08-28T18:52:11Z"
       },
-      "contentHash": "sha256:edd695466a1cefce9a92dcd8096873cdbdb38546adb61cc74fbfd8c692ce3875"
+      "contentHash": "sha256:6f4b03ed5f80e2d763089d8b6e7a1a3be9ccd7b7d118c2da8e1931aebc146dce"
     },
     {
       "id": "paper-phd-forum-abstract-hybrid-mcts-for-heat-pump-control",
       "kind": "publication",
       "title": "PhD Forum Abstract: Hybrid MCTS for Heat Pump Control",
-      "text": "Authors: MI Khan. Venue: Proceedings of the 12th ACM International Conference on Systems for Energy …. Year: 2025. The 2026-08-26T19:01:16Z snapshot does not list a citation count.",
+      "text": "Authors: MI Khan. Venue: Proceedings of the 12th ACM International Conference on Systems for Energy …. Year: 2025. The 2026-08-28T18:52:11Z snapshot does not list a citation count.",
       "source": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bh9os08AAAAJ&pagesize=100&sortby=pubdate&citation_for_view=bh9os08AAAAJ:u-x6o8ySG0sC",
-      "updatedAt": "2026-08-26T19:01:16Z",
+      "updatedAt": "2026-08-28T18:52:11Z",
       "priority": 9,
       "keywords": [
         "2025",
@@ -925,17 +925,17 @@
         "year": "2025",
         "citations": null,
         "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bh9os08AAAAJ&pagesize=100&sortby=pubdate&citation_for_view=bh9os08AAAAJ:u-x6o8ySG0sC",
-        "snapshotDate": "2026-08-26T19:01:16Z"
+        "snapshotDate": "2026-08-28T18:52:11Z"
       },
-      "contentHash": "sha256:41e596a0574d8b8709214ffa8bf899e5b7f9327ffb426234e46ec13e3b788eaa"
+      "contentHash": "sha256:696a08a1f6a8a629bc4ea4750c345f14fcb6626177961148dc5da529229dda5c"
     },
     {
       "id": "paper-learning-from-less-sindy-surrogates-in-rl",
       "kind": "publication",
       "title": "Learning from Less: SINDy Surrogates in RL",
-      "text": "Authors: A Dixit, MI Khan, F Ahmed, J Brusey. Venue: arXiv preprint arXiv:2504.18113. Year: 2025. Citation count in the 2026-08-26T19:01:16Z snapshot: 3.",
+      "text": "Authors: A Dixit, MI Khan, F Ahmed, J Brusey. Venue: arXiv preprint arXiv:2504.18113. Year: 2025. Citation count in the 2026-08-28T18:52:11Z snapshot: 3.",
       "source": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bh9os08AAAAJ&pagesize=100&sortby=pubdate&citation_for_view=bh9os08AAAAJ:u5HHmVD_uO8C",
-      "updatedAt": "2026-08-26T19:01:16Z",
+      "updatedAt": "2026-08-28T18:52:11Z",
       "priority": 9,
       "keywords": [
         "2025",
@@ -956,9 +956,9 @@
         "year": "2025",
         "citations": "3",
         "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=bh9os08AAAAJ&pagesize=100&sortby=pubdate&citation_for_view=bh9os08AAAAJ:u5HHmVD_uO8C",
-        "snapshotDate": "2026-08-26T19:01:16Z"
+        "snapshotDate": "2026-08-28T18:52:11Z"
       },
-      "contentHash": "sha256:971b7b3bbd3e89034dfeb02df14209858c8123946b536307801831d622d9d32e"
+      "contentHash": "sha256:fc992fd96e18edb3a2fcd3b53f65328e4dfbb2ceaad134649c36267ce6e3a889"
     },
     {
       "id": "blog-summary",
