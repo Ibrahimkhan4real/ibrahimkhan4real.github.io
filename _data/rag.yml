@@ -23,7 +23,7 @@ explainers:
     relevance: >-
       Ibrahim uses it for sequential control problems where heating decisions
       affect later comfort, deadlines and energy use.
-    source_url: "/index.html#research"
+    source_url: "/work.html#research-questions"
     keywords:
       - "RL"
       - "agent"
@@ -123,7 +123,7 @@ explainers:
     relevance: >-
       Ibrahim has built production RAG systems and this website's research
       guide uses the same grounded-answer pattern.
-    source_url: "/index.html#experience"
+    source_url: "/work.html#industry"
     keywords:
       - "RAG"
       - "retrieval"

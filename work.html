@@ -118,6 +118,50 @@ description: "Research, engineering, teaching and public software by Muhammad Ib
       </ul>
     </section>
 
+    <section class="status-section" id="research-questions">
+      <p class="eyebrow">Research</p>
+      <h2>Questions I work on</h2>
+      <div class="profile-card-grid">
+        {% for theme in profile.research_themes %}
+        <article class="profile-card">
+          <h3>{{ theme.title }}</h3>
+          <p>{{ theme.summary }}</p>
+          <p class="card-meta">{{ theme.methods }}</p>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="status-section" id="recognition">
+      <p class="eyebrow">Recognition</p>
+      <h2>Teaching, funding and awards</h2>
+      <div class="recognition-list">
+        {% for item in profile.professional_recognition %}
+        <div>
+          <span class="date-label">{{ item.year }}</span>
+          <strong>{{ item.title }}</strong>
+          {% if item.organisation %}<span>{{ item.organisation }}</span>{% endif %}
+          {% if item.detail %}<small>{{ item.detail }}</small>{% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="status-section" id="skills">
+      <p class="eyebrow">Tools</p>
+      <h2>Technical toolkit</h2>
+      <div class="skill-groups">
+        {% for group in profile.skills %}
+        <div>
+          <h3>{{ group[0] | replace: "_", " " | capitalize }}</h3>
+          <ul class="skill-chips">
+            {% for skill in group[1] %}<li>{{ skill }}</li>{% endfor %}
+          </ul>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+
     <section class="status-section contact-panel">
       <h2>Explore the work</h2>
       <p>Read the publications, try the interactive demos, or download the verified CV for a concise record.</p>
