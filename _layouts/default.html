@@ -32,7 +32,7 @@
   <meta property="article:author" content="{{ site.url | append: site.baseurl }}">
   {% endif %}
   <link rel="icon" href="{{ "/assets/img/favicon.svg" | relative_url }}" type="image/svg+xml">
-  <link rel="stylesheet" href="{{ "/assets/css/site.css?v=20260905_demos" | relative_url }}">
+  <link rel="stylesheet" href="{{ "/assets/css/site.css" | relative_url }}?v={{ site.time | date: "%Y%m%d%H%M%S" }}">
   {% if page.url == "/" or page.url == "/index.html" %}
   <script type="application/ld+json">
   {
@@ -114,7 +114,7 @@
           <a class="nav-link" href="{{ profile.links.cv | relative_url }}">CV <span aria-hidden="true">&#8595;</span></a>
         </li>
         <li>
-          <a class="nav-link" href="{{ "/index.html#contact" | relative_url }}">Contact</a>
+          <a class="nav-link" href="#contact">Contact</a>
         </li>
         <li>
           <a class="nav-link" href="{{ profile.links.github }}" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -139,6 +139,17 @@
 
   <main id="main-content" tabindex="-1">
     {{ content }}
+
+    <section class="site-contact" id="contact" aria-labelledby="site-contact-label">
+      <p class="site-contact-label" id="site-contact-label">Contact</p>
+      <a class="site-contact-email" href="mailto:{{ profile.contact.email }}">{{ profile.contact.email }}</a>
+      <p class="site-contact-note">Email is the best way to reach me.</p>
+      <div class="site-contact-links">
+        <a href="{{ profile.links.scholar }}" target="_blank" rel="noopener noreferrer">Google Scholar</a>
+        <a href="{{ profile.links.github }}" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="{{ profile.links.linkedin }}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </section>
   </main>
 
   <!-- Public research guide -->

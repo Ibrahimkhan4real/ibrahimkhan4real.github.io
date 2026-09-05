@@ -760,10 +760,23 @@ aside div#user_meta ul li:nth-last-child(2) {
    ========================================================================== */
 
 main {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: 760px;
   margin: 0;
   padding: 58px 64px 96px 56px;
+}
+
+/* Each page brings its own closing note (a verified date, a copyright line).
+   Contact is the last thing worth acting on, so it sits above that note
+   without every page having to be rewritten. */
+main > .site-contact {
+  order: 1;
+}
+
+main > footer {
+  order: 2;
 }
 
 main header {
@@ -870,15 +883,21 @@ main article div#article_meta {
 }
 
 main footer {
-  border-top: 1px solid var(--rule);
-  border-bottom: none;
-  padding: 22px 0 0;
+  border: 0;
+  padding: 0;
   display: flex;
   justify-content: flex-start;
   background-color: transparent;
-  margin-top: 42px;
+  margin-top: 24px;
   border-radius: 0;
   box-shadow: none;
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+main footer p {
+  margin: 0;
 }
 
 .button_accent {
@@ -2749,28 +2768,75 @@ main article div#article_text .now-status-strip a:focus-visible {
   color: var(--body);
 }
 
-.home-contact {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  margin-top: 40px;
-  padding-top: 22px;
-  border-top: 1px solid var(--rule);
+/* Contact sits at the foot of every page. The address is the primary action
+   on it, so it is set at reading size rather than as fine print. */
+
+.site-contact {
+  margin-top: 52px;
+  padding-top: 26px;
+  border-top: 1px solid var(--ink);
+}
+
+.site-contact-label {
+  margin: 0 0 10px;
   font-family: var(--font-sans);
-  font-size: 13px;
-}
-
-.home-contact-email {
-  border-bottom: 1px solid var(--rule);
-  padding-bottom: 2px;
-}
-
-.home-contact-links {
-  display: flex;
-  gap: 20px;
+  font-size: 12.5px;
+  font-weight: 600;
   color: var(--muted);
 }
+
+.site-contact-email {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-size: 26px;
+  line-height: 1.25;
+  color: var(--ink);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 3px;
+  overflow-wrap: anywhere;
+}
+
+.site-contact-email:hover,
+.site-contact-email:focus {
+  border-bottom-color: var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.site-contact-note {
+  margin: 12px 0 0;
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+.site-contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  margin-top: 18px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+}
+
+.site-contact-links a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+
+.site-contact-links a:hover,
+.site-contact-links a:focus {
+  color: var(--accent);
+}
+
+@media screen and (max-width: 640px) {
+  .site-contact-email {
+    font-size: 21px;
+  }
+}
+
 
 @media screen and (max-width: 640px) {
   .home-stream,
@@ -2783,23 +2849,13 @@ main article div#article_text .now-status-strip a:focus-visible {
     justify-self: start;
   }
 
-  .home-contact {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
-  }
-
-  .home-contact-links {
-    flex-wrap: wrap;
-  }
 }
 
 /* Index links carry their weight through type and rules, not underlines;
    the underline is the hover affordance, as elsewhere in the design. */
 main article div#article_text .home-stream a,
 main article div#article_text .home-publication a,
-main article div#article_text .home-block-more,
-main article div#article_text .home-contact a {
+main article div#article_text .home-block-more {
   text-decoration: none;
 }
 
@@ -2808,9 +2864,7 @@ main article div#article_text .home-stream a:focus,
 main article div#article_text .home-publication a:hover,
 main article div#article_text .home-publication a:focus,
 main article div#article_text .home-block-more:hover,
-main article div#article_text .home-block-more:focus,
-main article div#article_text .home-contact a:hover,
-main article div#article_text .home-contact a:focus {
+main article div#article_text .home-block-more:focus {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
