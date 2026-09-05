@@ -32,7 +32,7 @@
   <meta property="article:author" content="{{ site.url | append: site.baseurl }}">
   {% endif %}
   <link rel="icon" href="{{ "/assets/img/favicon.svg" | relative_url }}" type="image/svg+xml">
-  <link rel="stylesheet" href="{{ "/assets/css/site.css?v=20260902_rag" | relative_url }}">
+  <link rel="stylesheet" href="{{ "/assets/css/site.css" | relative_url }}?v={{ site.time | date: "%Y%m%d%H%M%S" }}">
   {% if page.url == "/" or page.url == "/index.html" %}
   <script type="application/ld+json">
   {
@@ -85,10 +85,10 @@
     <div id="user_meta">
       <div id="author_info">
         <a href="{{ "/" | relative_url }}">
-          <img src="{{ "/assets/img/Khan_logo.jpg" | relative_url }}" alt="Portrait logo for {{ profile.identity.full_name }}" width="192" height="192">
+          <img src="{{ "/assets/img/Khan_logo.jpg" | relative_url }}" alt="Portrait logo for {{ profile.identity.full_name }}" width="154" height="154">
         </a>
         <h2><a href="{{ "/" | relative_url }}">{{ profile.identity.full_name }}</a></h2>
-        <p>{{ profile.headline }}</p>
+        <p>{% for role in profile.current_roles %}{{ role.title | downcase | capitalize }}{% unless forloop.last %}<br>{% endunless %}{% endfor %}</p>
       </div>
       <nav aria-label="Primary navigation">
         <ul>
@@ -102,10 +102,10 @@
           <a class="nav-link{% if page.url == "/work.html" %} current{% endif %}"{% if page.url == "/work.html" %} aria-current="page"{% endif %} href="{{ "/work.html" | relative_url }}">Work</a>
         </li>
         <li>
-          <a class="nav-link{% if page.url == "/demos.html" %} current{% endif %}"{% if page.url == "/demos.html" %} aria-current="page"{% endif %} href="{{ "/demos.html" | relative_url }}">Demos</a>
+          <a class="nav-link{% if page.url == "/papers.html" %} current{% endif %}"{% if page.url == "/papers.html" %} aria-current="page"{% endif %} href="{{ "/papers.html" | relative_url }}">Papers</a>
         </li>
         <li>
-          <a class="nav-link{% if page.url == "/papers.html" %} current{% endif %}"{% if page.url == "/papers.html" %} aria-current="page"{% endif %} href="{{ "/papers.html" | relative_url }}">Papers</a>
+          <a class="nav-link{% if page.url == "/demos.html" %} current{% endif %}"{% if page.url == "/demos.html" %} aria-current="page"{% endif %} href="{{ "/demos.html" | relative_url }}">Demos</a>
         </li>
         <li>
           <a class="nav-link{% if page.url == "/blog.html" %} current{% endif %}"{% if page.url == "/blog.html" %} aria-current="page"{% endif %} href="{{ "/blog.html" | relative_url }}">Blog</a>
@@ -114,7 +114,7 @@
           <a class="nav-link" href="{{ profile.links.cv | relative_url }}">CV <span aria-hidden="true">&#8595;</span></a>
         </li>
         <li>
-          <a class="nav-link" href="{{ "/index.html#contact" | relative_url }}">Contact</a>
+          <a class="nav-link" href="#contact">Contact</a>
         </li>
         <li>
           <a class="nav-link" href="{{ profile.links.github }}" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -139,6 +139,17 @@
 
   <main id="main-content" tabindex="-1">
     {{ content }}
+
+    <section class="site-contact" id="contact" aria-labelledby="site-contact-label">
+      <p class="site-contact-label" id="site-contact-label">Contact</p>
+      <a class="site-contact-email" href="mailto:{{ profile.contact.email }}">{{ profile.contact.email }}</a>
+      <p class="site-contact-note">Email is the best way to reach me.</p>
+      <div class="site-contact-links">
+        <a href="{{ profile.links.scholar }}" target="_blank" rel="noopener noreferrer">Google Scholar</a>
+        <a href="{{ profile.links.github }}" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="{{ profile.links.linkedin }}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </section>
   </main>
 
   <!-- Public research guide -->
@@ -296,24 +307,17 @@
         return 'I could not process that question. Please check it and try again.';
       }
 
-      async function sendQuery(text) {
-        addMessage(text, 'user');
-        chatHistory.push({ role: 'user', text: text });
-        chatInput.value = '';
-        setInputEnabled(false);
-        const thinkingMsg = addMessage('Checking the public sources...', 'bot');
-        let timeoutId;
-
+      async function fetchAnswer(text, history) {
+        if (!CHAT_API) throw new Error('missing_endpoint');
+        const controller = new AbortController();
+        const timeoutId = window.setTimeout(function() { controller.abort(); }, 20000);
         try {
-          if (!CHAT_API) throw new Error('missing_endpoint');
-          const controller = new AbortController();
-          timeoutId = window.setTimeout(function() { controller.abort(); }, 20000);
           const resp = await fetch(CHAT_API, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               query: text,
-              history: chatHistory.slice(-6)
+              history: Array.isArray(history) ? history.slice(-6) : []
             }),
             signal: controller.signal
           });
@@ -329,20 +333,34 @@
             schemaError.status = 502;
             throw schemaError;
           }
+          return data;
+        } finally {
+          window.clearTimeout(timeoutId);
+        }
+      }
+
+      function errorMessageFor(error) {
+        if (error.name === 'AbortError') return 'The request timed out. Please try again shortly.';
+        if (error.message === 'missing_endpoint') return 'The research guide is not configured right now.';
+        return responseErrorMessage(error.status || 0, error.code || '');
+      }
+
+      async function sendQuery(text) {
+        addMessage(text, 'user');
+        chatHistory.push({ role: 'user', text: text });
+        chatInput.value = '';
+        setInputEnabled(false);
+        const thinkingMsg = addMessage('Checking the public sources...', 'bot');
+
+        try {
+          const data = await fetchAnswer(text, chatHistory);
           thinkingMsg.textContent = data.answer;
           renderSources(thinkingMsg, data.sources);
           chatHistory.push({ role: 'assistant', text: data.answer });
         } catch (error) {
-          if (error.name === 'AbortError') {
-            thinkingMsg.textContent = 'The request timed out. Please try again shortly.';
-          } else if (error.message === 'missing_endpoint') {
-            thinkingMsg.textContent = 'The research guide is not configured right now.';
-          } else {
-            thinkingMsg.textContent = responseErrorMessage(error.status || 0, error.code || '');
-          }
+          thinkingMsg.textContent = errorMessageFor(error);
           console.error('Chat error:', error);
         } finally {
-          if (timeoutId) window.clearTimeout(timeoutId);
           setInputEnabled(true);
           chatInput.focus();
         }
@@ -376,6 +394,63 @@
           }
         });
       });
+
+      // Inline research guide on the home page. Same endpoint, same rendering
+      // rules; the answer lands on the page instead of in the side panel.
+      const homeAsk = document.getElementById('home-ask');
+      if (homeAsk) {
+        const homeInput = document.getElementById('home-ask-input');
+        const homeSend = document.getElementById('home-ask-send');
+        const homeAnswer = document.getElementById('home-ask-answer');
+        const homeAnswerLabel = document.getElementById('home-ask-answer-label');
+        const homeAnswerText = document.getElementById('home-ask-answer-text');
+        let homeSending = false;
+
+        function setHomeAnswer(label, text) {
+          homeAnswerLabel.textContent = label;
+          homeAnswerText.textContent = text;
+          homeAnswer.querySelectorAll('.chat-sources').forEach(function(node) { node.remove(); });
+          homeAnswer.hidden = false;
+        }
+
+        async function homeQuery(text) {
+          if (!text || homeSending) return;
+          homeSending = true;
+          homeInput.disabled = true;
+          homeSend.disabled = true;
+          setHomeAnswer('Checking', 'Checking the public sources...');
+
+          try {
+            const data = await fetchAnswer(text, []);
+            setHomeAnswer('Answer', data.answer);
+            renderSources(homeAnswerText.parentNode, data.sources);
+          } catch (error) {
+            setHomeAnswer('Unavailable', errorMessageFor(error));
+            console.error('Home guide error:', error);
+          } finally {
+            homeSending = false;
+            homeInput.disabled = false;
+            homeSend.disabled = false;
+          }
+        }
+
+        homeSend.addEventListener('click', function() {
+          homeQuery(homeInput.value.trim());
+        });
+        homeInput.addEventListener('keydown', function(event) {
+          if (event.key === 'Enter') {
+            event.preventDefault();
+            homeSend.click();
+          }
+        });
+        homeAsk.querySelectorAll('[data-home-question]').forEach(function(button) {
+          button.addEventListener('click', function() {
+            const question = button.dataset.homeQuestion;
+            homeInput.value = question;
+            homeQuery(question);
+          });
+        });
+      }
     })();
   </script>
 </body>

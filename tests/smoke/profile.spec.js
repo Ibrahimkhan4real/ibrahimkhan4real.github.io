@@ -10,12 +10,20 @@ test('homepage renders the verified professional profile', async ({ page }) => {
       name: 'Reinforcement Learning, Planning and Research Software',
     }),
   ).toBeVisible();
-  await expect(page.getByText('Research Software Developer', { exact: true })).toBeVisible();
-  await expect(page.getByText('Doctoral Researcher', { exact: true })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Biography' })).toBeVisible();
+  await expect(page.getByText('Currently working on')).toBeVisible();
+  await expect(
+    page.getByRole('link', { name: 'Planning for energy-aware control' }),
+  ).toHaveAttribute('href', '/live.html#energy-control');
+  await expect(page.locator('.home-stream')).toHaveCount(3);
 
-  const cvLink = page.getByRole('link', { name: /Download CV/ });
-  await expect(cvLink).toHaveAttribute('href', '/assets/docs/Ibrahim_CV.pdf');
+  await expect(page.getByText('Recent publications')).toBeVisible();
+  await expect(page.locator('.home-publication')).toHaveCount(2);
+  await expect(page.getByRole('link', { name: /All \d+ publications/ })).toHaveAttribute(
+    'href',
+    '/papers.html',
+  );
+
+  await expect(page.getByRole('heading', { name: 'Ask about my research' })).toBeVisible();
 
   const html = await page.locator('body').innerText();
   expect(html).not.toMatch(/\+44\s?\d/);
@@ -34,7 +42,22 @@ test('published CV is downloadable as the approved PDF', async ({ request }) => 
 test('navigation exposes one stable CV destination', async ({ page }) => {
   await page.goto('/', { waitUntil: 'networkidle' });
   const cvLinks = page.locator('a[href="/assets/docs/Ibrahim_CV.pdf"]');
-  expect(await cvLinks.count()).toBeGreaterThanOrEqual(2);
+  expect(await cvLinks.count()).toBeGreaterThanOrEqual(1);
+
+  // Every route to the CV, on any page, resolves to the same published PDF.
+  for (const route of ['/', '/work.html']) {
+    await page.goto(route, { waitUntil: 'networkidle' });
+    const hrefs = await page
+      .locator('a')
+      .evaluateAll((links) =>
+        links
+          .map((link) => link.getAttribute('href') || '')
+          .filter((href) => /cv/i.test(href)),
+      );
+    expect(new Set(hrefs), route + ' should expose one CV path').toEqual(
+      new Set(['/assets/docs/Ibrahim_CV.pdf']),
+    );
+  }
 });
 test('research guide is collapsed by default and opens accessibly', async ({ page }) => {
   await page.goto('/', { waitUntil: 'networkidle' });

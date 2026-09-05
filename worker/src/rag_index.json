@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-03T06:41:10Z",
-  "sourceHash": "sha256:2535eb52a9dc94c2d4061bc9fe7fba512286e8129df4e11df92efde5f609343f",
+  "generatedAt": "2026-09-05T07:16:29Z",
+  "sourceHash": "sha256:74348955abbcf31d38bec999d26dfc35b8eb846a8a67cef90305222e75db46c4",
   "sourceFreshness": {
     "profile": "2026-08-26",
     "current": "2026-08-26",
@@ -171,7 +171,7 @@
       "kind": "research-theme",
       "title": "Energy-aware control",
       "text": "Planning and reinforcement learning for building energy systems under changing prices, deadlines, uncertainty and comfort constraints. Methods and topics: MCTS · PPO · SAC · BOPTEST.",
-      "source": "/index.html#research",
+      "source": "/work.html#research-questions",
       "updatedAt": "2026-08-26",
       "priority": 9,
       "keywords": [
@@ -191,14 +191,14 @@
         "novice",
         "professional"
       ],
-      "contentHash": "sha256:f97fe711b644794836e4f5b324aa89e31225fdd4fdd07e7b4d059af1f5b6e078"
+      "contentHash": "sha256:1c4bc2bef41013fe900189bb154e6a0bc4380f65faefa2817e2e3130c63581f8"
     },
     {
       "id": "research-theme-reliable-reinforcement-learning",
       "kind": "research-theme",
       "title": "Reliable reinforcement learning",
       "text": "Understanding how numerical details can affect policy optimisation and making experimental claims reproducible and easier to audit. Methods and topics: Numerical stability · evaluation · reproducibility.",
-      "source": "/index.html#research",
+      "source": "/work.html#research-questions",
       "updatedAt": "2026-08-26",
       "priority": 9,
       "keywords": [
@@ -213,14 +213,14 @@
       "audience": [
         "novice"
       ],
-      "contentHash": "sha256:0e800f26af8bf9642059d34890f4f05a9e66b8cee764d4c81563428cf839dd71"
+      "contentHash": "sha256:cc65288647bfb59bbd2f29cde537579b239897cf52be67949bd7b96de4a28abb"
     },
     {
       "id": "research-theme-interpretable-policies",
       "kind": "research-theme",
       "title": "Interpretable policies",
       "text": "Turning learned control behaviour into compact explanations that people can inspect, compare and reason about. Methods and topics: Policy analysis · SINDy · diagnostics.",
-      "source": "/index.html#research",
+      "source": "/work.html#research-questions",
       "updatedAt": "2026-08-26",
       "priority": 9,
       "keywords": [
@@ -235,14 +235,14 @@
       "audience": [
         "novice"
       ],
-      "contentHash": "sha256:c3f9aa52d5957fdd196d6b082b988010681547b5211bfe92ec30d60ff42e28b1"
+      "contentHash": "sha256:aac042a106b954ab968951edc46747d1a2d46a6ff0eed29fb720b3b3320940ce"
     },
     {
       "id": "research-theme-research-software",
       "kind": "research-theme",
       "title": "Research software",
       "text": "Building configurable, structured and repeatable software for AI experiments, including multi-agent LLM studies. Methods and topics: Python · Docker · logging · experiment design.",
-      "source": "/index.html#research",
+      "source": "/work.html#research-questions",
       "updatedAt": "2026-08-26",
       "priority": 9,
       "keywords": [
@@ -254,7 +254,7 @@
       ],
       "questions": [],
       "audience": [],
-      "contentHash": "sha256:2e376562fd55f452f95ebf7c2a0d2c2309f6ffca757a1613d3d481cdc58a7afa"
+      "contentHash": "sha256:3e44533e647b54a9801af6bb436cb1f697bcda92e678bd089f909e08641e537b"
     },
     {
       "id": "profile-experience",
@@ -343,7 +343,7 @@
       "kind": "profile",
       "title": "Professional recognition and awards",
       "text": "Associate Fellow of the Higher Education Academy, Advance HE, 2026. Turing Scheme Award, 2026. Funded international research visit. Fully Funded PhD Studentship, Coventry University, CSMM, 2024. Second Runner-Up, Prime Minister’s National Innovation Award, Government of Pakistan, 2023. Autonomous Weeding Robot, selected from 40,000+ entries.",
-      "source": "/index.html#recognition",
+      "source": "/work.html#recognition",
       "updatedAt": "2026-08-26",
       "priority": 8,
       "keywords": [
@@ -389,7 +389,7 @@
           }
         ]
       },
-      "contentHash": "sha256:ae5ebe5f47eedecbf4415c2c8a7a91104dac4ff0b5f09bcf5fc5615bfd647919"
+      "contentHash": "sha256:820f542b31a7bb3200ac2de81c4228e7aacf13b350a5f8d8c723573f7b4525c5"
     },
     {
       "id": "profile-service",
@@ -431,7 +431,7 @@
       "kind": "profile",
       "title": "Technical skills",
       "text": "Languages: Python, C++, MATLAB. Reinforcement Learning And Control: Stable Baselines3, RLlib, Gymnasium, MuJoCo, BOPTEST, Monte Carlo Tree Search, SINDy. Machine Learning: PyTorch, TensorFlow, scikit-learn, OpenCV, Hugging Face. Research Infrastructure: Git, Docker, Linux, HPC and SLURM, Weights & Biases, LaTeX.",
-      "source": "/index.html#skills",
+      "source": "/work.html#skills",
       "updatedAt": "2026-08-26",
       "priority": 8,
       "keywords": [
@@ -483,7 +483,7 @@
           ]
         }
       },
-      "contentHash": "sha256:a208f6c6c8e909f7b50a1813573c958409187a6aef58743f69f860e5f599aad1"
+      "contentHash": "sha256:ba78bafcf3cf6f5c66357ae7c592bf9c2875507df71bf84bcdea17309def2dcc"
     },
     {
       "id": "profile-contact",
@@ -1036,7 +1036,7 @@
       "kind": "concept",
       "title": "Reinforcement learning",
       "text": "Reinforcement learning trains an agent to choose actions by learning from the consequences of earlier decisions. Why it is relevant here: Ibrahim uses it for sequential control problems where heating decisions affect later comfort, deadlines and energy use.",
-      "source": "/index.html#research",
+      "source": "/work.html#research-questions",
       "updatedAt": "2026-09-02",
       "priority": 8,
       "keywords": [
@@ -1055,14 +1055,14 @@
       "audience": [
         "novice"
       ],
-      "contentHash": "sha256:52a87df8f577f59947d0997af428703bfa102ba9a7fecf7e8b4d04e600b427d5"
+      "contentHash": "sha256:7139b60a7b0a2cfb3b3d8b4bbaebe11bdefbcf81a7af3521d1b7a9844423dbf5"
     },
     {
       "id": "concept-monte-carlo-tree-search",
       "kind": "concept",
       "title": "Monte Carlo Tree Search",
       "text": "Monte Carlo Tree Search, or MCTS, looks ahead by simulating possible action sequences and spending more search effort on promising choices while still exploring alternatives. Why it is relevant here: It is a central planning method in Ibrahim's PhD and appears in his hot-water, heat-pump and Tic-Tac-Toe work.",
-      "source": "/demos.html",
+      "source": "/demos.html#planner",
       "updatedAt": "2026-09-02",
       "priority": 8,
       "keywords": [
@@ -1085,7 +1085,7 @@
         "novice",
         "professional"
       ],
-      "contentHash": "sha256:2c009a6052ac6b7e3f36aa31dc60f28ca4956127b94e2d0520b373a82022e13b"
+      "contentHash": "sha256:8d1d153aadb4b2fc1c3988e1ab00ecaf1bc477cb8de83b055cb43fcca5afb6e7"
     },
     {
       "id": "concept-proximal-policy-optimization",
@@ -1169,7 +1169,7 @@
       "kind": "concept",
       "title": "Sparse Identification of Nonlinear Dynamics",
       "text": "SINDy finds compact equations that approximate a system's dynamics from data by favouring a small number of useful terms. Why it is relevant here: Ibrahim co-authored work on SINDy surrogate environments for reducing the real environment interactions needed during reinforcement learning.",
-      "source": "/papers.html",
+      "source": "/demos.html#physics",
       "updatedAt": "2026-09-02",
       "priority": 8,
       "keywords": [
@@ -1187,14 +1187,14 @@
         "novice",
         "professional"
       ],
-      "contentHash": "sha256:52baf3ae55124a0763ea64af060bec8e63b04af5e474c2c0e015c08039de3b21"
+      "contentHash": "sha256:1730c5d52ea8ffe285bfebb70d337211ca229c08c61efaa558aaa6e7daf63b0d"
     },
     {
       "id": "concept-retrieval-augmented-generation",
       "kind": "concept",
       "title": "Retrieval-Augmented Generation",
       "text": "Retrieval-Augmented Generation, or RAG, first retrieves relevant source material and then asks a language model to answer using that material. Why it is relevant here: Ibrahim has built production RAG systems and this website's research guide uses the same grounded-answer pattern.",
-      "source": "/index.html#experience",
+      "source": "/work.html#industry",
       "updatedAt": "2026-09-02",
       "priority": 8,
       "keywords": [
@@ -1211,7 +1211,7 @@
       "audience": [
         "novice"
       ],
-      "contentHash": "sha256:88237ea418e4738372d3ac02f00169aaa9e38b8cc9c9148f2c1f7374b3666b58"
+      "contentHash": "sha256:7c7d07ea1c6571875695b6a91b6f2313f2fb380bafac24b695e3a74c8ab43380"
     },
     {
       "id": "concept-multi-agent-llm-research",
@@ -1294,7 +1294,7 @@
       "id": "site-demos",
       "kind": "resource",
       "title": "Interactive research demos",
-      "text": "The site includes four browser-based demonstrations: Monte Carlo Tree Search for Tic-Tac-Toe, deadline-aware hot-water planning, an interactive PPO clipping explorer, and a SINDy system-identification demo. Each is an educational visualisation rather than a benchmark result.",
+      "text": "The site includes seven browser demonstrations: tic-tac-toe played against Monte Carlo Tree Search, a five-armed bandit played against UCB1, a search tree whose branches can be pruned, an exhaustive hot-water schedule optimiser that shows how a misspecified objective is satisfied by failing, an editable Q-learning grid world, a twelve-seed variance study, and a sparse system-identification exercise scored on held-out data. Each is an educational visualisation rather than a benchmark result.",
       "source": "/demos.html",
       "updatedAt": "2026-09-02",
       "priority": 7,
@@ -1308,7 +1308,7 @@
       "audience": [
         "novice"
       ],
-      "contentHash": "sha256:da4a1cb8ca92e42154bf562bc71d13106e17518f570a4727a458501779becda4"
+      "contentHash": "sha256:e6d147376f6d01a2ec27f4518d5d06ec21e9f6315cb9dcfce86346d97eeb4643"
     }
   ]
 }

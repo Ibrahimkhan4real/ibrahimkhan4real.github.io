@@ -5,134 +5,78 @@ description: "PhD researcher at Coventry University and Research Software Develo
 ---
 
 {% assign profile = site.data.profile %}
+{% assign now = site.data.now %}
+{% assign papers = site.data.papers %}
 
 <header>
   <p>Profile verified {{ profile.last_verified | date: "%d %B %Y" }}</p>
 </header>
 
-<article class="home-profile">
-  <div id="article_title" class="profile-hero">
+<article class="home-index">
+  <div id="article_title">
     <p class="eyebrow">PhD researcher · Research software developer</p>
     <h1>{{ profile.headline }}</h1>
-    <p class="lead">{{ profile.bio.short }}</p>
-    <div class="hero-actions" aria-label="Profile links">
-      <a class="button-primary" href="#research">Explore research</a>
-      <a class="button-secondary" href="{{ "/papers.html" | relative_url }}">Publications</a>
-      <a class="button-secondary" href="{{ profile.links.cv | relative_url }}">Download CV <span aria-hidden="true">&#8595;</span></a>
-      <a class="button-secondary" href="mailto:{{ profile.contact.email }}">Contact</a>
-    </div>
   </div>
 
   <div id="article_text">
-    <section class="status-section" id="about">
-      <h2>Biography</h2>
-      <p>{{ profile.bio.long }}</p>
+    <p class="lead">{{ profile.bio.short }}</p>
+    <p class="home-bio" id="about">{{ profile.bio.long }}</p>
+
+    <section class="home-block home-block--major" id="now" aria-labelledby="home-now-label">
+      <p class="home-block-label" id="home-now-label">Currently working on</p>
+      <ol class="home-stream-list">
+        {% for stream in now.streams %}
+        <li class="home-stream" data-row>
+          <span class="home-stream-number" aria-hidden="true">{{ forloop.index | prepend: "0" | slice: -2, 2 }}</span>
+          <a href="{{ "/live.html" | relative_url }}#{{ stream.id }}">{{ stream.title }}</a>
+          <span class="home-stream-status">{{ stream.status }}</span>
+        </li>
+        {% endfor %}
+      </ol>
     </section>
 
-    <section class="status-section" id="research">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">Research</p>
-          <h2>Questions I work on</h2>
+    <section class="home-block" id="recent-publications" aria-labelledby="home-papers-label">
+      <p class="home-block-label" id="home-papers-label">Recent publications</p>
+      <div class="home-publications">
+        {% for publication in papers.publications limit: 2 %}
+        <div class="home-publication">
+          {% if publication.link %}
+          <a href="{{ publication.link }}" target="_blank" rel="noopener noreferrer">{{ publication.title }}</a>
+          {% else %}
+          <span class="home-publication-title">{{ publication.title }}</span>
+          {% endif %}
+          <p>{% if publication.authors %}{{ publication.authors }} · {% endif %}{% if publication.venue %}{{ publication.venue }} · {% endif %}{{ publication.year }}</p>
         </div>
-        <a href="{{ "/live.html" | relative_url }}">See current work</a>
-      </div>
-      <div class="profile-card-grid">
-        {% for theme in profile.research_themes %}
-        <article class="profile-card">
-          <h3>{{ theme.title }}</h3>
-          <p>{{ theme.summary }}</p>
-          <p class="card-meta">{{ theme.methods }}</p>
-        </article>
         {% endfor %}
       </div>
+      <a class="home-block-more" href="{{ "/papers.html" | relative_url }}">All {{ papers.count }} publications <span aria-hidden="true">&#8594;</span></a>
     </section>
 
-    <section class="status-section" id="current-roles">
-      <p class="eyebrow">Now</p>
-      <h2>Current roles</h2>
-      <div class="profile-list">
-        {% for role in profile.current_roles %}
-        <div class="profile-list-item">
+    <section class="home-block home-block--major" id="ask" aria-labelledby="home-ask-heading">
+      <h2 id="home-ask-heading">Ask about my research</h2>
+      <div class="home-ask" id="home-ask">
+        <div class="home-ask-field">
+          <label class="visually-hidden" for="home-ask-input">Ask a question about the public work</label>
+          <input type="text" id="home-ask-input" maxlength="1000" autocomplete="off"
+                 placeholder="Ask a question about the public work…"
+                 aria-describedby="home-ask-state">
+          <button type="button" id="home-ask-send">Ask <span aria-hidden="true">&#8594;</span></button>
+        </div>
+        <p class="home-ask-state" id="home-ask-state">
+          <span class="home-ask-status"><span class="ask-research-dot" aria-hidden="true"></span>Grounded in verified public sources.</span>
+          Or try <button type="button" data-home-question="What is your PhD about?">what my PhD is about</button>,
+          <button type="button" data-home-question="Explain MCTS in simple words.">MCTS in simple words</button>, or
+          <button type="button" data-home-question="How does reinforcement learning apply to building energy?">how RL applies to building energy</button>.
+        </p>
+        <div class="home-ask-answer" id="home-ask-answer" role="status" aria-live="polite" hidden>
+          <p class="home-ask-answer-label" id="home-ask-answer-label"></p>
           <div>
-            <h3>{{ role.title }}</h3>
-            <p class="timeline-meta">{{ role.organisation }} · {{ role.unit }}</p>
+            <p class="home-ask-answer-text" id="home-ask-answer-text"></p>
           </div>
-          <p class="date-label">{{ role.dates }}</p>
-          <p>{{ role.summary }}</p>
         </div>
-        {% endfor %}
       </div>
     </section>
 
-    <section class="status-section" id="experience">
-      <p class="eyebrow">Experience</p>
-      <h2>Research, engineering and teaching</h2>
-      {% for item in profile.experience %}
-      <div class="profile-list-item">
-        <div>
-          <h3>{{ item.title }}</h3>
-          <p class="timeline-meta">{{ item.organisation }} · {{ item.location }}</p>
-        </div>
-        <p class="date-label">{{ item.dates }}</p>
-        <ul>
-          {% for highlight in item.highlights %}<li>{{ highlight }}</li>{% endfor %}
-        </ul>
-      </div>
-      {% endfor %}
-
-      <div class="profile-card-grid profile-card-grid--compact">
-        {% for item in profile.teaching %}
-        <article class="profile-card">
-          <h3>{{ item.title }}</h3>
-          <p class="timeline-meta">{{ item.organisation }} · {{ item.dates }}</p>
-          <p>{{ item.summary }}</p>
-        </article>
-        {% endfor %}
-      </div>
-    </section>
-
-    <section class="status-section" id="recognition">
-      <p class="eyebrow">Recognition</p>
-      <h2>Teaching, funding and awards</h2>
-      <div class="recognition-list">
-        {% for item in profile.professional_recognition %}
-        <div>
-          <span class="date-label">{{ item.year }}</span>
-          <strong>{{ item.title }}</strong>
-          {% if item.organisation %}<span>{{ item.organisation }}</span>{% endif %}
-          {% if item.detail %}<small>{{ item.detail }}</small>{% endif %}
-        </div>
-        {% endfor %}
-      </div>
-    </section>
-
-    <section class="status-section" id="skills">
-      <p class="eyebrow">Tools</p>
-      <h2>Technical toolkit</h2>
-      <div class="skill-groups">
-        {% for group in profile.skills %}
-        <div>
-          <h3>{{ group[0] | replace: "_", " " | capitalize }}</h3>
-          <ul class="skill-chips">
-            {% for skill in group[1] %}<li>{{ skill }}</li>{% endfor %}
-          </ul>
-        </div>
-        {% endfor %}
-      </div>
-    </section>
-
-    <section class="status-section contact-panel" id="contact">
-      <p class="eyebrow">Contact</p>
-      <h2>Let’s discuss research or research software</h2>
-      <p>Email is the best way to reach me. You can also find my publications and public code through the links below.</p>
-      <div class="hero-actions">
-        <a class="button-primary" href="mailto:{{ profile.contact.email }}">{{ profile.contact.email }}</a>
-        <a class="button-secondary" href="{{ profile.links.scholar }}" target="_blank" rel="noopener noreferrer">Google Scholar</a>
-        <a class="button-secondary" href="{{ profile.links.github }}" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a class="button-secondary" href="{{ profile.links.linkedin }}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      </div>
-    </section>
   </div>
 </article>
 

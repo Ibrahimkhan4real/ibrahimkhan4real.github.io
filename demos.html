@@ -1,121 +1,198 @@
 ---
 layout: default
-title: "AI Demos — Muhammad Ibrahim Khan"
-description: "Interactive browser demonstrations of Monte Carlo Tree Search, Q-learning, strategy comparison, and multi-armed bandits."
+title: "Interactive Demos — Muhammad Ibrahim Khan"
+description: "Browser demonstrations of Monte Carlo Tree Search, bandits, reward specification, Q-learning, seed variance and sparse system identification."
 ---
 
 <header>
-  <p>Interactive Reinforcement Learning</p>
+  <p>Interactive reinforcement learning</p>
 </header>
 
 <article>
   <div id="article_title">
-    <h1>Interactive AI Demos</h1>
+    <h1>Demos</h1>
   </div>
   <div id="article_text">
     <p class="lead">Research is better when you can see it in action. Below are browser-based visualizations of the algorithms I use in my PhD.</p>
 
-    <section class="status-section">
-      <h2>MCTS: Decision Tree Visualization</h2>
-      <p>Watch <strong>Monte Carlo Tree Search</strong> build a decision tree step by step. Each iteration cycles through four phases: <strong>Selection</strong> (traverse the tree using UCB1), <strong>Expansion</strong> (arrive at a new node), <strong>Simulation</strong> (random rollout to a leaf), and <strong>Backpropagation</strong> (update visit counts and reward estimates up the path).</p>
+    <section class="demo-section" id="planner">
+      <h2><span class="demo-ordinal" aria-hidden="true">01</span>Play against a planner</h2>
+      <p class="demo-intro">Tic-tac-toe against Monte Carlo Tree Search. Before it moves, the search runs four hundred simulated games from the current position. The number in each empty square is the share of those simulations spent considering that move, and the shaded fill is its estimated win rate — the same selection statistics the hot-water controller uses over heating schedules.</p>
 
-      <div id="mcts-container" style="width: 100%; height: 400px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel); position: relative; overflow: hidden;">
-        <canvas id="mcts-canvas" role="img" aria-label="MCTS decision tree visualization showing selection, expansion, simulation, and backpropagation phases"></canvas>
-        <div id="mcts-controls" style="position: absolute; bottom: 10px; left: 10px; display: flex; gap: 10px;">
-          <button class="button_accent" id="mcts-step" type="button">Step</button>
-          <button class="button_accent" id="mcts-reset" type="button">Reset</button>
-        </div>
-      </div>
-      <div class="demo-stats" id="mcts-info" role="status" aria-live="polite" aria-atomic="true"></div>
-      <p class="demo-note">Internal nodes show visit count (top) and average reward (bottom). Leaf nodes show their reward value. Node colour intensity reflects how often a node has been visited. The algorithm uses UCB1 (C=&radic;2) to balance exploration and exploitation.</p>
-    </section>
-
-    <section class="status-section">
-      <h2>Q-Learning Grid World</h2>
-      <p>Watch a <strong>Q-learning</strong> agent learn the optimal policy in an 8&times;8 grid. Pointer users can edit the canvas directly; keyboard users can choose a row and column with the labelled controls. Arrow direction shows the best action and colour intensity shows Q-value magnitude.</p>
-
-      <div id="ql-container" class="demo-container">
-        <canvas id="ql-canvas" role="img" aria-label="Q-learning grid world showing agent policy arrows and Q-value intensities"></canvas>
-        <div class="demo-controls" aria-label="Edit a grid cell with the keyboard">
-          <label for="ql-row">Row
-            <input class="demo-number" id="ql-row" type="number" min="1" max="8" value="2" inputmode="numeric">
-          </label>
-          <label for="ql-column">Column
-            <input class="demo-number" id="ql-column" type="number" min="1" max="8" value="2" inputmode="numeric">
-          </label>
-          <button class="button_accent" id="ql-toggle-wall" type="button">Toggle wall</button>
-          <button class="button_accent" id="ql-set-goal" type="button">Set goal</button>
-        </div>
-        <p class="demo-action-status" id="ql-edit-status" role="status" aria-live="polite" aria-atomic="true">Use the row and column controls to edit the grid without a pointer.</p>
-        <div class="demo-controls">
-          <button class="button_accent" id="ql-train1" type="button">Train 1 Episode</button>
-          <button class="button_accent" id="ql-train100" type="button">Train 100 Episodes</button>
-          <button class="button_accent" id="ql-reset" type="button">Reset</button>
-        </div>
-        <div class="demo-stats" id="ql-stats" role="status" aria-live="polite" aria-atomic="true"></div>
-      </div>
-      <p class="demo-note">S = start (top-left), G = goal (bottom-right by default). Grey cells are walls. The agent uses &epsilon;-greedy exploration with decay (&alpha;=0.1, &gamma;=0.95).</p>
-    </section>
-
-    <section class="status-section">
-      <h2>MCTS vs Greedy Comparison</h2>
-      <p>Compare <strong>Monte Carlo Tree Search</strong> (UCB1 selection + random rollouts) against a <strong>Greedy</strong> strategy on the same random decision tree. MCTS explores broadly while Greedy commits early.</p>
-
-      <div class="demo-side-by-side">
-        <div class="demo-panel" id="mvg-mcts-panel">
-          <div class="demo-panel-title">MCTS (UCB1)</div>
-          <canvas id="mvg-mcts-canvas" role="img" aria-label="MCTS algorithm decision tree with visit counts and selected path"></canvas>
-        </div>
-        <div class="demo-panel" id="mvg-greedy-panel">
-          <div class="demo-panel-title">Greedy</div>
-          <canvas id="mvg-greedy-canvas" role="img" aria-label="Greedy algorithm decision tree with selected path"></canvas>
-        </div>
-      </div>
-      <div class="demo-container" style="border-top: none; border-radius: 0 0 8px 8px; margin-top: -1px;">
-        <div class="demo-controls">
-          <button class="button_accent" id="mvg-generate" type="button">New Tree</button>
-          <button class="button_accent" id="mvg-run" type="button">Run Comparison</button>
-          <button class="button_accent" id="mvg-step" type="button">Step</button>
-          <label class="demo-slider-label">Speed
-            <input type="range" class="demo-slider" id="mvg-speed" min="1" max="100" value="50">
-          </label>
-        </div>
-        <div class="demo-stats" id="mvg-stats" role="status" aria-live="polite" aria-atomic="true"></div>
-      </div>
-      <p class="demo-note">Leaf nodes show reward values. Node numbers show visit counts (MCTS). Highlighted paths show the final chosen route. MCTS uses C=&radic;2 for exploration.</p>
-    </section>
-
-    <section class="status-section">
-      <h2>Multi-Armed Bandit Playground</h2>
-      <p>Explore the <strong>exploration vs exploitation</strong> dilemma. Each arm is a slot machine with a hidden reward probability. Pull an arm with the canvas or the labelled buttons, or use an automated strategy.</p>
-
-      <div id="bandit-container" class="demo-container">
-        <canvas id="bandit-canvas" role="img" aria-label="Multi-armed bandit bar chart showing estimated reward per arm"></canvas>
-        <canvas id="bandit-regret-canvas" role="img" aria-label="Cumulative regret line chart over time for the bandit strategy"></canvas>
-        <div class="demo-controls">
-          <div class="demo-controls" role="group" aria-label="Pull an arm manually">
-            <button class="button_accent" type="button" data-bandit-arm="1">Pull arm 1</button>
-            <button class="button_accent" type="button" data-bandit-arm="2">Pull arm 2</button>
-            <button class="button_accent" type="button" data-bandit-arm="3">Pull arm 3</button>
-            <button class="button_accent" type="button" data-bandit-arm="4">Pull arm 4</button>
-            <button class="button_accent" type="button" data-bandit-arm="5">Pull arm 5</button>
+      <div class="demo-split">
+        <div class="tt-board" id="tt-board" role="group" aria-label="Tic-tac-toe board"></div>
+        <div class="demo-aside">
+          <p class="demo-status" id="tt-status" role="status" aria-live="polite">Your move — you are X.</p>
+          <p class="demo-detail" id="tt-detail">Make a move and the search will run 400 simulated games before replying.</p>
+          <div class="demo-actions">
+            <button type="button" class="demo-button" id="tt-reset">New game</button>
+            <button type="button" class="demo-button" id="tt-toggle">Hide the search statistics</button>
           </div>
-          <label for="bandit-strategy">Strategy</label>
-          <select class="demo-select" id="bandit-strategy">
-            <option value="epsilon">&epsilon;-Greedy (&epsilon;=0.1)</option>
-            <option value="ucb1">UCB1</option>
-          </select>
-          <button class="button_accent" id="bandit-auto" type="button">Auto Run 100</button>
-          <button class="button_accent" id="bandit-reset" type="button">Reset</button>
         </div>
-        <div class="demo-stats" id="bandit-stats" role="status" aria-live="polite" aria-atomic="true"></div>
       </div>
-      <p class="demo-note">Click directly on an arm bar to pull it manually. The bar chart shows estimated reward per arm; the line chart tracks cumulative regret over time. Each arm is a Bernoulli bandit with fixed hidden probability.</p>
+
+      <p class="demo-lookfor"><strong>What to look for.</strong> The percentages are never spread evenly. Search concentrates on a few candidate moves and barely examines the rest — that uneven allocation is the whole point, and it is what makes tree search affordable on problems where evaluating every option is impossible.</p>
+    </section>
+
+    <section class="demo-section" id="ucb1">
+      <h2><span class="demo-ordinal" aria-hidden="true">02</span>You versus UCB1</h2>
+      <p class="demo-intro">Five machines with hidden payout rates. Pull one and UCB1 takes its own turn on the same machines. The bar is each arm's estimated value from your pulls; the figure beneath is how many times UCB1 chose it. Regret is the reward you both gave up by not always playing the best arm.</p>
+
+      <div class="bandit-arms" id="bandit-arms"></div>
+
+      <p class="demo-detail">You have pulled <span id="bandit-you-pulls">0</span> times · UCB1 has pulled <span id="bandit-ucb-pulls">0</span> times</p>
+
+      <div class="demo-stats-row">
+        <div><p class="demo-stat-value" id="bandit-you">0</p><p class="demo-stat-label">your reward</p></div>
+        <div><p class="demo-stat-value" id="bandit-ucb">0</p><p class="demo-stat-label">UCB1 reward</p></div>
+        <div><p class="demo-stat-value" id="bandit-your-regret">0.0</p><p class="demo-stat-label">your regret</p></div>
+        <div><p class="demo-stat-value" id="bandit-ucb-regret">0.0</p><p class="demo-stat-label">UCB1 regret</p></div>
+      </div>
+
+      <div class="demo-actions">
+        <button type="button" class="demo-button" id="bandit-auto">Play 100 rounds, repeating your best arm</button>
+        <button type="button" class="demo-button" id="bandit-reveal">Reveal true rates</button>
+        <button type="button" class="demo-button" id="bandit-reset">New machines</button>
+      </div>
+
+      <p class="demo-lookfor"><strong>What to look for.</strong> Pull one arm repeatedly and your regret climbs steadily even when that arm is decent — you never learn what you gave up. UCB1 spends early pulls losing on purpose, then reveals the true rates and check whose regret is lower. Every controller I build faces this trade-off: exploiting the schedule that worked yesterday, or testing one that might be cheaper.</p>
+    </section>
+
+    <section class="demo-section" id="prune">
+      <h2><span class="demo-ordinal" aria-hidden="true">03</span>Prune the search tree</h2>
+      <p class="demo-intro">A three-branch decision tree with fixed leaf rewards. Click any node to cut it out of the search, then watch where the two thousand simulations go instead. Cutting the branch the search likes is how you find out whether it had a second-best answer or only one.</p>
+
+      <div class="tree-levels">
+        <div class="tree-mid" id="tree-mid"></div>
+        <div class="tree-leaves" id="tree-leaves"></div>
+      </div>
+
+      <p class="demo-status" id="tree-status" role="status" aria-live="polite"></p>
+
+      <div class="demo-actions">
+        <button type="button" class="demo-button" id="tree-reset">New tree</button>
+        <button type="button" class="demo-button" id="tree-restore">Restore all branches</button>
+      </div>
+
+      <p class="demo-lookfor"><strong>What to look for.</strong> Cut the branch marked in red and the visit counts redistribute immediately. Sometimes the second choice is nearly as good; sometimes the estimate falls off a cliff. In a real controller those cuts are not hypothetical — they are the actions a constraint has forbidden, and the gap tells you how much the constraint costs.</p>
+    </section>
+
+    <section class="demo-section" id="objective">
+      <h2><span class="demo-ordinal" aria-hidden="true">04</span>Break your own objective</h2>
+      <p class="demo-intro">A tank of water must reach sixty degrees by seven o'clock, and electricity is dearest just before then. Set the weights and an exhaustive optimiser searches all 4,096 on-off schedules for the one that maximises your objective. It optimises exactly what you wrote down, which is rarely what you meant.</p>
+
+      <div class="weight-controls">
+        <div class="weight-row">
+          <label for="w-comfort">Comfort weight</label>
+          <input type="range" class="demo-slider" id="w-comfort" min="0" max="10" step="1" value="5">
+          <span class="weight-value" id="w-comfort-value">5</span>
+        </div>
+        <div class="weight-row">
+          <label for="w-energy">Energy penalty</label>
+          <input type="range" class="demo-slider" id="w-energy" min="0" max="10" step="1" value="3">
+          <span class="weight-value" id="w-energy-value">3</span>
+        </div>
+        <div class="weight-row">
+          <label for="w-deadline">Deadline penalty</label>
+          <input type="range" class="demo-slider" id="w-deadline" min="0" max="10" step="1" value="5">
+          <span class="weight-value" id="w-deadline-value">5</span>
+        </div>
+      </div>
+
+      <div class="schedule-strip" id="schedule-strip" role="img" aria-labelledby="schedule-caption"></div>
+      <p class="demo-detail" id="schedule-caption">Bars are water temperature; the strip beneath shows when the heater runs. The deadline column is marked in red.</p>
+
+      <div class="demo-stats-row">
+        <div><p class="demo-stat-value" id="hack-temp">—</p><p class="demo-stat-label">at the deadline</p></div>
+        <div><p class="demo-stat-value" id="hack-cost">—</p><p class="demo-stat-label">electricity cost</p></div>
+        <div><p class="demo-stat-value" id="hack-on">—</p><p class="demo-stat-label">half-hours heating</p></div>
+        <div><p class="demo-stat-value" id="hack-met">—</p><p class="demo-stat-label">deadline</p></div>
+      </div>
+
+      <p class="demo-status" id="hack-verdict" role="status" aria-live="polite"></p>
+
+      <p class="demo-lookfor"><strong>Two settings worth trying.</strong> Drop the deadline penalty to zero and the tank never reaches temperature — the objective is satisfied by failing. Then push comfort to ten with energy at zero and it boils the water through the costliest hours. Neither is a bug in the optimiser; both are exactly what was asked for, which is why I treat objective specification as part of the experiment rather than a detail.</p>
+    </section>
+
+    <section class="demo-section" id="gridworld">
+      <h2><span class="demo-ordinal" aria-hidden="true">05</span>Draw a world, watch it learn</h2>
+      <p class="demo-intro">Click cells to build walls or move the goal, then train a Q-learning agent on the world you drew. Each arrow is the action with the highest value in that cell and the shading is how valuable the cell has become. Change the walls after training to see how much of the learned policy was really about your layout.</p>
+
+      <div class="demo-split">
+        <div class="ql-grid" id="ql-grid" role="group" aria-label="Grid world, eight by eight"></div>
+        <div class="demo-aside">
+          <p class="demo-status" id="ql-status" role="status" aria-live="polite">Untrained</p>
+          <p class="demo-detail" id="ql-detail">Clicking a cell adds or removes a wall. The agent starts at S and is rewarded for reaching G.</p>
+          <div class="demo-actions">
+            <button type="button" class="demo-button" id="ql-mode">Switch to moving the goal</button>
+            <button type="button" class="demo-button" id="ql-train">Train 100 episodes</button>
+            <button type="button" class="demo-button" id="ql-reset">Forget everything</button>
+          </div>
+          <p class="demo-detail">ε-greedy with decay · α 0.1 · γ 0.95 · step cost 0.04</p>
+        </div>
+      </div>
+
+      <p class="demo-lookfor"><strong>What to look for.</strong> Train until arrows point along a clear route, then wall that route off and train again without forgetting. The old values persist and briefly send the agent into your new wall, because Q-learning has learned about a world that no longer exists. This is why a policy trained on one building model does not transfer to another.</p>
+    </section>
+
+    <section class="demo-section" id="seeds">
+      <h2><span class="demo-ordinal" aria-hidden="true">06</span>One seed is not a result</h2>
+      <p class="demo-intro">Twelve training runs, identical hyperparameters, different random seeds. Each row is one run across sixty evaluation points; darker means better performance. Some runs converge, some plateau, and some collapse outright — the numerical failures that motivate my work on reliable reinforcement learning.</p>
+
+      <div class="seed-table" id="seed-table"></div>
+
+      <div class="demo-stats-row">
+        <div><p class="demo-stat-value" id="seed-best">—</p><p class="demo-stat-label">best seed</p></div>
+        <div><p class="demo-stat-value" id="seed-median">—</p><p class="demo-stat-label">median</p></div>
+        <div><p class="demo-stat-value" id="seed-worst">—</p><p class="demo-stat-label">worst seed</p></div>
+        <div><p class="demo-stat-value" id="seed-collapsed">—</p><p class="demo-stat-label">collapsed</p></div>
+      </div>
+
+      <div class="seed-claim">
+        <p class="seed-claim-label">Best seed claims</p>
+        <p id="seed-claim-best"></p>
+      </div>
+      <div class="seed-claim">
+        <p class="seed-claim-label">All seeds claim</p>
+        <p id="seed-claim-honest"></p>
+      </div>
+
+      <div class="demo-actions">
+        <button type="button" class="demo-button" id="seed-rerun">Run twelve more seeds</button>
+      </div>
+
+      <p class="demo-lookfor"><strong>What to look for.</strong> Rerun several times and watch the two claims diverge. Both are computed from the same twelve runs; only the reporting choice differs. This is the whole argument for reporting spread and failure counts rather than a single curve.</p>
+    </section>
+
+    <section class="demo-section" id="physics">
+      <h2><span class="demo-ordinal" aria-hidden="true">07</span>Recover the physics</h2>
+      <p class="demo-intro">A tank of water cools and is sometimes heated. You get a hundred noisy measurements and a library of candidate terms; choose which belong in the equation and sparse regression fits the coefficients. The true law uses three terms. Coefficients are fitted on the first fourteen samples only and scored on the remaining eighty-six, so overfitting is visible rather than hidden.</p>
+
+      <div class="sindy-terms" id="sindy-terms" role="group" aria-label="Candidate terms"></div>
+
+      <div class="sindy-equation">
+        <p class="demo-stat-label">Recovered equation</p>
+        <p id="sindy-equation"></p>
+      </div>
+
+      <div class="demo-stats-row">
+        <div><p class="demo-stat-value" id="sindy-count">—</p><p class="demo-stat-label">terms used</p></div>
+        <div><p class="demo-stat-value" id="sindy-train">—</p><p class="demo-stat-label">fit error</p></div>
+        <div><p class="demo-stat-value" id="sindy-test">—</p><p class="demo-stat-label">held-out error</p></div>
+      </div>
+
+      <p class="demo-status" id="sindy-verdict" role="status" aria-live="polite"></p>
+
+      <div class="demo-actions">
+        <button type="button" class="demo-button" id="sindy-true">Select the true terms</button>
+        <button type="button" class="demo-button" id="sindy-all">Select everything</button>
+        <button type="button" class="demo-button" id="sindy-clear">Clear</button>
+        <button type="button" class="demo-button" id="sindy-noise">Use noisy measurements</button>
+      </div>
+
+      <p class="demo-lookfor"><strong>What to look for.</strong> Select everything and the fit error falls while the held-out error climbs — the extra terms are describing the noise. That gap is the reason I score surrogate models on data they were never fitted to before letting a controller depend on them.</p>
     </section>
   </div>
 </article>
 
-<script src="{{ "/assets/js/mcts-demo.js?v=20260902_accessibility" | relative_url }}"></script>
-<script src="{{ "/assets/js/qlearning-demo.js?v=20260902_accessibility" | relative_url }}"></script>
-<script src="{{ "/assets/js/mcts-vs-greedy-demo.js?v=20260902_accessibility" | relative_url }}"></script>
-<script src="{{ "/assets/js/bandit-demo.js?v=20260902_accessibility" | relative_url }}"></script>
+<script src="{{ "/assets/js/demos.js?v=20260905_rebuild" | relative_url }}" defer></script>

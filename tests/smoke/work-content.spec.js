@@ -13,7 +13,20 @@ test('Work replaces the personal Travel section with professional content', asyn
   await expect(page.getByRole('heading', { name: 'A reproducible research loop' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Selected public projects' })).toBeVisible();
   await expect(page.getByText('Research Software Developer', { exact: true })).toBeVisible();
+  await expect(page.getByText('Doctoral Researcher', { exact: true })).toBeVisible();
   await expect(page.locator('.public-project-card')).toHaveCount(4);
+
+  await expect(page.getByRole('heading', { name: 'Questions I work on' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Teaching, funding and awards' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Technical toolkit' })).toBeVisible();
+  await expect(page.getByRole('link', { name: /Download CV/ })).toHaveAttribute(
+    'href',
+    '/assets/docs/Ibrahim_CV.pdf',
+  );
+
+  const workBody = await page.locator('body').innerText();
+  expect(workBody).not.toMatch(/\+44\s?\d/);
+  expect(workBody).not.toContain('80% faster first-response time');
 });
 
 test('blog contains the complete replacement article and no placeholder copy', async ({ page }) => {

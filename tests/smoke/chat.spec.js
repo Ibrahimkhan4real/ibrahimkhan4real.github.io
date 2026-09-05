@@ -149,3 +149,65 @@ test('research guide displays privacy refusals without sources', async ({ page }
   await expect(refusal).toBeVisible();
   await expect(refusal.locator('.chat-sources')).toHaveCount(0);
 });
+
+test('home page guide answers in place and cites its sources', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-light', 'Inline guide checks run once.');
+  await page.route(workerPattern, async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        answer: '<b>Planning</b> under deadlines is the core of the work.',
+        mode: 'rag',
+        sources: [
+          {
+            id: 'concept-monte-carlo-tree-search',
+            title: 'Interactive research demos',
+            url: 'https://ibrahimkhan4real.github.io/demos.html',
+            kind: 'concept',
+            date: '2026-09-02'
+          }
+        ],
+        freshness: {},
+        meta: { corpusVersion: 'test', retrieval: 'lexical', provider: 'test', fresh: true }
+      })
+    });
+  });
+
+  await page.goto('/', { waitUntil: 'networkidle' });
+  const answer = page.locator('#home-ask-answer');
+  await expect(answer).toBeHidden();
+
+  await page.locator('#home-ask-input').fill('What is your PhD about?');
+  await page.locator('#home-ask-send').click();
+
+  await expect(answer).toBeVisible();
+  // Backend text is rendered literally, never as markup.
+  await expect(page.locator('#home-ask-answer-text')).toContainText('<b>Planning</b>');
+  await expect(answer.locator('b')).toHaveCount(0);
+  await expect(
+    answer.getByRole('link', { name: 'Interactive research demos' }),
+  ).toHaveAttribute('href', 'https://ibrahimkhan4real.github.io/demos.html');
+
+  // The side panel stays closed; the home guide answers in place.
+  await expect(page.locator('#chat-widget')).toHaveClass(/minimized/);
+});
+
+test('home page guide suggestions ask their question', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-light', 'Inline guide checks run once.');
+  await page.route(workerPattern, async (route) => {
+    await route.fulfill({
+      status: 429,
+      contentType: 'application/json',
+      body: JSON.stringify({ error: 'Too many requests', code: 'rate_limited' })
+    });
+  });
+
+  await page.goto('/', { waitUntil: 'networkidle' });
+  await page.getByRole('button', { name: 'MCTS in simple words' }).click();
+
+  await expect(page.locator('#home-ask-input')).toHaveValue('Explain MCTS in simple words.');
+  await expect(page.locator('#home-ask-answer-text')).toHaveText(
+    'The guide has received too many requests. Please wait a moment and try again.',
+  );
+});
