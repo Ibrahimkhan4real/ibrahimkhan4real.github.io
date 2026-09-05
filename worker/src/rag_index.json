@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-04T21:47:38Z",
-  "sourceHash": "sha256:f944712764b9023c300a12915f1583675ed6195efb630cf86db64e4827af4430",
+  "generatedAt": "2026-09-05T07:16:29Z",
+  "sourceHash": "sha256:74348955abbcf31d38bec999d26dfc35b8eb846a8a67cef90305222e75db46c4",
   "sourceFreshness": {
     "profile": "2026-08-26",
     "current": "2026-08-26",
@@ -1062,7 +1062,7 @@
       "kind": "concept",
       "title": "Monte Carlo Tree Search",
       "text": "Monte Carlo Tree Search, or MCTS, looks ahead by simulating possible action sequences and spending more search effort on promising choices while still exploring alternatives. Why it is relevant here: It is a central planning method in Ibrahim's PhD and appears in his hot-water, heat-pump and Tic-Tac-Toe work.",
-      "source": "/demos.html",
+      "source": "/demos.html#planner",
       "updatedAt": "2026-09-02",
       "priority": 8,
       "keywords": [
@@ -1085,7 +1085,7 @@
         "novice",
         "professional"
       ],
-      "contentHash": "sha256:2c009a6052ac6b7e3f36aa31dc60f28ca4956127b94e2d0520b373a82022e13b"
+      "contentHash": "sha256:8d1d153aadb4b2fc1c3988e1ab00ecaf1bc477cb8de83b055cb43fcca5afb6e7"
     },
     {
       "id": "concept-proximal-policy-optimization",
@@ -1169,7 +1169,7 @@
       "kind": "concept",
       "title": "Sparse Identification of Nonlinear Dynamics",
       "text": "SINDy finds compact equations that approximate a system's dynamics from data by favouring a small number of useful terms. Why it is relevant here: Ibrahim co-authored work on SINDy surrogate environments for reducing the real environment interactions needed during reinforcement learning.",
-      "source": "/papers.html",
+      "source": "/demos.html#physics",
       "updatedAt": "2026-09-02",
       "priority": 8,
       "keywords": [
@@ -1187,7 +1187,7 @@
         "novice",
         "professional"
       ],
-      "contentHash": "sha256:52baf3ae55124a0763ea64af060bec8e63b04af5e474c2c0e015c08039de3b21"
+      "contentHash": "sha256:1730c5d52ea8ffe285bfebb70d337211ca229c08c61efaa558aaa6e7daf63b0d"
     },
     {
       "id": "concept-retrieval-augmented-generation",
@@ -1294,7 +1294,7 @@
       "id": "site-demos",
       "kind": "resource",
       "title": "Interactive research demos",
-      "text": "The site includes four browser-based demonstrations: Monte Carlo Tree Search for Tic-Tac-Toe, deadline-aware hot-water planning, an interactive PPO clipping explorer, and a SINDy system-identification demo. Each is an educational visualisation rather than a benchmark result.",
+      "text": "The site includes seven browser demonstrations: tic-tac-toe played against Monte Carlo Tree Search, a five-armed bandit played against UCB1, a search tree whose branches can be pruned, an exhaustive hot-water schedule optimiser that shows how a misspecified objective is satisfied by failing, an editable Q-learning grid world, a twelve-seed variance study, and a sparse system-identification exercise scored on held-out data. Each is an educational visualisation rather than a benchmark result.",
       "source": "/demos.html",
       "updatedAt": "2026-09-02",
       "priority": 7,
@@ -1308,7 +1308,7 @@
       "audience": [
         "novice"
       ],
-      "contentHash": "sha256:da4a1cb8ca92e42154bf562bc71d13106e17518f570a4727a458501779becda4"
+      "contentHash": "sha256:e6d147376f6d01a2ec27f4518d5d06ec21e9f6315cb9dcfce86346d97eeb4643"
     }
   ]
 }

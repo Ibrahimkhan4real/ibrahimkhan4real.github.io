@@ -40,7 +40,7 @@ explainers:
     relevance: >-
       It is a central planning method in Ibrahim's PhD and appears in his
       hot-water, heat-pump and Tic-Tac-Toe work.
-    source_url: "/demos.html"
+    source_url: "/demos.html#planner"
     keywords:
       - "MCTS"
       - "tree search"
@@ -108,7 +108,7 @@ explainers:
     relevance: >-
       Ibrahim co-authored work on SINDy surrogate environments for reducing
       the real environment interactions needed during reinforcement learning.
-    source_url: "/papers.html"
+    source_url: "/demos.html#physics"
     keywords:
       - "SINDy"
       - "surrogate model"
@@ -187,10 +187,14 @@ resources:
     title: "Interactive research demos"
     source_url: "/demos.html"
     text: >-
-      The site includes four browser-based demonstrations: Monte Carlo Tree
-      Search for Tic-Tac-Toe, deadline-aware hot-water planning, an interactive
-      PPO clipping explorer, and a SINDy system-identification demo. Each is an
-      educational visualisation rather than a benchmark result.
+      The site includes seven browser demonstrations: tic-tac-toe played
+      against Monte Carlo Tree Search, a five-armed bandit played against
+      UCB1, a search tree whose branches can be pruned, an exhaustive
+      hot-water schedule optimiser that shows how a misspecified objective
+      is satisfied by failing, an editable Q-learning grid world, a
+      twelve-seed variance study, and a sparse system-identification
+      exercise scored on held-out data. Each is an educational
+      visualisation rather than a benchmark result.
     keywords:
       - "interactive demos"
       - "Tic-Tac-Toe"
